@@ -1,6 +1,6 @@
 <h1>Optimization Messages</h1>
 <div>
-  <div class="card flex flex-column md:flex-row gap-3">
+  <div class="card initial">
     <p-inputGroup>
       <p-inputGroupAddon>
         <i class="pi pi-user"></i>
@@ -9,20 +9,29 @@
         type="text"
         [(ngModel)]="inputText"
         (input)="separarNombres()"
-        placeholder="Nombres"
+        placeholder="Nombres creadores. Ej: Juan David, Paulina, Daniel"
       />
     </p-inputGroup>
     <p-inputGroup>
       <p-inputGroupAddon>
-        <i class="pi pi-shop"></i>
+        <i class="pi pi-users"></i>
       </p-inputGroupAddon>
-      <input type="text" [(ngModel)]="inputBrands" placeholder="Marcas" />
+      <input
+        type="text"
+        [(ngModel)]="inputNameManager"
+        (input)="separarNombres()"
+        placeholder="Nombre manager"
+      />
     </p-inputGroup>
     <p-inputGroup>
       <p-inputGroupAddon>
         <i class="pi pi-map"></i>
       </p-inputGroupAddon>
-      <input type="text" [(ngModel)]="inputCampaing" placeholder="Ciudades" />
+      <input
+        type="text"
+        [(ngModel)]="inputCampaing"
+        placeholder="Ciudades y marca. Ej: Bogotá para inDrive"
+      />
     </p-inputGroup>
   </div>
   <textarea
@@ -32,26 +41,26 @@
     pInputTextarea
     [autoResize]="true"
     [(ngModel)]="inputAditionalText"
-    placeholder="Texto adicional"
+    placeholder="Acciones a realizar. Ej: 1 Reel y 2 Stories"
   ></textarea>
 </div>
 
 <div *ngFor="let nombre of nombres" class="div-principal">
   <p-card header="{{ nombre }}">
     <p>
-      Hola {{ nombre }}! 🙋🏼‍♀mi nombre es Luisa Clavijo y soy manager de
-      campañas para Real Up. Agencia en la que contamos con marcas como
-      {{ inputBrands }}. <br />
-      <br />Actualmente estamos haciendo una campaña en {{ inputCampaing }} y
-      queremos saber si te gustaría participar. <br />
+      Hola {{ nombre }}! 🙋🏼‍♀mi nombre es {{ inputNameManager }} y soy manager
+      de campañas para Real Up. Agencia en la que contamos con marcas como
+      inDrive, Nivea y Cruz Verde.
+      <br />
+      <br />
+      Actualmente estamos haciendo una campaña en {{ inputCampaing }}, queremos
+      cotizar contigo {{ inputAditionalText }}, ¿estarías interesado en
+      participar?
+      <br />
       <br />Te dejo nuestra página web y redes sociales para que puedas saber
-      más de nosotros y un video explicando por qué te estamos contactando:
+      más de nosotros.
     </p>
     <p>
-      <a href="https://www.instagram.com/p/C5bMQjFgvQf/"
-        >https://www.instagram.com/p/C5bMQjFgvQf/</a
-      >
-      <br />
       <a href="https://www.instagram.com/p/C5bMQjFgvQf/"
         >https://www.instagram.com/realup.media/</a
       >
@@ -61,7 +70,6 @@
       >
     </p>
 
-    <p>Quedamos atentos y esperamos tu pronta respuesta.</p>
-    <p>{{ inputAditionalText }}</p>
+    <p>Quedamos atentos y esperamos tu pronta respuesta.</p>
   </p-card>
 </div>

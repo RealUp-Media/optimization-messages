@@ -40,6 +40,8 @@ export class AppComponent {
 
   inputAditionalText: string = '';
 
+  inputNameManager: string = '';
+
   separarNombres() {
     this.nombres = this.inputText.split(',').map((nombre) => nombre.trim());
   }

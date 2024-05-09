@@ -5,3 +5,15 @@
 .text-area {
   width: 100%;
 }
+
+.initial {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  input {
+    width: 80%;
+  }
+  input::placeholder {
+    font-size: 12px;
+  }
+}
