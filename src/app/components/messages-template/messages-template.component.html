@@ -1,0 +1,75 @@
+<h1>Optimization Messages</h1>
+<div>
+  <div class="card initial">
+    <p-inputGroup>
+      <p-inputGroupAddon>
+        <i class="pi pi-user"></i>
+      </p-inputGroupAddon>
+      <input
+        type="text"
+        [(ngModel)]="inputText"
+        (input)="separarNombres()"
+        placeholder="Nombres creadores. Ej: Juan David, Paulina, Daniel"
+      />
+    </p-inputGroup>
+    <p-inputGroup>
+      <p-inputGroupAddon>
+        <i class="pi pi-users"></i>
+      </p-inputGroupAddon>
+      <input
+        type="text"
+        [(ngModel)]="inputNameManager"
+        (input)="separarNombres()"
+        placeholder="Nombre manager"
+      />
+    </p-inputGroup>
+    <p-inputGroup>
+      <p-inputGroupAddon>
+        <i class="pi pi-map"></i>
+      </p-inputGroupAddon>
+      <input
+        type="text"
+        [(ngModel)]="inputCampaing"
+        placeholder="Ciudades y marca. Ej: Bogotá para inDrive"
+      />
+    </p-inputGroup>
+  </div>
+  <textarea
+    class="text-area"
+    rows="5"
+    cols="30"
+    pInputTextarea
+    [autoResize]="true"
+    [(ngModel)]="inputAditionalText"
+    placeholder="Acciones a realizar. Ej: 1 Reel y 2 Stories"
+  ></textarea>
+</div>
+
+<div *ngFor="let nombre of nombres" class="div-principal">
+  <p-card header="{{ nombre }}">
+    <p>
+      Hola {{ nombre }}! 🙋🏼‍♀mi nombre es {{ inputNameManager }} y soy manager
+      de campañas para Real Up. Agencia en la que contamos con marcas como
+      inDrive, Nivea y Cruz Verde.
+      <br />
+      <br />
+      Actualmente estamos haciendo una campaña en {{ inputCampaing }}, queremos
+      cotizar contigo {{ inputAditionalText }}, ¿estarías interesado en
+      participar?
+      <br />
+      <br />Te dejo nuestra página web y redes sociales para que puedas saber
+      más de nosotros.
+    </p>
+    <p>
+      <a href="https://www.instagram.com/p/C5bMQjFgvQf/"
+        >https://www.instagram.com/realup.media/</a
+      >
+      <br />
+      <a href="https://www.instagram.com/p/C5bMQjFgvQf/"
+        >https://www.tiktok.com/&#64;realup.media</a
+      >
+    </p>
+
+    <p>Quedamos atentos y esperamos tu pronta respuesta.</p>
+  </p-card>
+</div>
