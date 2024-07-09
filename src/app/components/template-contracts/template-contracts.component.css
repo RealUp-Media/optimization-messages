@@ -1,0 +1,67 @@
+/* Estilo general */
+
+/* Contenedor principal */
+.container {
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Columnas */
+.column {
+  flex: 1 1 calc(33.33% - 20px);
+}
+
+/* Estilo de los elementos float label */
+p-floatLabel {
+  margin-bottom: 30px;
+  display: block;
+}
+
+p-floatLabel input,
+textarea[pInputTextarea] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+p-floatLabel input:focus,
+textarea[pInputTextarea]:focus {
+  border-color: #007bff;
+}
+
+p-floatLabel label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Estilo para los grupos de radio buttons */
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-bottom: 20px;
+}
+
+.flex.align-items-center {
+  align-items: center;
+}
+
+.flex .ml-2 {
+  margin-left: 10px;
+}
+
+/* Estilo del botón */
+
+.center-button {
+  text-align: center;
+  margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+}

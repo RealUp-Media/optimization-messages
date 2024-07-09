@@ -1,7 +1,189 @@
-<p>template-contracts works!</p>
+<h1>Templates contract</h1>
 
-<p-floatLabel>
-  <input pInputText id="username" />
-  <label for="username">Username</label>
-</p-floatLabel>
-<button (click)="expression()">Generar contrato</button>
+<div class="container">
+  <div class="column">
+    <p-floatLabel>
+      <input pInputText id="fecha" [(ngModel)]="fecha" />
+      <label for="fecha">Fecha</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <input pInputText id="campana" [(ngModel)]="campana" />
+      <label for="campana">Campaña</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <input pInputText id="influenciador" [(ngModel)]="influenciador" />
+      <label for="influenciador">Influenciador</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <input pInputText id="dni" [(ngModel)]="dni" />
+      <label for="dni">Documento de Identidad</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <input pInputText id="redesSociales" [(ngModel)]="redesSociales" />
+      <label for="redesSociales">Redes Sociales</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <input pInputText id="marca" [(ngModel)]="marca" />
+      <label for="marca">Marca</label>
+    </p-floatLabel>
+
+    <p-floatLabel>
+      <input pInputText id="pais" [(ngModel)]="pais" />
+      <label for="pais">País</label>
+    </p-floatLabel>
+  </div>
+
+  <div class="column">
+    <h3>Tipo de Documento del Influenciador</h3>
+    <div class="flex flex-wrap gap-3">
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="tipoDocumento"
+          value="dni"
+          [(ngModel)]="tipoDocumento"
+          inputId="dni"
+        ></p-radioButton>
+        <label for="dni" class="ml-2">DNI</label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="tipoDocumento"
+          value="cedulae"
+          [(ngModel)]="tipoDocumento"
+          inputId="cedulae"
+        ></p-radioButton>
+        <label for="cedulae" class="ml-2">Carnet de Extranjería</label>
+      </div>
+    </div>
+    <h3>Genero del influenciador</h3>
+    <div class="flex flex-wrap gap-3">
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="genero"
+          value="hombre"
+          [(ngModel)]="genero"
+          inputId="generoHombre"
+        ></p-radioButton>
+        <label for="generoHombre" class="ml-2"> Hombre </label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="genero"
+          value="mujer"
+          [(ngModel)]="genero"
+          inputId="generoMujer"
+        ></p-radioButton>
+        <label for="generoMujer" class="ml-2"> Mujer </label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="genero"
+          value="ellos"
+          [(ngModel)]="genero"
+          inputId="generoEllos"
+        ></p-radioButton>
+        <label for="generoEllos" class="ml-2"> Ellos </label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="genero"
+          value="ellas"
+          [(ngModel)]="genero"
+          inputId="generoEllas"
+        ></p-radioButton>
+        <label for="generoEllas" class="ml-2"> Ellas </label>
+      </div>
+    </div>
+
+    <h3>Genero del representante</h3>
+    <div class="flex flex-wrap gap-3">
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="generoRepresentante"
+          value="hombre"
+          [(ngModel)]="generoRepresentante"
+          inputId="representanteHombre"
+        ></p-radioButton>
+        <label for="representanteHombre" class="ml-2">Hombre</label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="generoRepresentante"
+          value="mujer"
+          [(ngModel)]="generoRepresentante"
+          inputId="representanteMujer"
+        ></p-radioButton>
+        <label for="representanteMujer" class="ml-2">Mujer</label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="generoRepresentante"
+          value="empresa"
+          [(ngModel)]="generoRepresentante"
+          inputId="representanteEmpresa"
+        ></p-radioButton>
+        <label for="representanteEmpresa" class="ml-2">Empresa</label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="generoRepresentante"
+          value="noAplica"
+          [(ngModel)]="generoRepresentante"
+          inputId="representanteNA"
+        ></p-radioButton>
+        <label for="representanteNA" class="ml-2">n/a</label>
+      </div>
+    </div>
+
+    <p-floatLabel>
+      <input pInputText id="representante" [(ngModel)]="representante" />
+      <label for="representante">Representante</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <input
+        pInputText
+        id="identificacionRepresentante"
+        [(ngModel)]="identificacionRepresentante"
+      />
+      <label for="identificacionRepresentante">ID Representante</label>
+    </p-floatLabel>
+  </div>
+
+  <div class="column">
+    <p-floatLabel>
+      <input pInputText id="domicilio" [(ngModel)]="domicilio" />
+      <label for="domicilio">Domicilio</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <input pInputText id="acciones" [(ngModel)]="acciones" />
+      <label for="acciones">Acciones</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <input pInputText id="inicioContrato" [(ngModel)]="inicioContrato" />
+      <label for="inicioContrato">Fecha Inicio Contrato</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <input pInputText id="terminaContrato" [(ngModel)]="terminaContrato" />
+      <label for="terminaContrato">Fecha Fin Contrato</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <input pInputText id="pago" [(ngModel)]="pago" />
+      <label for="pago">Pago</label>
+    </p-floatLabel>
+    <p-floatLabel>
+      <textarea
+        id="condicionesPago"
+        rows="5"
+        cols="30"
+        pInputTextarea
+        [autoResize]="true"
+        [(ngModel)]="condicionesPago"
+      ></textarea>
+      <label for="condicionesPago">Condiciones de pago</label>
+    </p-floatLabel>
+  </div>
+</div>
+
+<div class="center-button">
+  <p-button (click)="expression()" label="Generar contrato" />
+</div>
