@@ -13,10 +13,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "allowedCommonJsDependencies": [
-              "pdfmake/build/vfs_fonts",
-              "pdfmake/build/pdfmake"
-            ],
             "outputPath": "dist/optimization-messages",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -30,8 +26,7 @@
             ],
             "scripts": [],
             "server": "src/main.server.ts",
-            "prerender": false,
-            "baseHref": "https://jugocag.github.io/optimization-messages/",
+            "prerender": true,
             "ssr": {
               "entry": "server.ts"
             }
@@ -81,16 +76,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing",
-              "zone.js/dist/async-test",
-              "zone.js/dist/fake-async-test",
-              "zone.js/dist/jasmine-patch",
-              "zone.js/dist/long-stack-trace-zone",
-              "zone.js/dist/proxy",
-              "@angular/localize/init"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.css"],
