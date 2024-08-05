@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 //https://app-manual-ops-2ac2f5234c81.herokuapp.com/
 //http://localhost:8080/
 
-const BASE_URL = ['http://localhost:8080/'];
+const BASE_URL = ['https://app-manual-ops-2ac2f5234c81.herokuapp.com/'];
 
 @Injectable({
   providedIn: 'root',

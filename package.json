@@ -5,13 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "compile:server": "webpack --config webpack.server.config.js --progress --colors",
-    "serve:ssr": "node dist/optimization-messages/server",
-    "build:ssr": "ng build && ng run optimization-messages:server",
-    "prerender": "ng run optimization-messages:prerender"
+    "serve:ssr:optimization-messages": "node dist/optimization-messages/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -29,7 +25,6 @@
     "@angular/platform-server": "^18.0.6",
     "@angular/router": "^18.0.6",
     "@angular/ssr": "^18.0.7",
-    "@nguniversal/express-engine": "^7.0.2",
     "animate.css": "^4.1.1",
     "chart.js": "^4.4.3",
     "chartjs-plugin-datalabels": "^2.2.0",
