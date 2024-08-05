@@ -1,0 +1,347 @@
+<!-- Segundo diseño -->
+<div class="container">
+  <h1>Checklist Operaciones</h1>
+  <p-accordion [multiple]="true" [activeIndex]="[0]">
+    <div class="accordion-checkbox">
+      <p-accordionTab
+        header="1. Recibir Brief + Alinear objetivo de la campaña"
+      >
+        <p>Lorem ipsum dolor sit amet...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_one"
+          [binary]="true"
+          inputId="binary"
+          (ngModelChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+    <div class="accordion-checkbox">
+      <p-accordionTab header="2. Montar propuesta y/o cotización">
+        <p-button (onClick)="showDialogOneCheck()" label="Subir Link" />
+        <div *ngIf="ValuesOne">
+          <p><strong>Link:</strong> {{ this.linkOne }}</p>
+          <p><strong>Comentario:</strong> {{ this.commentOne }}</p>
+        </div>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_two"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+          [disabled]="disableOne"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab header="3. Seguimiento cliente sobre propuesta">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_three"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab header="4. Aprobación de la campaña: PO + Invoice">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_four"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab
+        header="5. Solicitud Do´s + Dont´s de la campaña al cliente"
+      >
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_five"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab
+        header="6. Enviar comunicación Dos + Donts a influenciaodores"
+      >
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_six"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab header="7. Excel + Links para reportes">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_seven"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab header="8. Contratos influenciadores">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_eight"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab header="9. Cronogramas">
+        <p-button (onClick)="showDialog()" label="Programar acciones" />
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_nine"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab header="10. Pedir y Enviar contenido aprobación">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_ten"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab
+        header="11. Enviar link a influencers para creación de proveedores + Que nos facturen"
+      >
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_eleven"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab header="12. Salidas">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_twelve"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+
+    <div class="accordion-checkbox">
+      <p-accordionTab header="13. Enviar link salidas cliente">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_thirteen"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+    <div class="accordion-checkbox">
+      <p-accordionTab header="14. Grabar pantalla">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_fourteen"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+    <div class="accordion-checkbox">
+      <p-accordionTab header="15. Pedir estadísticas">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_fiveteen"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+    <div class="accordion-checkbox">
+      <p-accordionTab header="16. Reporte de campaña ">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_sixteen"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+    <div class="accordion-checkbox">
+      <p-accordionTab header="17. Nueva propuesta para recompra ">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_seventeen"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+    <div class="accordion-checkbox">
+      <p-accordionTab header="18. Llenar Biblioteca consultiva">
+        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+      </p-accordionTab>
+      <div class="checklist-completed-accordion">
+        <p-checkbox
+          [(ngModel)]="checked_eighteen"
+          [binary]="true"
+          inputId="binary"
+          (onChange)="onTaskChange()"
+        />
+      </div>
+    </div>
+  </p-accordion>
+</div>
+
+<!-- Programar Cronograma Dialog  -->
+<p-dialog
+  header="Edit Profile"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '70rem' }"
+>
+  <div class="flex align-items-center gap-3 mb-3">
+    <p><strong>Influencers</strong></p>
+    <p-chips [(ngModel)]="values" />
+  </div>
+  <div class="flex align-items-center gap-3 mb-5">
+    <p><strong>Tipo de contenido</strong></p>
+    <p-dropdown
+      [options]="tipoContenidos"
+      [(ngModel)]="ContenidoSeleccionado"
+      optionLabel="name"
+      placeholder="Seleccione contenido"
+    />
+  </div>
+  <div class="flex align-items-center gap-3 mb-5">
+    <p><strong>Tipo de contenido</strong></p>
+    <p-calendar
+      [(ngModel)]="date"
+      [iconDisplay]="'input'"
+      [showIcon]="true"
+      inputId="icondisplay"
+    />
+  </div>
+  <div class="flex justify-content-end gap-2">
+    <p-button
+      label="Cancelar"
+      severity="secondary"
+      (onClick)="visible = false"
+    />
+    <p-button label="Programar" (onClick)="visible = false" />
+  </div>
+</p-dialog>
+
+<!-- Dialago Links requeridos -->
+
+<!-- Link numero 1 -->
+<p-dialog
+  header="Sube el Link"
+  [modal]="true"
+  [(visible)]="visibleOneCheck"
+  [style]="{ width: '25rem' }"
+>
+  <div class="flex align-items-center gap-3 mb-3">
+    <label for="link" class="font-semibold w-6rem">Link</label>
+    <input
+      pInputText
+      id="link"
+      class="flex-auto"
+      autocomplete="off"
+      [(ngModel)]="linkOne"
+    />
+  </div>
+  <div class="flex align-items-center gap-3 mb-5">
+    <label for="comentario" class="font-semibold w-6rem">Comentario</label>
+    <textarea
+      rows="5"
+      cols="30"
+      id="comentario"
+      pInputTextarea
+      [autoResize]="true"
+      [(ngModel)]="commentOne"
+    ></textarea>
+  </div>
+  <div class="flex justify-content-end gap-2">
+    <p-button
+      label="Cancel"
+      severity="secondary"
+      (onClick)="visibleOneCheck = false"
+    />
+    <p-button
+      label="Save"
+      (onClick)="visibleOneCheck = false"
+      (onClick)="disableCheckOne()"
+    />
+  </div>
+</p-dialog>

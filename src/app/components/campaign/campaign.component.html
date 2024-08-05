@@ -1,0 +1,710 @@
+<div class="container">
+  <div class="nav">
+    <button class="boton-sum" (onClick)="showDialog()" (click)="showDialog()">
+      <img class="icono-op" src="assets/icons/icono-sum.svg" alt="" />
+    </button>
+    <div class="selector-op">
+      <button (click)="dailyOPS()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Cronograma</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="dailyOPS()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Daily OPS</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showCampaign()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Daniela</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showCampaign()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Estefany</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showCampaign()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Luisa</p>
+    </div>
+  </div>
+  <div class="content" *ngIf="verificarCampaign">
+    <div class="card">
+      <h1>Campañas</h1>
+
+      <div class="graficas-totales">
+        <div class="charts">
+          <h3>Campañas Activas vs Preparación</h3>
+          <canvas baseChart [data]="barChartData" [type]="barChartType">
+          </canvas>
+        </div>
+
+        <div class="charts">
+          <h3>Contenidos Con PR vs Sin PR</h3>
+          <canvas baseChart [data]="barChartDataSecond" [type]="barChartType">
+          </canvas>
+        </div>
+
+        <div class="charts">
+          <h3>Budget a cargo</h3>
+
+          <canvas baseChart [data]="pieChartData" [type]="pieChartType">
+          </canvas>
+        </div>
+        <div class="charts">
+          <h3>Cargas por operaciones</h3>
+
+          <h4>Daniela</h4>
+          <p-progressBar [value]="porcentajeDaniela | number : '1.0-1'" />
+          <h4>Estefany</h4>
+
+          <p-progressBar [value]="porcentajeEstefany | number : '1.0-1'" />
+          <h4>Luisa</h4>
+
+          <p-progressBar [value]="porcentajeLuisa | number : '1.0-1'" />
+        </div>
+      </div>
+      <div class="campaigns">
+        <div class="campaign">
+          <img class="campaign-status" src="assets/icons/letter-p.svg" alt="" />
+          <div class="columna">
+            <h2>PREPARACION</h2>
+
+            <div
+              *ngIf="campaignsPreparation.length > 0"
+              class="campaign-father"
+            >
+              <div
+                class="campaign-show"
+                *ngFor="let campaign of campaignsPreparation"
+              >
+                <button
+                  class="button-campaign"
+                  type="button"
+                  (click)="verChecklist(campaign.id)"
+                >
+                  <div class="logo-marca">
+                    <h2>{{ campaign.name }}</h2>
+                    <img src="assets/images/indrive.png" alt="Logo" />
+                  </div>
+                  <p>
+                    Fecha final: {{ campaign.final_date | date : "dd/MM/yyyy" }}
+                  </p>
+                  <p>
+                    Tareas completadas: {{ campaign.task_completed }}/{{
+                      campaign.number_contents
+                    }}
+                  </p>
+                  <p>Número de creadores: {{ campaign.number_creators }}</p>
+                  <p>Número de acciones: {{ campaign.number_contents }}</p>
+                  <div class="card">
+                    <p-progressBar
+                      [value]="
+                        (campaign.task_completed / 18) * 100 | number : '1.0-1'
+                      "
+                    ></p-progressBar>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="campaign">
+          <img class="campaign-status" src="assets/icons/letter-e.svg" alt="" />
+          <div class="columna">
+            <h2>EJECUCIÓN</h2>
+            <div *ngIf="campaignsExecution.length > 0" class="campaign-father">
+              <div
+                class="campaign-show"
+                *ngFor="let campaign of campaignsExecution"
+              >
+                <button
+                  class="button-campaign"
+                  type="button"
+                  (click)="verChecklist(campaign.id)"
+                >
+                  <div class="logo-marca">
+                    <h2>{{ campaign.name }}</h2>
+                    <img src="assets/images/indrive.png" alt="Logo" />
+                  </div>
+                  <p>
+                    Fecha final: {{ campaign.final_date | date : "dd/MM/yyyy" }}
+                  </p>
+                  <p>
+                    Tareas completadas: {{ campaign.task_completed }}/{{
+                      campaign.number_contents
+                    }}
+                  </p>
+                  <p>Número de creadores: {{ campaign.number_creators }}</p>
+                  <p>Número de acciones: {{ campaign.number_contents }}</p>
+                  <div class="card">
+                    <p-progressBar
+                      [value]="
+                        (campaign.task_completed / 18) * 100 | number : '1.0-1'
+                      "
+                    ></p-progressBar>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="columna">
+            <img src="assets/images/cruz-verde.png" alt="" />
+          </div> -->
+        </div>
+        <div class="campaign">
+          <img class="campaign-status" src="assets/icons/letter-c.svg" alt="" />
+          <div class="columna">
+            <h2>CERRADAS</h2>
+            <div *ngIf="campaignsClosed.length > 0" class="campaign-father">
+              <div
+                class="campaign-show"
+                *ngFor="let campaign of campaignsClosed"
+              >
+                <div class="logo-marca">
+                  <h2>{{ campaign.name }}</h2>
+                  <img src="assets/images/indrive.png" alt="Logo" />
+                </div>
+                <p>
+                  Fecha final: {{ campaign.final_date | date : "dd/MM/yyyy" }}
+                </p>
+                <p>
+                  Tareas completadas: {{ campaign.task_completed }}/{{
+                    campaign.number_contents
+                  }}
+                </p>
+                <p>Número de creadores: {{ campaign.number_creators }}</p>
+                <p>Número de acciones: {{ campaign.number_contents }}</p>
+                <div class="card">
+                  <p-progressBar
+                    [value]="
+                      (campaign.task_completed / 18) * 100 | number : '1.0-1'
+                    "
+                  ></p-progressBar>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="columna">
+            <img src="assets/images/cruz-verde.png" alt="" />
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW CAMPAIGN FORM -->
+    <p-dialog header="Nueva Campaña" [modal]="true" [(visible)]="visible">
+      <form [formGroup]="campaignForm">
+        <span class="p-text-secondary block mb-5">Datos</span>
+        <div class="flex align-items-center gap-3 mb-5">
+          <p><strong>OP a cargo</strong></p>
+          <p-dropdown
+            [options]="operations"
+            [(ngModel)]="selectedOperation"
+            optionLabel="name"
+            placeholder="Seleccione OP"
+            formControlName="name_op"
+          />
+        </div>
+        <div class="flex align-items-center gap-3 mb-3">
+          <label for="name" class="font-semibold w-6rem"
+            >Nombre de la campaña</label
+          >
+          <input
+            pInputText
+            id="name"
+            class="flex-auto"
+            autocomplete="off"
+            formControlName="name"
+          />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5">
+          <p><strong>Tipo de campaña</strong></p>
+          <p-dropdown
+            [options]="campaigns"
+            [(ngModel)]="selectedTypeCampaign"
+            optionLabel="name"
+            placeholder="Tipo de Campaña"
+            formControlName="campaign_type"
+          />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5">
+          <p><strong>País</strong></p>
+          <p-dropdown
+            [options]="paises"
+            [(ngModel)]="selectedPais"
+            optionLabel="name"
+            placeholder="País"
+            formControlName="country"
+          />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5">
+          <label for="budget" class="font-semibold w-6rem">Presupuesto</label>
+          <input
+            pInputText
+            id="budget"
+            pKeyFilter="int"
+            class="flex-auto"
+            autocomplete="off"
+            formControlName="budget"
+          />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5">
+          <label for="email" class="font-semibold w-6rem"
+            >Numero de creadores</label
+          >
+          <input
+            pInputText
+            id="number_creators"
+            pKeyFilter="int"
+            class="flex-auto"
+            autocomplete="off"
+            formControlName="number_creators"
+          />
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-5">
+          <label for="email" class="font-semibold w-6rem"
+            >Contenidos totales</label
+          >
+          <input
+            pInputText
+            id="total_contents"
+            pKeyFilter="int"
+            class="flex-auto"
+            autocomplete="off"
+            formControlName="number_contents"
+          />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5">
+          <p><strong>¿Hay PR?</strong></p>
+          <p-selectButton
+            [options]="stateOptions"
+            [(ngModel)]="value"
+            optionLabel="label"
+            optionValue="value"
+            formControlName="pr"
+          />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5">
+          <p><strong>Fecha final</strong></p>
+          <p-calendar [(ngModel)]="date" formControlName="final_date" />
+        </div>
+        <div class="flex justify-content-end gap-2">
+          <p-button
+            label="Cancelar"
+            severity="secondary"
+            (onClick)="visible = false"
+          />
+          <p-button label="Crear" (onClick)="addCampaign()" />
+        </div>
+      </form>
+    </p-dialog>
+  </div>
+
+  <!-- ------------------------------ CONTENIDOS DAILY ------------------------------ -->
+  <div class="content-daily-ops" *ngIf="verificarDaily">
+    <div class="card">
+      <h1>Daily OPS</h1>
+      <div class="diferent-ops">
+        <!-- ------------------------------------- Daily Daniela ------------------------------------- -->
+        <div class="accordion-ops">
+          <h3>Daily Checklist Daniela</h3>
+
+          <!-- Segunda version -->
+          <div
+            class="accordion-checkbox"
+            *ngFor="let item of dailyDanielaList; let i = index"
+          >
+            <div class="inplace-daily">
+              <p-inplace #inplace>
+                <ng-template pTemplate="display">
+                  <span class="task-daily">{{ item.task }}</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                  <div class="div-content-daily-input">
+                    <input
+                      type="text"
+                      [(ngModel)]="item.task"
+                      pInputText
+                      placeholder="Tarea"
+                    />
+                    <p-button
+                      icon="pi pi-bookmark"
+                      [rounded]="true"
+                      (click)="saveAndCloseTask(inplace, item)"
+                    />
+                  </div>
+                </ng-template>
+              </p-inplace>
+
+              <p-inplace #inplaceComment>
+                <ng-template pTemplate="display">
+                  <span class="comment-daily">{{ item.comment }}</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                  <div class="div-content-daily-input">
+                    <textarea
+                      type="text"
+                      [(ngModel)]="item.comment"
+                      pInputTextarea
+                      rows="4"
+                      [autoResize]="true"
+                    ></textarea>
+                    <p-button
+                      icon="pi pi-bookmark"
+                      [rounded]="true"
+                      (click)="saveAndCloseTask(inplaceComment, item)"
+                    />
+                  </div>
+                </ng-template>
+              </p-inplace>
+            </div>
+            <div class="checkbox-delete">
+              <p-checkbox
+                [(ngModel)]="item.task_completed"
+                [binary]="true"
+                inputId="binary"
+                (ngModelChange)="saveAndCloseTask(inplaceComment, item)"
+              />
+              <p-button
+                icon="pi pi-times"
+                [rounded]="true"
+                severity="danger"
+                (onClick)="deleteDaily(item)"
+              />
+            </div>
+          </div>
+
+          <div class="button-add-daily">
+            <button
+              pButton
+              type="button"
+              label="Añadir Tarea"
+              icon="pi pi-plus"
+              (click)="showDialogDaniela()"
+            ></button>
+          </div>
+        </div>
+
+        <!-- ------------------------------------- Daily Estefany ------------------------------------- -->
+        <div class="accordion-ops">
+          <h3>Daily Checklist Estefany</h3>
+
+          <!-- Segunda version -->
+          <div
+            class="accordion-checkbox"
+            *ngFor="let item of dailyEstefanyList; let i = index"
+          >
+            <div class="inplace-daily">
+              <p-inplace #inplace>
+                <ng-template pTemplate="display">
+                  <span class="task-daily">{{ item.task }}</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                  <div class="div-content-daily-input">
+                    <input
+                      type="text"
+                      [(ngModel)]="item.task"
+                      pInputText
+                      placeholder="Tarea"
+                    />
+                    <p-button
+                      icon="pi pi-bookmark"
+                      [rounded]="true"
+                      (click)="saveAndCloseTask(inplace, item)"
+                    />
+                  </div>
+                </ng-template>
+              </p-inplace>
+
+              <p-inplace #inplaceComment>
+                <ng-template pTemplate="display">
+                  <span class="comment-daily">{{ item.comment }}</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                  <div class="div-content-daily-input">
+                    <textarea
+                      type="text"
+                      [(ngModel)]="item.comment"
+                      pInputTextarea
+                      rows="4"
+                      [autoResize]="true"
+                    ></textarea>
+                    <p-button
+                      icon="pi pi-bookmark"
+                      [rounded]="true"
+                      (click)="saveAndCloseTask(inplaceComment, item)"
+                    />
+                  </div>
+                </ng-template>
+              </p-inplace>
+            </div>
+            <div class="checkbox-delete">
+              <p-checkbox
+                [(ngModel)]="item.task_completed"
+                [binary]="true"
+                inputId="binary"
+                (ngModelChange)="saveAndCloseTask(inplaceComment, item)"
+              />
+              <p-button
+                icon="pi pi-times"
+                [rounded]="true"
+                severity="danger"
+                (onClick)="deleteDaily(item)"
+              />
+            </div>
+          </div>
+          <div class="button-add-daily">
+            <button
+              pButton
+              type="button"
+              label="Añadir Tarea"
+              icon="pi pi-plus"
+              (click)="showDialogEstefany()"
+            ></button>
+          </div>
+        </div>
+
+        <!-- Luisa -->
+        <div class="accordion-ops">
+          <h3>Daily Checklist Luisa</h3>
+
+          <!-- Segunda version -->
+          <div
+            class="accordion-checkbox"
+            *ngFor="let item of dailyLuisaList; let i = index"
+          >
+            <div class="inplace-daily">
+              <p-inplace #inplace>
+                <ng-template pTemplate="display">
+                  <span class="task-daily">{{ item.task }}</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                  <div class="div-content-daily-input">
+                    <input
+                      type="text"
+                      [(ngModel)]="item.task"
+                      pInputText
+                      placeholder="Tarea"
+                    />
+                    <p-button
+                      icon="pi pi-bookmark"
+                      [rounded]="true"
+                      (click)="saveAndCloseTask(inplace, item)"
+                    />
+                  </div>
+                </ng-template>
+              </p-inplace>
+
+              <p-inplace #inplaceComment>
+                <ng-template pTemplate="display">
+                  <span class="comment-daily">{{ item.comment }}</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                  <div class="div-content-daily-input">
+                    <textarea
+                      type="text"
+                      [(ngModel)]="item.comment"
+                      pInputTextarea
+                      rows="4"
+                      [autoResize]="true"
+                    ></textarea>
+                    <p-button
+                      icon="pi pi-bookmark"
+                      [rounded]="true"
+                      (click)="saveAndCloseTask(inplaceComment, item)"
+                    />
+                  </div>
+                </ng-template>
+              </p-inplace>
+            </div>
+            <div class="checkbox-delete">
+              <p-checkbox
+                [(ngModel)]="item.task_completed"
+                [binary]="true"
+                inputId="binary"
+                (ngModelChange)="saveAndCloseTask(inplaceComment, item)"
+              />
+              <p-button
+                icon="pi pi-times"
+                [rounded]="true"
+                severity="danger"
+                (onClick)="deleteDaily(item)"
+              />
+            </div>
+          </div>
+
+          <div class="button-add-daily">
+            <button
+              pButton
+              type="button"
+              label="Añadir Tarea"
+              icon="pi pi-plus"
+              (click)="showDialogLuisa()"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dialog add new Task Daily -->
+
+<div class="dialog-add-task">
+  <p-dialog
+    header="Añadir nueva tarea"
+    [(visible)]="displayDialogDaniela"
+    [modal]="true"
+    [closable]="true"
+  >
+    <div class="p-field">
+      <input
+        id="newItemHeader"
+        type="text"
+        pInputText
+        [(ngModel)]="newItemHeaderDaniela"
+        placeholder="Tarea"
+      />
+    </div>
+    <div class="p-field">
+      <textarea
+        rows="5"
+        cols="30"
+        id="newItemContent"
+        pInputTextarea
+        [autoResize]="true"
+        [(ngModel)]="newItemContentDaniela"
+        placeholder="Comentario"
+      ></textarea>
+    </div>
+    <p-footer>
+      <button
+        pButton
+        type="button"
+        label="Cancelar"
+        icon="pi pi-times"
+        (click)="displayDialogDaniela = false"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="Añadir"
+        icon="pi pi-check"
+        (click)="
+          addDailyTask(
+            'Daniela Quintana',
+            newItemHeaderDaniela,
+            newItemContentDaniela
+          )
+        "
+      ></button>
+    </p-footer>
+  </p-dialog>
+
+  <!-- Estefany -->
+  <p-dialog
+    header="Añadir nueva tarea"
+    [(visible)]="displayDialogEstefany"
+    [modal]="true"
+    [closable]="true"
+  >
+    <div class="p-field">
+      <input
+        id="newItemHeader"
+        type="text"
+        pInputText
+        [(ngModel)]="newItemHeaderEstefany"
+        placeholder="Tarea"
+      />
+    </div>
+    <div class="p-field">
+      <textarea
+        rows="5"
+        cols="30"
+        id="newItemContent"
+        pInputTextarea
+        [autoResize]="true"
+        [(ngModel)]="newItemContentEstefany"
+        placeholder="Comentario"
+      ></textarea>
+    </div>
+    <p-footer>
+      <button
+        pButton
+        type="button"
+        label="Cancelar"
+        icon="pi pi-times"
+        (click)="displayDialogEstefany = false"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="Añadir"
+        icon="pi pi-check"
+        (click)="
+          addDailyTask(
+            'Estefany Bermudez',
+            newItemHeaderEstefany,
+            newItemContentEstefany
+          )
+        "
+      ></button>
+    </p-footer>
+  </p-dialog>
+
+  <!-- Luisa -->
+
+  <p-dialog
+    header="Añadir nueva tarea"
+    [(visible)]="displayDialogLuisa"
+    [modal]="true"
+    [closable]="true"
+  >
+    <div class="p-field">
+      <input
+        id="newItemHeader"
+        type="text"
+        pInputText
+        [(ngModel)]="newItemHeaderLuisa"
+        placeholder="Tarea"
+      />
+    </div>
+    <div class="p-field">
+      <textarea
+        rows="5"
+        cols="30"
+        id="newItemContent"
+        pInputTextarea
+        [autoResize]="true"
+        [(ngModel)]="newItemContentLuisa"
+        placeholder="Comentario"
+      ></textarea>
+    </div>
+    <p-footer>
+      <button
+        pButton
+        type="button"
+        label="Cancelar"
+        icon="pi pi-times"
+        (click)="displayDialogLuisa = false"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="Añadir"
+        icon="pi pi-check"
+        (click)="
+          addDailyTask('Luisa Clavijo', newItemHeaderLuisa, newItemContentLuisa)
+        "
+      ></button>
+    </p-footer>
+  </p-dialog>
+</div>

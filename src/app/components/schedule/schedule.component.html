@@ -1,0 +1,111 @@
+<h1>Campañas</h1>
+<div class="card">
+  <p-table
+    [value]="schedules"
+    dataKey="id"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 14%">ID Salida</th>
+        <th style="width: 14%">Nombre</th>
+        <th style="width: 14%">Link Redes</th>
+        <th style="width: 14%">Tipo de Contenidos</th>
+        <th style="width: 14%">Link de Salida</th>
+        <th style="width: 15%">Fecha de salida</th>
+        <th style="width: 15%">Fecha de salida esperada</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-editing="editing">
+      <tr>
+        <td [pEditableColumn]="product.id" pEditableColumnField="id">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="product.id" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.id }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td [pEditableColumn]="product.name" pEditableColumnField="name">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="product.name"
+                required
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.name }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td [pEditableColumn]="product.link" pEditableColumnField="link">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText [(ngModel)]="product.link" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.link }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td
+          [pEditableColumn]="product.contentType"
+          pEditableColumnField="contentType"
+        >
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText [(ngModel)]="product.contentType" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.contentType }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td
+          [pEditableColumn]="product.outboundLink"
+          pEditableColumnField="outboundLink"
+        >
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText [(ngModel)]="product.outboundLink" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.outboundLink }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td
+          [pEditableColumn]="product.actualReleaseDate"
+          pEditableColumnField="actualReleaseDate"
+        >
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText [(ngModel)]="product.actualReleaseDate" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.actualReleaseDate }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td
+          [pEditableColumn]="product.expectedReleaseDate"
+          pEditableColumnField="expectedReleaseDate"
+        >
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText [(ngModel)]="product.expectedReleaseDate" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.expectedReleaseDate }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
