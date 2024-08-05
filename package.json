@@ -9,9 +9,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
-    "serve:ssr": "node dist/server",
-    "build:ssr": "ng build && ng run your-app-name:server",
-    "prerender": "ng run your-app-name:prerender"
+    "serve:ssr": "node dist/optimization-messages/server",
+    "build:ssr": "ng build && ng run optimization-messages:server",
+    "prerender": "ng run optimization-messages:prerender"
   },
   "private": true,
   "dependencies": {
