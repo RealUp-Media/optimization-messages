@@ -37,6 +37,7 @@ import { CampaignPreparation } from '../../campaign-preparation.model';
 import { InplaceModule } from 'primeng/inplace';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 interface TypeCampaign {
   name: string;
@@ -73,6 +74,7 @@ interface Pais {
     InplaceModule,
     InputTextareaModule,
     FloatLabelModule,
+    ProgressSpinnerModule,
   ],
   templateUrl: './campaign.component.html',
   styleUrl: './campaign.component.css',
@@ -104,23 +106,6 @@ export class CampaignComponent {
     },
   };
 
-  public pieChartSecondData: ChartData<'pie', number[], string | string[]> = {
-    labels: [['Daniela'], ['Estefany'], 'Luisa'],
-    datasets: [
-      {
-        data: [5, 15, 31],
-      },
-    ],
-  };
-
-  public pieChartContentData: ChartData<'pie', number[], string | string[]> = {
-    labels: [['Realizados'], ['Restante']],
-    datasets: [
-      {
-        data: [80, 20],
-      },
-    ],
-  };
   public pieChartType: ChartType = 'pie';
 
   // Diagrama de barras
@@ -145,66 +130,14 @@ export class CampaignComponent {
   barChartData?: ChartData<'bar'>;
   pieChartData?: ChartData<'pie', number[], string | string[]>;
   barChartDataSecond?: ChartData<'bar'>;
+
   ngOnInit() {
-    this.loadCampaigns();
-    this.loadDaily();
+    setTimeout(() => {
+      this.loadCampaigns();
+      this.loadDaily();
+    }, 1000);
+
     // GRAFICOS
-    this.barChartData = {
-      labels: ['Daniela', 'Estefany', 'Luisa'],
-      datasets: [
-        {
-          data: [
-            this.campaignExecutionDaniela,
-            this.campaignExecutionEstefany,
-            this.campaignExecutionLuisa,
-          ],
-          label: 'Ejecucion',
-        },
-        {
-          data: [
-            this.campaignActiveDaniela,
-            this.campaignActiveEstefany,
-            this.campaignActiveLuisa,
-          ],
-          label: 'Preparación',
-        },
-      ],
-    };
-
-    this.pieChartData = {
-      labels: [['Daniela'], ['Estefany'], 'Luisa'],
-      datasets: [
-        {
-          data: [
-            this.campaignBudgetDaniela,
-            this.campaignBudgetEstefany,
-            this.campaignBudgetLuisa,
-          ],
-        },
-      ],
-    };
-
-    this.barChartDataSecond = {
-      labels: ['Daniela', 'Estefany', 'Luisa'],
-      datasets: [
-        {
-          data: [
-            this.campaignPRDaniela,
-            this.campaignPREstefany,
-            this.campaignPRLuisa,
-          ],
-          label: 'Con PR',
-        },
-        {
-          data: [
-            this.campaignNoPRDaniela,
-            this.campaignNoPREstefany,
-            this.campaignNoPRLuisa,
-          ],
-          label: 'Sin PR',
-        },
-      ],
-    };
 
     // GRAFICOS
 
@@ -376,7 +309,11 @@ export class CampaignComponent {
           console.log('Campaign saved successfully', response);
         });
     }
-    window.location.reload();
+    this.visible = false;
+    setTimeout(() => {
+      this.loadCampaigns();
+      this.chargeData();
+    }, 200);
   }
 
   campaignsPreparation: any[] = [];
@@ -384,39 +321,76 @@ export class CampaignComponent {
   campaignsClosed: any[] = [];
 
   loadCampaigns(): void {
-    this.campaignService.getCampaignPreparation().subscribe({
-      next: (data: CampaignPreparation[]) => {
-        this.campaignsPreparation = data;
-        console.log('Campañas en preparación:', this.campaignsPreparation);
-      },
-      error: (err) => {
-        console.error('Error al cargar las campañas:', err);
-      },
-    });
+    // this.campaignService.getCampaignPreparation().subscribe({
+    //   next: (data: CampaignPreparation[]) => {
+    //     this.campaignsPreparation = data;
+    //     console.log('Campañas en preparación:', this.campaignsPreparation);
+    //   },
+    //   error: (err) => {
+    //     console.error('Error al cargar las campañas:', err);
+    //   },
+    // });
 
-    this.campaignService.getCampaignExecution().subscribe({
-      next: (data) => {
-        this.campaignsExecution = data;
-        console.log('Campañas en ejecucion:', this.campaignsExecution);
+    this.campaignService.getCampaignPreparation().subscribe(
+      (response) => {
+        this.campaignsPreparation = response;
+        console.log('Tasks updated successfully', response);
       },
-      error: (err) => {
-        console.error('Error al cargar las campañas:', err);
-      },
-    });
+      (error) => {
+        console.error('Error updating tasks', error);
+      }
+    );
 
-    this.campaignService.getCampaignClosed().subscribe({
-      next: (data) => {
-        this.campaignsClosed = data;
-        console.log('Campañas cerradas:', this.campaignsClosed);
+    this.campaignService.getCampaignExecution().subscribe(
+      (response) => {
+        this.campaignsExecution = response;
+        console.log('Tasks updated successfully', response);
       },
-      error: (err) => {
-        console.error('Error al cargar las campañas:', err);
-      },
-    });
+      (error) => {
+        console.error('Error updating tasks', error);
+      }
+    );
 
-    this.chargeData();
+    this.campaignService.getCampaignClosed().subscribe(
+      (response) => {
+        this.campaignsClosed = response;
+        console.log('Tasks updated successfully', response);
+      },
+      (error) => {
+        console.error('Error updating tasks', error);
+      }
+    );
+
+    // this.campaignService.getCampaignExecution().subscribe({
+    //   next: (data) => {
+    //     this.campaignsExecution = data;
+    //     console.log('Campañas en ejecucion:', this.campaignsExecution);
+    //   },
+    //   error: (err) => {
+    //     console.error('Error al cargar las campañas:', err);
+    //   },
+    // });
+
+    // this.campaignService.getCampaignClosed().subscribe({
+    //   next: (data) => {
+    //     this.campaignsClosed = data;
+    //     console.log('Campañas cerradas:', this.campaignsClosed);
+    //   },
+    //   error: (err) => {
+    //     console.error('Error al cargar las campañas:', err);
+    //   },
+    // });
+
+    this.loading = false;
+
+    setTimeout(() => {
+      this.chargeData();
+    }, 200);
+
     this.chart?.update();
+
     console.log(this.campaignExecutionDaniela);
+
     console.log(this.campaignPRLuisa);
   }
 
@@ -568,6 +542,75 @@ export class CampaignComponent {
       this.porcentajeEstefany = (this.cargaEstefany * 80) / this.cargaLuisa;
       this.porcentajeDaniela = (this.cargaDaniela * 80) / this.cargaLuisa;
     }
+
+    console.log(
+      this.cargaDaniela,
+      this.cargaEstefany,
+      this.cargaEstefany,
+      this.campaignExecutionDaniela,
+      this.campaignExecutionEstefany,
+      this.campaignExecutionLuisa,
+      this.campaignActiveDaniela,
+      this.campaignActiveEstefany,
+      this.campaignActiveLuisa
+    );
+
+    this.barChartData = {
+      labels: ['Daniela', 'Estefany', 'Luisa'],
+      datasets: [
+        {
+          data: [
+            this.campaignExecutionDaniela,
+            this.campaignExecutionEstefany,
+            this.campaignExecutionLuisa,
+          ],
+          label: 'Ejecucion',
+        },
+        {
+          data: [
+            this.campaignActiveDaniela,
+            this.campaignActiveEstefany,
+            this.campaignActiveLuisa,
+          ],
+          label: 'Preparación',
+        },
+      ],
+    };
+
+    this.pieChartData = {
+      labels: [['Daniela'], ['Estefany'], 'Luisa'],
+      datasets: [
+        {
+          data: [
+            this.campaignBudgetDaniela,
+            this.campaignBudgetEstefany,
+            this.campaignBudgetLuisa,
+          ],
+        },
+      ],
+    };
+
+    this.barChartDataSecond = {
+      labels: ['Daniela', 'Estefany', 'Luisa'],
+      datasets: [
+        {
+          data: [
+            this.campaignPRDaniela,
+            this.campaignPREstefany,
+            this.campaignPRLuisa,
+          ],
+          label: 'Con PR',
+        },
+        {
+          data: [
+            this.campaignNoPRDaniela,
+            this.campaignNoPREstefany,
+            this.campaignNoPRLuisa,
+          ],
+          label: 'Sin PR',
+        },
+      ],
+    };
   }
 
   // Daily OPS
@@ -683,4 +726,6 @@ export class CampaignComponent {
       this.loadDaily();
     }, 200);
   }
+
+  loading: boolean = true;
 }

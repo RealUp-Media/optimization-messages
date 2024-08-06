@@ -1,10 +1,12 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { MessagesTemplateComponent } from './components/messages-template/messages-template.component';
 import { TemplateContractsComponent } from './components/template-contracts/template-contracts.component';
 import { CampaignComponent } from './components/campaign/campaign.component';
 import { ChecklistComponent } from './components/checklist/checklist.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
+import { NgModule } from '@angular/core';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },

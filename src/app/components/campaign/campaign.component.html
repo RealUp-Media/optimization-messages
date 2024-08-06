@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!loading">
   <div class="nav">
     <button class="boton-sum" (onClick)="showDialog()" (click)="showDialog()">
       <img class="icono-op" src="assets/icons/icono-sum.svg" alt="" />
@@ -35,6 +35,11 @@
     </div>
   </div>
   <div class="content" *ngIf="verificarCampaign">
+    <p-progressSpinner
+      class="loading-spinner"
+      *ngIf="loading"
+      ariaLabel="loading"
+    ></p-progressSpinner>
     <div class="card">
       <h1>Campañas</h1>
 
