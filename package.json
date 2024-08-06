@@ -67,5 +67,10 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "pdfmake-font-generator": "^1.0.1",
     "typescript": "^5.4.5"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
