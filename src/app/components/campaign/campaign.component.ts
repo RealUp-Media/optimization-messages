@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Injectable, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -38,6 +38,7 @@ import { InplaceModule } from 'primeng/inplace';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ChecklistService } from '../../services/checklist.service';
 
 interface TypeCampaign {
   name: string;
@@ -52,6 +53,9 @@ interface Pais {
   name: string;
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 @Component({
   selector: 'app-campaign',
   standalone: true,
@@ -86,6 +90,7 @@ export class CampaignComponent {
     private router: Router,
     private fb: FormBuilder,
     private campaignService: CampaignService,
+    private checkListService: ChecklistService,
     private http: HttpClient
   ) {}
   public pieChartOptions: ChartConfiguration['options'] = {
@@ -215,17 +220,25 @@ export class CampaignComponent {
 
   verificarDaily: boolean = false;
   verificarCampaign: boolean = true;
+  verificaCargas: boolean = false;
 
   dailyOPS() {
     this.verificarCampaign = false;
     this.verificarDaily = true;
+    this.verificaCargas = false;
   }
 
   showCampaign() {
     this.verificarCampaign = true;
     this.verificarDaily = false;
+    this.verificaCargas = false;
   }
 
+  showCargas() {
+    this.verificarCampaign = false;
+    this.verificarDaily = false;
+    this.verificaCargas = true;
+  }
   dan_checked_one: boolean = false;
   dan_checked_two: boolean = false;
   dan_checked_three: boolean = false;
@@ -321,16 +334,6 @@ export class CampaignComponent {
   campaignsClosed: any[] = [];
 
   loadCampaigns(): void {
-    // this.campaignService.getCampaignPreparation().subscribe({
-    //   next: (data: CampaignPreparation[]) => {
-    //     this.campaignsPreparation = data;
-    //     console.log('Campañas en preparación:', this.campaignsPreparation);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error al cargar las campañas:', err);
-    //   },
-    // });
-
     this.campaignService.getCampaignPreparation().subscribe(
       (response) => {
         this.campaignsPreparation = response;
@@ -361,28 +364,6 @@ export class CampaignComponent {
       }
     );
 
-    // this.campaignService.getCampaignExecution().subscribe({
-    //   next: (data) => {
-    //     this.campaignsExecution = data;
-    //     console.log('Campañas en ejecucion:', this.campaignsExecution);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error al cargar las campañas:', err);
-    //   },
-    // });
-
-    // this.campaignService.getCampaignClosed().subscribe({
-    //   next: (data) => {
-    //     this.campaignsClosed = data;
-    //     console.log('Campañas cerradas:', this.campaignsClosed);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error al cargar las campañas:', err);
-    //   },
-    // });
-
-    this.loading = false;
-
     setTimeout(() => {
       this.chargeData();
     }, 200);
@@ -397,7 +378,8 @@ export class CampaignComponent {
   // Click ver checklist
 
   verChecklist(idCampaign: number) {
-    this.router.navigate([`checklist/${idCampaign}`]);
+    const url = `/checklist/${idCampaign}`;
+    window.open(url, '_blank');
   }
 
   // Estadisticas
@@ -726,6 +708,4 @@ export class CampaignComponent {
       this.loadDaily();
     }, 200);
   }
-
-  loading: boolean = true;
 }

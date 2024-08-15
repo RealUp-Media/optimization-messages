@@ -16,6 +16,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ChecklistService } from '../../services/checklist.service';
 import { privateDecrypt } from 'node:crypto';
 import { CampaignService } from '../../services/campaign.service';
+import { CampaignComponent } from '../campaign/campaign.component';
+import { InplaceModule } from 'primeng/inplace';
+import { KnobModule } from 'primeng/knob';
 
 interface TipoContenido {
   name: string;
@@ -38,6 +41,8 @@ interface TipoContenido {
     AccordionModule,
     InputTextareaModule,
     CommonModule,
+    InplaceModule,
+    KnobModule,
   ],
   templateUrl: './checklist.component.html',
   styleUrl: './checklist.component.css',
@@ -46,8 +51,11 @@ export class ChecklistComponent {
   constructor(
     private route: ActivatedRoute,
     private checklistService: ChecklistService,
-    private campaignService: CampaignService
+    private campaignService: CampaignService,
+    private campaignComponent: CampaignComponent
   ) {}
+
+  numberOfContents: number = 0;
   ngOnInit() {
     this.tipoContenidos = [
       { name: 'Reel' },
@@ -65,6 +73,20 @@ export class ChecklistComponent {
           this.updateTaskChecks();
         });
     });
+
+    this.campaignService
+      .getNumberOfContents(this.idCampaign)
+      .subscribe((data) => {
+        this.numberOfContents = data;
+      });
+
+    if (this.tasks.link_task_2 != '') {
+      this.disableTwo = false;
+    }
+
+    if (this.tasks.link_task_2 == '') {
+      this.disableTwo = true;
+    }
   }
 
   // Configurar Dialog
@@ -83,28 +105,10 @@ export class ChecklistComponent {
 
   date: Date | undefined;
 
-  // Dialog Checklist
-
-  visibleOneCheck: boolean = false;
-
-  showDialogOneCheck() {
-    this.visibleOneCheck = true;
-  }
-
-  disableOne: boolean = true;
-
-  linkOne: string = '';
-  commentOne: string = '';
-  ValuesOne: boolean = false;
-  disableCheckOne() {
-    this.disableOne = false;
-    this.ValuesOne = true;
-  }
-
   // Servicio checklist
 
   tasks: any = {};
-  idCampaign: number = 1022;
+  idCampaign: number = 0;
   cuantityTrue: number = 0;
 
   updateTaskChecks() {
@@ -126,6 +130,35 @@ export class ChecklistComponent {
     this.checked_sixteen = this.tasks.task_16;
     this.checked_seventeen = this.tasks.task_17;
     this.checked_eighteen = this.tasks.task_18;
+
+    this.commentTask1 = this.tasks.comment_task_1;
+    this.commentTask2 = this.tasks.comment_task_2;
+    this.commentTask3 = this.tasks.comment_task_3;
+    this.commentTask4 = this.tasks.comment_task_4;
+    this.commentTask5 = this.tasks.comment_task_5;
+    this.commentTask6 = this.tasks.comment_task_6;
+    this.commentTask7 = this.tasks.comment_task_7;
+    this.commentTask8 = this.tasks.comment_task_8;
+    this.commentTask9 = this.tasks.comment_task_9;
+    this.commentTask10 = this.tasks.comment_task_10;
+    this.commentTask11 = this.tasks.comment_task_11;
+    this.commentTask12 = this.tasks.comment_task_12;
+    this.commentTask13 = this.tasks.comment_task_13;
+    this.commentTask14 = this.tasks.comment_task_14;
+    this.commentTask15 = this.tasks.comment_task_15;
+    this.commentTask16 = this.tasks.comment_task_16;
+    this.commentTask17 = this.tasks.comment_task_17;
+    this.commentTask18 = this.tasks.comment_task_18;
+
+    this.linkTask2 = this.tasks.link_task_2;
+    this.linkTask4 = this.tasks.link_task_4;
+    this.linkTask5 = this.tasks.link_task_5;
+    this.linkTask7 = this.tasks.link_task_7;
+    this.linkTask9 = this.tasks.link_task_9;
+    this.linkTask16 = this.tasks.link_task_16;
+    this.linkTask18 = this.tasks.link_task_18;
+
+    this.contentCompleted = this.tasks.content_completed;
   }
 
   checked_one: boolean = false;
@@ -149,6 +182,7 @@ export class ChecklistComponent {
 
   onTaskChange() {
     this.cuantityTrue = 0;
+
     if (this.checked_one == true) this.cuantityTrue += 1;
     if (this.checked_two == true) this.cuantityTrue += 1;
     if (this.checked_three == true) this.cuantityTrue += 1;
@@ -214,5 +248,101 @@ export class ChecklistComponent {
           console.error('Error updating tasks', error);
         }
       );
+    this.campaignComponent.loadCampaigns();
+  }
+
+  // Comentarios y links y tasks
+
+  commentTask1: string = '';
+  commentTask2: string = '';
+  commentTask3: string = '';
+  commentTask4: string = '';
+  commentTask5: string = '';
+  commentTask6: string = '';
+  commentTask7: string = '';
+  commentTask8: string = '';
+  commentTask9: string = '';
+  commentTask10: string = '';
+  commentTask11: string = '';
+  commentTask12: string = '';
+  commentTask13: string = '';
+  commentTask14: string = '';
+  commentTask15: string = '';
+  commentTask16: string = '';
+  commentTask17: string = '';
+  commentTask18: string = '';
+
+  linkTask2: string = '';
+  linkTask4: string = '';
+  linkTask5: string = '';
+  linkTask7: string = '';
+  linkTask9: string = '';
+  linkTask16: string = '';
+  linkTask18: string = '';
+
+  contentCompleted: number = 0;
+
+  saveContentTask(inplace: any) {
+    const contentTaskData = {
+      comment_task_1: this.commentTask1,
+      comment_task_2: this.commentTask2,
+      comment_task_3: this.commentTask3,
+      comment_task_4: this.commentTask4,
+      comment_task_5: this.commentTask5,
+      comment_task_6: this.commentTask6,
+      comment_task_7: this.commentTask7,
+      comment_task_8: this.commentTask8,
+      comment_task_9: this.commentTask9,
+      comment_task_10: this.commentTask10,
+      comment_task_11: this.commentTask11,
+      comment_task_12: this.commentTask12,
+      comment_task_13: this.commentTask13,
+      comment_task_14: this.commentTask14,
+      comment_task_15: this.commentTask15,
+      comment_task_16: this.commentTask16,
+      comment_task_17: this.commentTask17,
+      comment_task_18: this.commentTask18,
+
+      link_task_2: this.linkTask2,
+      link_task_4: this.linkTask4,
+      link_task_5: this.linkTask5,
+      link_task_7: this.linkTask7,
+      link_task_9: this.linkTask9,
+      link_task_16: this.linkTask16,
+      link_task_18: this.linkTask18,
+
+      content_completed: this.contentCompleted,
+    };
+
+    console.log(contentTaskData);
+
+    this.checklistService
+      .updateContentTaskCompleted(this.idCampaign, contentTaskData)
+      .subscribe(
+        (response) => {
+          console.log('Tasks updated successfully', response);
+        },
+        (error) => {
+          console.error('Error updating tasks', error);
+        }
+      );
+    inplace.deactivate();
+
+    if (this.linkTask2 == '') {
+      this.checked_two = false;
+    }
+  }
+
+  // Verificar contenidos (comentario, link)
+
+  disableTwo: boolean = true;
+
+  verifyContent() {
+    if (this.linkTask2 != '') {
+      this.disableTwo = false;
+    }
+    if (this.linkTask2 == '') {
+      this.disableTwo = true;
+    }
   }
 }

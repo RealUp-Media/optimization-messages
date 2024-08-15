@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 //https://app-manual-ops-2ac2f5234c81.herokuapp.com/
 //http://localhost:8080/
 
-const BASE_URL = ['https://app-manual-ops-2ac2f5234c81.herokuapp.com/'];
+const BASE_URL = ['http://localhost:8080/'];
 
 @Injectable({
   providedIn: 'root',
@@ -56,5 +56,11 @@ export class CampaignService {
 
   deleteOpDaily(idDaily: any): Observable<any> {
     return this.http.post(BASE_URL + 'manual-ops/daily/delete-daily', idDaily);
+  }
+
+  getNumberOfContents(campaignId: number): Observable<number> {
+    return this.http.get<number>(
+      BASE_URL + `manual-ops/number-contents/${campaignId}`
+    );
   }
 }

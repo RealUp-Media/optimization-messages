@@ -6,7 +6,28 @@
       <p-accordionTab
         header="1. Recibir Brief + Alinear objetivo de la campaña"
       >
-        <p>Lorem ipsum dolor sit amet...</p>
+        <p-inplace #inplace_1>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask1 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask1"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_1)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -19,11 +40,55 @@
     </div>
     <div class="accordion-checkbox">
       <p-accordionTab header="2. Montar propuesta y/o cotización">
-        <p-button (onClick)="showDialogOneCheck()" label="Subir Link" />
-        <div *ngIf="ValuesOne">
-          <p><strong>Link:</strong> {{ this.linkOne }}</p>
-          <p><strong>Comentario:</strong> {{ this.commentOne }}</p>
-        </div>
+        <p-inplace #inplace_2>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask2 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask2"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_2)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
+        <!-- Link -->
+        <p-inplace #inplace_3>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Link: </strong
+              ><a target="_blank" href="{{ linkTask2 }}">{{
+                linkTask2
+              }}</a></span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="linkTask2"
+                (ngModelChange)="verifyContent()"
+                pInputText
+                placeholder="Link"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_3)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -31,14 +96,35 @@
           [binary]="true"
           inputId="binary"
           (onChange)="onTaskChange()"
-          [disabled]="disableOne"
+          [disabled]="disableTwo"
         />
       </div>
     </div>
 
     <div class="accordion-checkbox">
       <p-accordionTab header="3. Seguimiento cliente sobre propuesta">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_4>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask3 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask3"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_4)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -52,7 +138,54 @@
 
     <div class="accordion-checkbox">
       <p-accordionTab header="4. Aprobación de la campaña: PO + Invoice">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_5>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask4 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask4"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_5)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
+        <!-- Link -->
+        <p-inplace #inplace_6>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Link: </strong
+              ><a target="_blank" href="{{ linkTask4 }}">{{
+                linkTask4
+              }}</a></span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="linkTask4"
+                pInputText
+                placeholder="Link"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_6)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -68,7 +201,54 @@
       <p-accordionTab
         header="5. Solicitud Do´s + Dont´s de la campaña al cliente"
       >
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_7>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask5 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask5"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_7)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
+        <!-- Link -->
+        <p-inplace #inplace_8>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Link: </strong
+              ><a target="_blank" href="{{ linkTask5 }}">{{
+                linkTask5
+              }}</a></span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="linkTask5"
+                pInputText
+                placeholder="Link"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_8)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -84,7 +264,28 @@
       <p-accordionTab
         header="6. Enviar comunicación Dos + Donts a influenciaodores"
       >
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_9>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask6 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask6"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_9)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -98,7 +299,54 @@
 
     <div class="accordion-checkbox">
       <p-accordionTab header="7. Excel + Links para reportes">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_10>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask7 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask7"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_10)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
+        <!-- Link -->
+        <p-inplace #inplace_11>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Link: </strong
+              ><a target="_blank" href="{{ linkTask7 }}">{{
+                linkTask7
+              }}</a></span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="linkTask7"
+                pInputText
+                placeholder="Link"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_11)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -112,7 +360,28 @@
 
     <div class="accordion-checkbox">
       <p-accordionTab header="8. Contratos influenciadores">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_12>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask8 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask8"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_12)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -126,6 +395,54 @@
 
     <div class="accordion-checkbox">
       <p-accordionTab header="9. Cronogramas">
+        <p-inplace #inplace_13>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask7 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask7"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_13)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
+        <!-- Link -->
+        <p-inplace #inplace_14>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Link: </strong
+              ><a target="_blank" href="{{ linkTask9 }}">{{
+                linkTask9
+              }}</a></span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="linkTask9"
+                pInputText
+                placeholder="Link"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_14)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
         <p-button (onClick)="showDialog()" label="Programar acciones" />
       </p-accordionTab>
       <div class="checklist-completed-accordion">
@@ -140,7 +457,28 @@
 
     <div class="accordion-checkbox">
       <p-accordionTab header="10. Pedir y Enviar contenido aprobación">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_15>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask10 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask10"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_15)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -156,7 +494,28 @@
       <p-accordionTab
         header="11. Enviar link a influencers para creación de proveedores + Que nos facturen"
       >
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_16>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask11 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask11"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_16)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -170,7 +529,40 @@
 
     <div class="accordion-checkbox">
       <p-accordionTab header="12. Salidas">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p class="title-checklist">
+          <Strong>Acciones totales:</Strong> {{ numberOfContents }}
+        </p>
+        <p class="padding-75rem"><strong>Acciones realizadas</strong></p>
+        <p-knob
+          class="padding-75rem"
+          [(ngModel)]="contentCompleted"
+          [min]="0"
+          [max]="numberOfContents"
+          (ngModelChange)="saveContentTask(inplace_17)"
+        />
+
+        <p-inplace #inplace_17>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask12 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask12"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_17)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -184,7 +576,28 @@
 
     <div class="accordion-checkbox">
       <p-accordionTab header="13. Enviar link salidas cliente">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_18>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask13 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask13"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_18)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -197,7 +610,28 @@
     </div>
     <div class="accordion-checkbox">
       <p-accordionTab header="14. Grabar pantalla">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_19>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask14 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask14"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_19)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -210,7 +644,28 @@
     </div>
     <div class="accordion-checkbox">
       <p-accordionTab header="15. Pedir estadísticas">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_20>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask15 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask15"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_20)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -223,7 +678,54 @@
     </div>
     <div class="accordion-checkbox">
       <p-accordionTab header="16. Reporte de campaña ">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_21>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask16 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask16"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_21)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
+        <!-- Link -->
+        <p-inplace #inplace_22>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Link: </strong
+              ><a target="_blank" href="{{ linkTask16 }}">{{
+                linkTask16
+              }}</a></span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="linkTask16"
+                pInputText
+                placeholder="Link"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_22)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -236,7 +738,28 @@
     </div>
     <div class="accordion-checkbox">
       <p-accordionTab header="17. Nueva propuesta para recompra ">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_23>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask17 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask17"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_23)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -249,7 +772,54 @@
     </div>
     <div class="accordion-checkbox">
       <p-accordionTab header="18. Llenar Biblioteca consultiva">
-        <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+        <p-inplace #inplace_24>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Comentario: </strong>{{ commentTask18 }}</span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="commentTask18"
+                pInputText
+                placeholder="Comentario"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_24)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
+        <!-- Link -->
+        <p-inplace #inplace_25>
+          <ng-template pTemplate="display">
+            <span class="task-daily"
+              ><strong>Link: </strong
+              ><a target="_blank" href="{{ linkTask18 }}">{{
+                linkTask18
+              }}</a></span
+            >
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="div-content-daily-input">
+              <input
+                type="text"
+                [(ngModel)]="linkTask18"
+                pInputText
+                placeholder="Link"
+              />
+              <p-button
+                icon="pi pi-bookmark"
+                [rounded]="true"
+                (click)="saveContentTask(inplace_25)"
+              />
+            </div>
+          </ng-template>
+        </p-inplace>
       </p-accordionTab>
       <div class="checklist-completed-accordion">
         <p-checkbox
@@ -305,7 +875,7 @@
 <!-- Dialago Links requeridos -->
 
 <!-- Link numero 1 -->
-<p-dialog
+<!-- <p-dialog
   header="Sube el Link"
   [modal]="true"
   [(visible)]="visibleOneCheck"
@@ -344,4 +914,4 @@
       (onClick)="disableCheckOne()"
     />
   </div>
-</p-dialog>
+</p-dialog> -->

@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!loading">
+<div class="container">
   <div class="nav">
     <button class="boton-sum" (onClick)="showDialog()" (click)="showDialog()">
       <img class="icono-op" src="assets/icons/icono-sum.svg" alt="" />
@@ -19,27 +19,16 @@
       <button (click)="showCampaign()">
         <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
       </button>
-      <p>Daniela</p>
+      <p>Campañas</p>
     </div>
     <div class="selector-op">
-      <button (click)="showCampaign()">
+      <button (click)="showCargas()">
         <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
       </button>
-      <p>Estefany</p>
-    </div>
-    <div class="selector-op">
-      <button (click)="showCampaign()">
-        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
-      </button>
-      <p>Luisa</p>
+      <p>Cargas Semanales</p>
     </div>
   </div>
   <div class="content" *ngIf="verificarCampaign">
-    <p-progressSpinner
-      class="loading-spinner"
-      *ngIf="loading"
-      ariaLabel="loading"
-    ></p-progressSpinner>
     <div class="card">
       <h1>Campañas</h1>
 
@@ -102,16 +91,25 @@
                     Fecha final: {{ campaign.final_date | date : "dd/MM/yyyy" }}
                   </p>
                   <p>
-                    Tareas completadas: {{ campaign.task_completed }}/{{
-                      campaign.number_contents
-                    }}
+                    Tareas completadas: {{ campaign.task_completed }}/{{ 18 }}
                   </p>
                   <p>Número de creadores: {{ campaign.number_creators }}</p>
                   <p>Número de acciones: {{ campaign.number_contents }}</p>
                   <div class="card">
+                    <h3>Progreso campaña</h3>
                     <p-progressBar
                       [value]="
                         (campaign.task_completed / 18) * 100 | number : '1.0-1'
+                      "
+                    ></p-progressBar>
+                  </div>
+                  <div class="card">
+                    <h3>Numero de acciones realizadas</h3>
+                    <p-progressBar
+                      [value]="
+                        (campaign.number_contents_done /
+                          campaign.number_contents) *
+                          100 | number : '1.0-1'
                       "
                     ></p-progressBar>
                   </div>
@@ -557,6 +555,14 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Content Cargas semanales -->
+
+  <div *ngIf="verificaCargas">
+    <div class="card">
+      <p>Hola que hace</p>
     </div>
   </div>
 </div>

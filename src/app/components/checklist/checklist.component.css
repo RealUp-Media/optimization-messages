@@ -93,3 +93,28 @@
   align-items: center;
   justify-content: center;
 }
+
+::ng-deep .p-inplace .p-inplace-display {
+  display: block;
+}
+
+::ng-deep .accordion-checkbox .p-inputtext {
+  width: 97%;
+}
+
+.div-content-daily-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.title-checklist {
+  margin: 0;
+  padding: 0.75rem;
+  font-size: 20px;
+}
+
+.padding-75rem {
+  margin: 0;
+  padding: 0.75rem;
+}
