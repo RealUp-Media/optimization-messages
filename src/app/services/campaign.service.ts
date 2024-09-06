@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GlobalConfig } from '../global-config';
 
 //https://app-manual-ops-2ac2f5234c81.herokuapp.com/
 //http://localhost:8080/
 
-const BASE_URL = ['http://localhost:8080/'];
+const BASE_URL = GlobalConfig.apiUrl;
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,14 @@ export class CampaignService {
     return this.http.get(BASE_URL + 'manual-ops/closed');
   }
 
+  getCampaignsProposal(): Observable<any> {
+    return this.http.get(BASE_URL + 'manual-ops/proposal');
+  }
+
+  getCampaignsArchived(): Observable<any> {
+    return this.http.get(BASE_URL + 'manual-ops/archived');
+  }
+
   updateNumberCompletedTask(
     idCampaign: number,
     taskCompleted: any
@@ -43,6 +52,13 @@ export class CampaignService {
     return this.http.post(BASE_URL + 'manual-ops/daily/see-op-daily', nameOp);
   }
 
+  getOpDailyTitle(nameAndTitleOp: any): Observable<any> {
+    return this.http.post(
+      BASE_URL + 'manual-ops/daily/get-title',
+      nameAndTitleOp
+    );
+  }
+
   addDaily(dailyData: any): Observable<any> {
     return this.http.post(BASE_URL + 'manual-ops/daily/add-daily', dailyData);
   }
@@ -54,6 +70,13 @@ export class CampaignService {
     );
   }
 
+  updateDailyTitle(dailyData: any): Observable<any> {
+    return this.http.put<any>(
+      BASE_URL + 'manual-ops/daily/update-title-daily',
+      dailyData
+    );
+  }
+
   deleteOpDaily(idDaily: any): Observable<any> {
     return this.http.post(BASE_URL + 'manual-ops/daily/delete-daily', idDaily);
   }
@@ -61,6 +84,37 @@ export class CampaignService {
   getNumberOfContents(campaignId: number): Observable<number> {
     return this.http.get<number>(
       BASE_URL + `manual-ops/number-contents/${campaignId}`
+    );
+  }
+
+  updateCampaign(dailyData: any): Observable<any> {
+    return this.http.put<any>(
+      BASE_URL + 'manual-ops/update-campaign',
+      dailyData
+    );
+  }
+
+  getWeeklyWorkload(): Observable<number> {
+    return this.http.get<number>(
+      BASE_URL + `manual-ops/weekly/get-weekly-load`
+    );
+  }
+
+  updateWeeklyLoad(weeklyData: any): Observable<any> {
+    return this.http.put<any>(
+      BASE_URL + 'manual-ops/weekly/update-weekly-load',
+      weeklyData
+    );
+  }
+
+  updateCampaignTitle(
+    idCampaign: number,
+    numberState: number
+  ): Observable<any> {
+    return this.http.put<any>(
+      BASE_URL +
+        `manual-ops/update-campaign-state/${idCampaign}?state=${numberState}`,
+      null
     );
   }
 }

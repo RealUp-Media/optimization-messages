@@ -1,0 +1,56 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<div class="container-principal">
+  <div class="container">
+    <div class="image-login">
+      <img class="image-login-back" src="assets/images/REAL UP.png" alt="" />
+    </div>
+    <div class="loginForm">
+      <div class="loginFormForm">
+        <img style="width: 40vh" src="assets/icons/Line 1.svg" alt="linea" />
+        <h1>¡Let's Connect!</h1>
+        <form class="FormLogin" [formGroup]="loginForm">
+          <div class="email">
+            <img src="assets/icons/persona icono.svg" alt="" />
+            <div class="form-group">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email"
+                formControlName="email"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="password">
+            <img src="assets/icons/candado icono.svg" alt="" />
+            <div class="form-group">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                formControlName="password"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div>
+            <button
+              type="button"
+              (click)="login()"
+              [disabled]="loginForm.invalid"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

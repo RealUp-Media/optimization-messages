@@ -1,0 +1,501 @@
+<head>
+  <base href="/app-realup-front/" />
+</head>
+<nav class="navbar">
+  <div class="logo">
+    <a href="campaign">
+      <img src="assets/images/REAL UP.png" alt="Logo" />
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="home">HOME</a></li>
+    <li><a href="crowdposting">CROWDPOSTING</a></li>
+    <li><a href="ugc">UGC</a></li>
+    <li><a href="brand-ambassador">BRAND AMBASSADOR</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <div class="content">
+    <div class="title">
+      <h1>Elite Brand Ambassadors</h1>
+    </div>
+
+    <div class="content-form">
+      <p-card class="description" header="Top Influencer Campaigns">
+        <p class="m-0" style="margin: 0; padding: 0">
+          Position your brand with top influencers, celebrities, and artists
+          through tailored ambassador programs to amplify your message, drive
+          engagement, and achieve marketing goals.
+        </p>
+      </p-card>
+      <form [formGroup]="saveClientForm" class="form-brand-ambassador">
+        <div class="title-campaing">
+          <h2>Campaign</h2>
+        </div>
+
+        <mat-card class="card-campaign data-client">
+          <div class="campaign-name">
+            <p-floatLabel>
+              <input pInputText id="username" name="cliente" />
+              <label for="username">Your Name</label>
+            </p-floatLabel>
+            <p-floatLabel>
+              <input pInputText id="brand" name="brand" />
+              <label for="brand">Brand</label>
+            </p-floatLabel>
+            <p-floatLabel>
+              <input pInputText name="campaign_name" id="campaign_name" />
+              <label for="campaign_name">Campaign name</label>
+            </p-floatLabel>
+          </div>
+
+          <div class="campaign-objetive">
+            <h2>Campaign objective</h2>
+            <div class="radio-product-boxes">
+              <div class="radio-product-box" *ngFor="let option of options">
+                <input
+                  class="radio-product"
+                  type="checkbox"
+                  [value]="option.value"
+                  [id]="option.id"
+                />
+                <label [for]="option.id">{{ option.label }}</label>
+              </div>
+            </div>
+          </div>
+          <p-floatLabel class="text-area-objetive">
+            <textarea
+              name="brief_campaign_objective"
+              id="brief-campaign-objective"
+              formControlName="brief_campaign_objective"
+              rows="3"
+              pInputTextarea
+              [autoResize]="true"
+            >
+            </textarea>
+            <label for="float-input"
+              >Enter the purpose and objectives of your marketing campaign in
+              more detail</label
+            >
+          </p-floatLabel>
+        </mat-card>
+        <div class="title-campaing">
+          <h2>Audience</h2>
+        </div>
+        <mat-card class="location-card card-campaign">
+          <div class="location">
+            <h2>Location</h2>
+            <div class="country">
+              <mat-form-field class="select-country">
+                <mat-label>Country</mat-label>
+                <mat-select
+                  multiple
+                  [(ngModel)]="selectedCountry"
+                  (selectionChange)="showCities()"
+                  disableRipple
+                  id="country"
+                  name="country"
+                  formControlName="location"
+                >
+                  <mat-option
+                    *ngFor="let country of countries"
+                    [value]="country"
+                  >
+                    {{ country }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="cities">
+              <p-multiSelect
+                *ngIf="verificarArgentina"
+                formControlName="cities_argentina"
+                [options]="citiesListArgentina"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Argentina"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarBolivia"
+                formControlName="cities_bolivia"
+                [options]="citiesListBolivia"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Bolivia"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarBrasil"
+                formControlName="cities_brasil"
+                [options]="citiesListBrasil"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Brasil"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarChile"
+                formControlName="cities_chile"
+                [options]="citiesListChile"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Chile"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarColombia"
+                formControlName="cities_colombia"
+                [options]="citiesListColombia"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Colombia"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarEcuador"
+                formControlName="cities_ecuador"
+                [options]="citiesListEcuador"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Ecuador"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarParaguay"
+                formControlName="cities_paraguay"
+                [options]="citiesListParaguay"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Paraguay"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+              <p-multiSelect
+                *ngIf="verificarPeru"
+                formControlName="cities_peru"
+                [options]="citiesListPeru"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Peru"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+              <p-multiSelect
+                *ngIf="verificarUruguay"
+                formControlName="cities_uruguay"
+                [options]="citiesListUruguay"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Uruguay"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarVenezuela"
+                formControlName="cities_venezuela"
+                [options]="citiesListVenezuela"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Venezuela"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarCostaRica"
+                formControlName="cities_costa_rica"
+                [options]="citiesListCostaRica"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Costa Rica"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarCuba"
+                formControlName="cities_cuba"
+                [options]="citiesListCuba"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Cuba"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarElSalvador"
+                formControlName="cities_el_salvador"
+                [options]="citiesListElSalvador"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities El Salvador"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarGuatemala"
+                formControlName="cities_guatemala"
+                [options]="citiesListGuatemala"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Guatemala"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarHonduras"
+                formControlName="cities_honduras"
+                [options]="citiesListHonduras"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Honduras"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarMexico"
+                formControlName="cities_mexico"
+                [options]="citiesListMexico"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Mexico"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarNicaragua"
+                formControlName="cities_nicaragua"
+                [options]="citiesListNicaragua"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Nicaragua"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarPanama"
+                formControlName="cities_panama"
+                [options]="citiesListPanama"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Panama"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarPuertoRico"
+                formControlName="cities_puerto_rico"
+                [options]="citiesListPuertoRico"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Puerto Rico"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarDominicanRepublic"
+                formControlName="cities_dominican_republic"
+                [options]="citiesListDominicanRepublic"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Dominican Republic"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarCanada"
+                formControlName="cities_canada"
+                [options]="citiesListCanada"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities Canada"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+
+              <p-multiSelect
+                *ngIf="verificarUnitedStates"
+                formControlName="cities_united_states"
+                [options]="citiesListUnitedStates"
+                optionLabel="name"
+                styleClass="cities-multiselect"
+                placeholder="Cities United States"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="43"
+                [showClear]="true"
+              ></p-multiSelect>
+            </div>
+          </div>
+        </mat-card>
+        <mat-card class="card-campaign data-audience">
+          <p-floatLabel>
+            <p-multiSelect
+              formControlName="audience_interests"
+              [options]="generalInterests"
+              optionLabel="name"
+              display="chip"
+              [showClear]="true"
+              [maxSelectedLabels]="10"
+            />
+            <label for="float-label">Select Cities</label>
+          </p-floatLabel>
+          <p-floatLabel>
+            <p-dropdown
+              formControlName="cities"
+              [options]="idioms"
+              optionLabel="name"
+              inputId="float-label-idiom"
+            />
+            <label for="float-label-idiom">Idiom</label>
+          </p-floatLabel>
+          <p-floatLabel>
+            <p-multiSelect [options]="ages" optionLabel="name" />
+            <label for="float-label">Ages</label>
+          </p-floatLabel>
+          <p-floatLabel>
+            <p-dropdown
+              formControlName="creator_gender"
+              [options]="gender"
+              optionLabel="name"
+              inputId="float-label-gender"
+            />
+            <label for="float-label-gender">Audience Gender</label>
+          </p-floatLabel>
+        </mat-card>
+        <div class="title-campaing">
+          <h2>Content</h2>
+        </div>
+        <mat-card class="card-campaign data-creator">
+          <h2>Creators</h2>
+          <p-floatLabel>
+            <p-multiSelect [options]="socialMedia" optionLabel="name" />
+            <label for="float-label">Type Contents</label>
+          </p-floatLabel>
+
+          <p-floatLabel>
+            <p-multiSelect [options]="creatorFollowers" optionLabel="name" />
+            <label for="float-label">Creator Followers</label>
+          </p-floatLabel>
+
+          <p-floatLabel>
+            <p-dropdown
+              formControlName="cities"
+              [options]="creatorGender"
+              optionLabel="name"
+              inputId="float-label-gender-creator"
+            />
+            <label for="float-label-gender-creator">Creator Gender</label>
+          </p-floatLabel>
+          <p-floatLabel>
+            <textarea
+              name="brief_video_content"
+              id="brief-video-content"
+              formControlName="brief_video_content"
+              rows="3"
+              pInputTextarea
+              [autoResize]="true"
+            >
+            </textarea>
+            <label for="float-input"
+              >Give creators more detail about the product or service you would
+              like to promote.</label
+            >
+          </p-floatLabel>
+          <div class="creators">
+            <label>Number of creators</label>
+            <div class="button-creators-div">
+              <button
+                (click)="restCreators()"
+                type="button"
+                class="button-creators"
+              >
+                -
+              </button>
+
+              <input
+                class="form-control"
+                [(ngModel)]="numeroCreadores"
+                type="number"
+                id="numberCreators"
+                name="numberCreators"
+                placeholder="Number of creators"
+                formControlName="number_creators"
+              />
+              <button
+                (click)="sumCreators()"
+                type="button"
+                class="button-creators"
+              >
+                +
+              </button>
+            </div>
+            <div class="button-number-contents">
+              <button mat-stroked-button (click)="putCreators(10)">10</button>
+              <button mat-stroked-button (click)="putCreators(20)">20</button>
+              <button mat-stroked-button (click)="putCreators(40)">40</button>
+            </div>
+          </div>
+
+          <div class="campaign-objetive flex justify-content-center calendar">
+            <h2>Select the date of content deployment</h2>
+            <p-calendar
+              selectionMode="range"
+              [(ngModel)]="date"
+              [inline]="true"
+              [showWeek]="true"
+            />
+          </div>
+        </mat-card>
+        <div class="button-final">
+          <button mat-flat-button (click)="saveClientCrowdposting()">
+            Summit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

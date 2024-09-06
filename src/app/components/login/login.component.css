@@ -1,0 +1,120 @@
+.container-principal {
+  background-image: url("/assets/images/fondoLogin.png");
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background-image: url("/assets/images/CURVAS.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.image-login {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  justify-content: flex-start;
+}
+
+.image-login-back {
+  margin: 10px;
+  transform: scale(0.9);
+}
+
+.loginForm {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginFormForm {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  background-color: rgba(216, 0, 127, 0.41);
+  width: 50vh;
+  border-radius: 33px;
+}
+
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: white;
+  text-align: center;
+  font-size: x-large;
+}
+
+.email,
+.password {
+  margin: 29px;
+  width: 40vh;
+  display: flex;
+  flex-direction: row;
+  height: 56px;
+  background-color: rgba(255, 255, 255, 0.36);
+  border-radius: 31px;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+}
+
+.email img,
+.password img {
+  height: 37.24px;
+  width: 28px;
+  margin-left: 10px;
+}
+
+input {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: transparent;
+  border: none;
+  width: 90%;
+  margin-left: 10px;
+}
+
+button {
+  width: 221px;
+  height: 56px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 24px;
+  background-color: #00eced;
+  color: #d8007f;
+  border-radius: 31px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.FormLogin {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-group {
+  width: 80%;
+}

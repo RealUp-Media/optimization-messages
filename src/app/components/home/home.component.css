@@ -1,0 +1,202 @@
+.container-principal {
+  font-family: "Poppins", sans-serif;
+}
+.container {
+  width: 100%;
+  height: 100vh;
+  /* background-image: url("../../../assets/images/curvas-home.png");
+    background-position: bottom;
+    background-size: contain;
+    background-repeat: no-repeat; */
+  display: flex;
+  flex-direction: row;
+}
+/* .logo-video {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+  } */
+.logo-realup {
+  height: 71px;
+  width: 259.42px;
+  margin: 20px;
+}
+/*  
+  .videos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  h1 {
+    margin: 0px;
+  }
+  
+  .links {
+    max-height: 100vh;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+  }
+  
+  img {
+    transition: width 2s, height 4s;
+  }
+  
+  .ugc-link:hover {
+    img {
+      width: 70%;
+      height: 70%;
+    }
+  }
+  
+  .video-brand {
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+  }
+  
+  .video-brand.show {
+    opacity: 1;
+  }
+  
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .button-background {
+    background-color: #00eced;
+    width: 80%;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    margin-left: 15px;
+  
+    button {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: 100%;
+      font-family: "Poppins", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      font-size: 4vw;
+  
+      background-color: #00eced;
+      color: transparent;
+      background-image: linear-gradient(to right, #d8007f, #ffffff);
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      background-clip: text;
+      border: none;
+    }
+  }
+  
+  .open-close-container {
+    border: 1px solid #dddddd;
+    padding: 20px 20px 0px 20px;
+    color: #000000;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .videos-muestra {
+    top: 10%;
+    position: relative;
+    img {
+      transform: scale(1.2);
+    }
+  }
+  .imagen-ugc {
+    position: absolute;
+    left: 10%;
+    z-index: 0;
+  }
+  
+  .imagen-crowdposting {
+    position: absolute;
+    left: 30%;
+    z-index: 1;
+  }
+  
+  .imagen-brand {
+    position: absolute;
+    left: 50%;
+    z-index: 0;
+    position: absolute;
+  }
+  
+  button:hover {
+    cursor: pointer;
+    filter: drop-shadow(1px 1px 10px rgba(210, 9, 128, 0.5));
+    transition: 1s;
+  }
+  
+  button {
+    transition: 1s;
+  } */
+
+/* New design */
+
+.cards {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  p-card {
+    border-radius: 20px;
+    width: 30%;
+    height: 80%;
+    transition: transform 1s ease, filter 1s;
+  }
+}
+
+::ng-deep .p-card {
+  border-radius: 30px;
+}
+
+::ng-deep .p-card {
+  height: 80vh;
+}
+
+::ng-deep .p-card-header img {
+  border-radius: 30px;
+  margin: 10px;
+  width: 90%;
+}
+
+::ng-deep .p-card-header,
+::ng-deep .p-card-footer {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+::ng-deep .p-card-content {
+  padding: 0;
+  font-size: 14px;
+}
+
+::ng-deep .p-card-content ul {
+  margin-top: 0;
+}
+
+.cards p-card:hover {
+  filter: drop-shadow(1px 1px 10px rgba(210, 9, 128, 0.5));
+  transform: scale(1.05);
+}
+
+/* Logo mas titulo inicial */
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.logo h1 {
+  margin-right: 30px;
+}

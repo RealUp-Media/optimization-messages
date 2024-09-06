@@ -111,6 +111,7 @@
 .campaigns {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 ::ng-deep .p-progressbar {
@@ -126,6 +127,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 }
 
 .charts h4 {
@@ -162,6 +164,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 5px 10px;
 }
 
 ::ng-deep .accordion-checkbox .p-inplace {
@@ -193,7 +196,9 @@
 }
 
 .accordion-ops button {
-  width: 70%;
+  margin-left: 10px;
+  width: 10%;
+  height: 95%;
 }
 
 .campaign-show {
@@ -267,7 +272,7 @@
 .button-add-daily {
   margin-top: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: start;
 }
 
 textarea {
@@ -304,4 +309,161 @@ textarea {
 
 .loading-spinner {
   z-index: 30;
+}
+
+.no-margin-top {
+  margin-top: 0;
+}
+
+/* Cargas semanales */
+
+.datos-cargas {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input-datos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+::ng-deep p-floatLabel {
+  padding: 1rem;
+}
+
+.grafica {
+  width: 30%;
+}
+
+.graficas-weekly {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.input-filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.container-filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 12px;
+  background-color: #d9d9d9;
+  padding: 0.75rem;
+  margin: 0 20px;
+}
+.boton-recarga {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button-recharge {
+  margin: 1rem;
+}
+
+.grafica,
+.charts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cdk-drag-preview {
+  border: none;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item that has been dropped. */
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.daily-drop {
+  min-height: 100px;
+}
+
+.accordion-ops h2 {
+  text-align: center;
+}
+
+.daily-drop {
+  background-color: #ffffff;
+}
+
+.titulo-button-daily {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.daily-date-sales {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+::ng-deep .date-inplace .p-inplace .p-inplace-display {
+  background-color: #ffbcdc;
+}
+
+::ng-deep .date-inplace .p-inplace .p-inplace-display:hover {
+  background-color: #ff7dba;
+}
+
+.button-daily-sales {
+  margin-left: 10px;
+}
+
+.task-inplace-daily {
+  width: 50%;
+}
+
+.text-area-sales {
+  width: 100%;
+}
+
+.title-campaign {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.campaign-archived {
+  position: relative;
+  margin: 20px;
+  background-color: #d9d9d9;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 }

@@ -1,0 +1,4253 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+<head>
+  <base href="/app-realup-front/" />
+</head>
+<nav class="navbar">
+  <div class="logo">
+    <a href="campaign">
+      <img src="assets/images/REAL UP.png" alt="Logo" />
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="home">HOME</a></li>
+    <li><a href="crowdposting">CROWDPOSTING</a></li>
+    <li><a href="ugc">UGC</a></li>
+    <li><a href="brand-ambassador">BRAND AMBASSADOR</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <div class="content">
+    <div class="content-sale">
+      <div class="title">
+        <h1>User-Generated Content (UGC)</h1>
+      </div>
+
+      <div class="form-content">
+        <p-card class="description" header="Genuine Fan Engagement">
+          <p class="m-0" style="margin: 0; padding: 0">
+            Utilize authentic content created by your fans and customers to
+            boost engagement, build brand loyalty, and enhance the authenticity
+            of your brand messaging.
+          </p>
+        </p-card>
+        <form class="form-ugc" [formGroup]="combinedForm">
+          <div formGroupName="saveUGCForm">
+            <div>
+              <div class="product">
+                <h2>Product</h2>
+              </div>
+              <mat-card class="card-product">
+                <div class="product-form">
+                  <div id="product-name">
+                    <p-floatLabel>
+                      <input
+                        pInputText
+                        id="name_product"
+                        name="name_product"
+                        formControlName="name_product"
+                        [(ngModel)]="productName"
+                      />
+                      <label for="name_product">Product name</label>
+                    </p-floatLabel>
+                  </div>
+                  <div class="type-product">
+                    <h2>Type of product</h2>
+                    <div class="radio-product-boxes">
+                      <div class="radio-product-box">
+                        <input
+                          [(ngModel)]="productTypeProduct"
+                          class="radio-product"
+                          type="radio"
+                          name="type_product"
+                          id="physical-product"
+                          value="Physical product"
+                          formControlName="type_product"
+                          (ngModelChange)="changeProductType()"
+                        />
+                        <label for="physical-product">Physical product</label>
+                      </div>
+                      <div class="radio-product-box">
+                        <input
+                          [(ngModel)]="productTypeProduct"
+                          class="radio-product"
+                          type="radio"
+                          name="type_product"
+                          id="service"
+                          value="Service"
+                          formControlName="type_product"
+                          (ngModelChange)="changeProductType()"
+                        />
+                        <label for="service">Service</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="type-product" *ngIf="productType">
+                    <h2>Delivery</h2>
+                    <div class="radio-product-boxes">
+                      <div class="radio-product-box">
+                        <input
+                          class="radio-product"
+                          type="radio"
+                          name="delivery"
+                          id="reembolso"
+                          value="Reimbursement"
+                          formControlName="delivery"
+                        />
+                        <label for="reembolso">Reembolso</label>
+                      </div>
+                      <div class="radio-product-box">
+                        <input
+                          class="radio-product"
+                          type="radio"
+                          name="delivery"
+                          id="enviadoPorMi"
+                          value="Delivered by me"
+                          formControlName="delivery"
+                        />
+                        <label for="enviadoPorMi">Enviado por mi</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="brief-product">
+                  <p-floatLabel class="text-area-objetive">
+                    <textarea
+                      name="brief_campaign_objective"
+                      id="brief-campaign-objective"
+                      formControlName="brief_campaign_objective"
+                      rows="3"
+                      pInputTextarea
+                      [autoResize]="true"
+                    >
+                    </textarea>
+                    <label for="float-input"
+                      >Enter the purpose and objectives of your marketing
+                      campaign in more detail</label
+                    >
+                  </p-floatLabel>
+                  <!--  -->
+                </div>
+              </mat-card>
+            </div>
+
+            <div class="title-campaing">
+              <h2>Campaign</h2>
+            </div>
+            <div>
+              <mat-card class="card-campaign-objetive">
+                <div class="introduction-ugc">
+                  <p-floatLabel>
+                    <input pInputText id="username" name="cliente" />
+                    <label for="username">Your Name</label>
+                  </p-floatLabel>
+                  <p-floatLabel>
+                    <input
+                      pInputText
+                      id="brand"
+                      name="brand"
+                      formControlName="name_client"
+                    />
+                    <label for="brand">Brand</label>
+                  </p-floatLabel>
+                  <p-floatLabel>
+                    <input
+                      pInputText
+                      name="campaign_name"
+                      id="campaign_name"
+                      formControlName="name_client"
+                    />
+                    <label for="campaign_name">Campaign name</label>
+                  </p-floatLabel>
+                </div>
+                <h2>Campaign objective</h2>
+                <div class="radio-product-boxes">
+                  <div class="radio-product-box" *ngFor="let option of options">
+                    <input
+                      class="radio-product"
+                      type="checkbox"
+                      [value]="option.value"
+                      [id]="option.id"
+                      (change)="onCheckboxChange($event)"
+                    />
+                    <label [for]="option.id">{{ option.label }}</label>
+                  </div>
+                </div>
+                <div class="brief-product">
+                  <p-floatLabel class="text-area-objetive">
+                    <textarea
+                      name="brief_campaign_objective"
+                      id="brief-campaign-objective"
+                      formControlName="brief_campaign_objective"
+                      rows="3"
+                      pInputTextarea
+                      [autoResize]="true"
+                    >
+                    </textarea>
+                    <label for="float-input"
+                      >Enter the purpose and objectives of your marketing
+                      campaign in more detail</label
+                    >
+                  </p-floatLabel>
+                </div>
+              </mat-card>
+            </div>
+
+            <mat-card class="location-card">
+              <div class="location">
+                <h2>Location</h2>
+                <p class="text-packages">
+                  Select the country and cities where you want your content to
+                  be viewed
+                </p>
+                <p-multiSelect
+                  [(ngModel)]="selectedCountry"
+                  styleClass="country-multiselect"
+                  (ngModelChange)="showCities()"
+                  (ngModelChange)="changeValues()"
+                  id="country"
+                  name="country"
+                  [options]="countries"
+                  formControlName="country"
+                  optionLabel="name"
+                  placeholder="Select a Country"
+                />
+              </div>
+            </mat-card>
+          </div>
+
+          <!-- ngIf Countries: to show differents countries for each selection by client -->
+
+          <div *ngIf="verificarArgentina">
+            <h1 style="text-align: center">Argentina</h1>
+            <div formGroupName="formGroupCitiesArgentina">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    [(ngModel)]="citiesSelectedArgentina"
+                    (ngModelChange)="changeValues()"
+                    formControlName="cities"
+                    [options]="citiesListArgentina"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                    [showClear]="true"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsArgentina()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        (ngModelChange)="changeValues()"
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresArgentina"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                      />
+                      <button
+                        (click)="sumCreatorsArgentina()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsArgentina(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsArgentina(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsArgentina(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselArgentina()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      (ngModelChange)="changeValues()"
+                      [(ngModel)]="numeroCarrouselArgentina"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselArgentina()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortArgentina()"
+                    >
+                      -
+                    </button>
+                    <input
+                      (ngModelChange)="changeValues()"
+                      [(ngModel)]="numeroShortVideosArgentina"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortArgentina()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongArgentina()"
+                    >
+                      -
+                    </button>
+                    <input
+                      (ngModelChange)="changeValues()"
+                      [(ngModel)]="numeroLongVideosArgentina"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongArgentina()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarBolivia">
+            <h1 style="text-align: center">Bolivia</h1>
+            <div formGroupName="formGroupCitiesBolivia">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedBolivia"
+                    [options]="citiesListBolivia"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsBolivia()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        (ngModelChange)="changeValues()"
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresBolivia"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                      />
+                      <button
+                        (click)="sumCreatorsBolivia()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsBolivia(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsBolivia(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsBolivia(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrousel()"
+                    >
+                      -
+                    </button>
+                    <input
+                      (ngModelChange)="changeValues()"
+                      min="0"
+                      [(ngModel)]="numeroCarrouselBolivia"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselBolivia()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortBolivia()"
+                    >
+                      -
+                    </button>
+                    <input
+                      (ngModelChange)="changeValues()"
+                      [(ngModel)]="numeroShortVideosBolivia"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortBolivia()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongBolivia()"
+                    >
+                      -
+                    </button>
+                    <input
+                      (ngModelChange)="changeValues()"
+                      [(ngModel)]="numeroLongVideosBolivia"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongBolivia()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarBrasil">
+            <h1 style="text-align: center">Brasil</h1>
+            <div formGroupName="formGroupCitiesBrasil">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewedse
+                    vean tus contenidos.
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedBrasil"
+                    [options]="citiesListBrasil"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsBrasil()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresBrasil"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsBrasil()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsBrasil(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsBrasil(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsBrasil(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselBrasil()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselBrasil"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselBrasil()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortBrasil()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosBrasil"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortBrasil()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongBrasil()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosBrasil"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongBrasil()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarChile">
+            <h1 style="text-align: center">Chile</h1>
+            <div formGroupName="formGroupCitiesChile">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedChile"
+                    [options]="citiesListChile"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsChile()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresChile"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsChile()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button mat-stroked-button (click)="putCreatorsChile(20)">
+                        20
+                      </button>
+                      <button mat-stroked-button (click)="putCreatorsChile(40)">
+                        40
+                      </button>
+                      <button mat-stroked-button (click)="putCreatorsChile(60)">
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselChile()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselChile"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselChile()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortChile()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosChile"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortChile()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongChile()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosChile"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongChile()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarColombia">
+            <h1 style="text-align: center">Colombia</h1>
+            <div formGroupName="formGroupCitiesColombia">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedColombia"
+                    [options]="citiesListColombia"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsColombia()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresColombia"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsColombia()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsColombia(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsColombia(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsColombia(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselColombia()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselColombia"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselColombia()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortColombia()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosColombia"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortColombia()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongColombia()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosColombia"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongColombia()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarEcuador">
+            <h1 style="text-align: center">Ecuador</h1>
+            <div formGroupName="formGroupCitiesEcuador">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedEcuador"
+                    [options]="citiesListEcuador"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsEcuador()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresEcuador"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsEcuador()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsEcuador(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsEcuador(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsEcuador(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselEcuador()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselEcuador"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselEcuador()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortEcuador()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosEcuador"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortEcuador()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongEcuador()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosEcuador"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongEcuador()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarParaguay">
+            <h1 style="text-align: center">Paraguay</h1>
+            <div formGroupName="formGroupCitiesParaguay">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedParaguay"
+                    [options]="citiesListParaguay"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsParaguay()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresParaguay"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsParaguay()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsParaguay(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsParaguay(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsParaguay(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselParaguay()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselParaguay"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselParaguay()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortParaguay()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosParaguay"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortParaguay()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongParaguay()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosParaguay"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongParaguay()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarPeru">
+            <h1 style="text-align: center">Peru</h1>
+            <div formGroupName="formGroupCitiesPeru">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedPeru"
+                    [options]="citiesListPeru"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsPeru()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresPeru"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsPeru()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button mat-stroked-button (click)="putCreatorsPeru(20)">
+                        20
+                      </button>
+                      <button mat-stroked-button (click)="putCreatorsPeru(40)">
+                        40
+                      </button>
+                      <button mat-stroked-button (click)="putCreatorsPeru(60)">
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselPeru()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselPeru"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselPeru()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortPeru()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosPeru"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortPeru()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongPeru()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosPeru"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongPeru()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarUruguay">
+            <h1 style="text-align: center">Uruguay</h1>
+            <div formGroupName="formGroupCitiesUruguay">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedUruguay"
+                    [options]="citiesListUruguay"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsUruguay()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresUruguay"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsUruguay()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsUruguay(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsUruguay(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsUruguay(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselUruguay()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselUruguay"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselUruguay()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortUruguay()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosUruguay"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortUruguay()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongUruguay()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosUruguay"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongUruguay()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarVenezuela">
+            <h1 style="text-align: center">Venezuela</h1>
+            <div formGroupName="formGroupCitiesVenezuela">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedVenezuela"
+                    [options]="citiesListVenezuela"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsVenezuela()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresVenezuela"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsVenezuela()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsVenezuela(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsVenezuela(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsVenezuela(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselVenezuela()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselVenezuela"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselVenezuela()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortVenezuela()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosVenezuela"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortVenezuela()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongVenezuela()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosVenezuela"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongVenezuela()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarCostaRica">
+            <h1 style="text-align: center">Costa Rica</h1>
+            <div formGroupName="formGroupCitiesCostaRica">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedCostaRica"
+                    [options]="citiesListCostaRica"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsCostaRica()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresCostaRica"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsCostaRica()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsCostaRica(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsCostaRica(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsCostaRica(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselCostaRica()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselCostaRica"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselCostaRica()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortCostaRica()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosCostaRica"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortCostaRica()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongCostaRica()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosCostaRica"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongCostaRica()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarCuba">
+            <h1 style="text-align: center">Cuba</h1>
+            <div formGroupName="formGroupCitiesCuba">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedCuba"
+                    [options]="citiesListCuba"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsCuba()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresCuba"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsCuba()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button mat-stroked-button (click)="putCreatorsCuba(20)">
+                        20
+                      </button>
+                      <button mat-stroked-button (click)="putCreatorsCuba(40)">
+                        40
+                      </button>
+                      <button mat-stroked-button (click)="putCreatorsCuba(60)">
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselCuba()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselCuba"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselCuba()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortCuba()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosCuba"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortCuba()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongCuba()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosCuba"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongCuba()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarElSalvador">
+            <h1 style="text-align: center">El Salvador</h1>
+            <div formGroupName="formGroupCitiesElSalvador">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedElSalvador"
+                    [options]="citiesListElSalvador"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsElSalvador()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresElSalvador"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsElSalvador()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsElSalvador(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsElSalvador(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsElSalvador(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselElSalvador()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselElSalvador"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselElSalvador()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortElSalvador()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosElSalvador"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortElSalvador()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongElSalvador()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosElSalvador"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongElSalvador()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarGuatemala">
+            <h1 style="text-align: center">Guatemala</h1>
+            <div formGroupName="formGroupCitiesGuatemala">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedGuatemala"
+                    [options]="citiesListGuatemala"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsGuatemala()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresGuatemala"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsGuatemala()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsGuatemala(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsGuatemala(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsGuatemala(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselGuatemala()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselGuatemala"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselGuatemala()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortGuatemala()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosGuatemala"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortGuatemala()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongGuatemala()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosGuatemala"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongGuatemala()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarHonduras">
+            <h1 style="text-align: center">Honduras</h1>
+            <div formGroupName="formGroupCitiesHonduras">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedHonduras"
+                    [options]="citiesListHonduras"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsHonduras()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresHonduras"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsHonduras()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsHonduras(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsHonduras(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsHonduras(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselHonduras()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselHonduras"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselHonduras()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortHonduras()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosHonduras"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortHonduras()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongHonduras()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosHonduras"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongHonduras()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarMexico">
+            <h1 style="text-align: center">Mexico</h1>
+            <div formGroupName="formGroupCitiesMexico">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedMexico"
+                    [options]="citiesListMexico"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsMexico()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresMexico"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsMexico()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsMexico(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsMexico(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsMexico(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselMexico()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselMexico"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselMexico()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortMexico()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosMexico"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortMexico()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongMexico()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosMexico"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongMexico()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarNicaragua">
+            <h1 style="text-align: center">Nicaragua</h1>
+            <div formGroupName="formGroupCitiesNicaragua">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedNicaragua"
+                    [options]="citiesListNicaragua"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsNicaragua()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresNicaragua"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsNicaragua()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsNicaragua(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsNicaragua(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsNicaragua(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselNicaragua()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselNicaragua"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselNicaragua()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortNicaragua()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosNicaragua"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortNicaragua()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongNicaragua()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosNicaragua"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongNicaragua()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarPanama">
+            <h1 style="text-align: center">Panama</h1>
+            <div formGroupName="formGroupCitiesPanama">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedPanama"
+                    [options]="citiesListPanama"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsPanama()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresPanama"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsPanama()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsPanama(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsPanama(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsPanama(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselPanama()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselPanama"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselPanama()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortPanama()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosPanama"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortPanama()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongPanama()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosPanama"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongPanama()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarPuertoRico">
+            <h1 style="text-align: center">Puerto Rico</h1>
+            <div formGroupName="formGroupCitiesPuertoRico">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedPuertoRico"
+                    [options]="citiesListPuertoRico"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsPuertoRico()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresPuertoRico"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsPuertoRico()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsPuertoRico(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsPuertoRico(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsPuertoRico(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselPuertoRico()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselPuertoRico"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselPuertoRico()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortPuertoRico()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosPuertoRico"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortPuertoRico()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongPuertoRico()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosPuertoRico"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongPuertoRico()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarDominicanRepublic">
+            <h1 style="text-align: center">Dominican Republic</h1>
+            <div formGroupName="formGroupCitiesDominicanRepublic">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedDominicanRepublic"
+                    [options]="citiesListDominicanRepublic"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsDominicanRepublic()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresDominicanRepublic"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsDominicanRepublic()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsDominicanRepublic(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsDominicanRepublic(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsDominicanRepublic(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselDominicanRepublic()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselDominicanRepublic"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselDominicanRepublic()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortDominicanRepublic()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosDominicanRepublic"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortDominicanRepublic()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongDominicanRepublic()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosDominicanRepublic"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongDominicanRepublic()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarUnitedStates">
+            <h1 style="text-align: center">United States</h1>
+            <div formGroupName="formGroupCitiesUnitedStates">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedUnitedStates"
+                    [options]="citiesListUnitedStates"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsUnitedStates()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresUnitedStates"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsUnitedStates()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsUnitedStates(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsUnitedStates(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsUnitedStates(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselUnitedStates()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselUnitedStates"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselUnitedStates()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortUnitedStates()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosUnitedStates"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortUnitedStates()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongUnitedStates()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosUnitedStates"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongUnitedStates()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="verificarCanada">
+            <h1 style="text-align: center">Canada</h1>
+            <div formGroupName="formGroupCitiesCanada">
+              <mat-card class="card-creators">
+                <div class="cities recommendations-cities">
+                  <p>
+                    Select the cities where you want your content to be viewed
+                  </p>
+
+                  <p-multiSelect
+                    formControlName="cities"
+                    (ngModelChange)="changeValues()"
+                    [(ngModel)]="citiesSelectedCanada"
+                    [options]="citiesListCanada"
+                    optionLabel="name"
+                    styleClass="cities-multiselect"
+                    placeholder="Select Cities"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="43"
+                  ></p-multiSelect>
+                </div>
+                <div class="creators-recommendations">
+                  <div class="creators">
+                    <label for="number-creators">Number of creators</label>
+                    <div class="button-creators-div">
+                      <button
+                        (click)="restCreatorsCanada()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="numeroCreadoresCanada"
+                        type="number"
+                        id="numberCreators"
+                        name="numberCreators"
+                        placeholder="Number"
+                        formControlName="number_creators"
+                        (ngModelChange)="changeValues()"
+                      />
+                      <button
+                        (click)="sumCreatorsCanada()"
+                        type="button"
+                        class="button-creators"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div class="button-number-contents">
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsCanada(20)"
+                      >
+                        20
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsCanada(40)"
+                      >
+                        40
+                      </button>
+                      <button
+                        mat-stroked-button
+                        (click)="putCreatorsCanada(60)"
+                      >
+                        60
+                      </button>
+                    </div>
+                  </div>
+                  <div class="recommendations">
+                    <p>
+                      To achieve effective results in the advertising campaign,
+                      we suggest the participation of at least 20 influencers.
+                      However, according to our statistics, the use of 50
+                      influencers could generate a doubled increase in sales.
+                      <strong
+                        >The number of content selected will be the amount that
+                        will be shown in each city.</strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </mat-card>
+              <div class="all-type-contents">
+                <div class="type-contents">
+                  <h2>Photo Carousel</h2>
+                  <img src="assets/icons/carrousel.svg" alt="Icono Carrousel" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restCarrouselCanada()"
+                    >
+                      -
+                    </button>
+                    <input
+                      min="0"
+                      [(ngModel)]="numeroCarrouselCanada"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_carrousel"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumCarrouselCanada()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="type-contents">
+                  <h2>Video from 0 to 15 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restShortCanada()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroShortVideosCanada"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_short_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumShortCanada()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="type-contents">
+                  <h2>Video from 15 to 30 Sec</h2>
+                  <img src="assets/icons/videos.svg" alt="Icono videos" />
+                  <div class="number-button">
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="restLongCanada()"
+                    >
+                      -
+                    </button>
+                    <input
+                      [(ngModel)]="numeroLongVideosCanada"
+                      class="form-control"
+                      type="number"
+                      id="numberCreators"
+                      name="numberCreators"
+                      placeholder="Number"
+                      formControlName="number_long_videos"
+                      (ngModelChange)="changeValues()"
+                    />
+                    <button
+                      class="button-content"
+                      type="button"
+                      (click)="sumLongCanada()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="button-final">
+            <button mat-flat-button (click)="saveSaleUGC()">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="summary">
+      <img
+        id="realup-summary"
+        src="assets/images/RealUpSummary.svg"
+        alt="Logo RealUp"
+      />
+      <img
+        id="shopping-cart"
+        src="assets/icons/Shopping cart.svg"
+        alt="Shopping cart"
+      />
+      <h2>Shopping Cart</h2>
+      <div class="data">
+        <label for="country">Country</label>
+        <p>{{ getCountryList() }}</p>
+      </div>
+      <div class="data">
+        <label for="videoCount">Total Cities</label>
+        <p>
+          {{ ValorCiudadesTotal }}
+        </p>
+      </div>
+
+      <div class="data">
+        <label for="numberCarrousel">Carrousel Contents</label>
+        <p>{{ valorCarrouselTotal }}</p>
+      </div>
+      <div class="data">
+        <label for="numeroLongVideos">Long Contents</label>
+        <p>{{ valorLongTotal }}</p>
+      </div>
+      <div class="data">
+        <label for="numberShortVideos">Short Contents</label>
+        <p>{{ valorShortTotal }}</p>
+      </div>
+      <div class="data">
+        <label for="videoType">Average per content</label>
+        <p>{{ valorPromedioContenido | number : "1.0-1" }} USD</p>
+      </div>
+      <div class="data data-strong">
+        <label for="videoCount">Creators</label>
+        <p>
+          {{ ValorNumeroCreadores }}
+        </p>
+      </div>
+
+      <div class="data data-strong">
+        <label for="videoCount">Total Contents</label>
+        <p>
+          {{ valorContenidosTotal }}
+        </p>
+      </div>
+      <div class="data data-strong">
+        <p id="total">TOTAL VALUE:</p>
+        <p>
+          {{
+            this.ValorTotal + (0.35 * this.ValorTotal) / 0.65 | number : "1.0-1"
+          }}
+          USD
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

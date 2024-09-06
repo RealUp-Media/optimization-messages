@@ -1,0 +1,377 @@
+.container {
+  padding-top: 100px;
+  background-image: url(/assets/images/fondoUGC.png);
+  background-color: rgba(255, 255, 255, 0.9);
+  background-size: cover;
+  background-repeat: repeat;
+}
+.content {
+  background-image: url(/assets/images/FLECHAS.png);
+  background-size: 50%;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  height: 48px;
+  width: 40%;
+  border-top-right-radius: 162px;
+  border-bottom-right-radius: 162px;
+  background-color: #d8007f;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: white;
+  margin-top: 20px;
+  h1 {
+    margin: 0px;
+    margin-left: 20px;
+  }
+}
+
+.campaign-name {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.radio-product-boxes {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.radio-product-box {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 18px;
+}
+
+/* Estilos generales para el contenedor */
+.radio-product-boxes {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+}
+
+/* Estilos para el contenedor de cada botón */
+.radio-product-box {
+  position: relative;
+}
+
+/* Estilos para los inputs de tipo radio */
+.radio-product {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Estilos para la apariencia del botón */
+.radio-product + label {
+  display: inline-block;
+  padding: 10px 20px; /* Espaciado interno */
+  border: 2px solid #d8007f; /* Borde */
+  border-radius: 5px; /* Bordes redondeados */
+  color: #d8007f; /* Color del texto */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+/* Cambiar color de fondo del botón cuando está seleccionado */
+.radio-product:checked + label {
+  background-color: #d8007f;
+  color: white; /* Cambiar color del texto */
+}
+
+.title-campaing {
+  margin: 20px;
+  height: 57px;
+  background-color: #d8007f;
+  font-size: 25px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 33px;
+  h2 {
+    margin: 0px;
+  }
+}
+
+.card-campaign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  margin-top: 20px;
+}
+
+.campaign-objetive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.radio-product-boxes {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+}
+
+.location-card {
+  margin-top: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  mat-form-field {
+    width: 800px;
+  }
+}
+
+.audience-interests-select,
+.select {
+  width: 800px;
+}
+
+.location {
+  width: 100%;
+  h2 {
+    margin-top: 0;
+  }
+}
+
+.radio-date + label {
+  margin-top: 20px;
+  width: 180px;
+  text-align: center;
+}
+
+.button-final {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 30px;
+  button {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    height: 79px;
+    font-size: 41px;
+  }
+}
+
+#brief-video-content {
+  resize: none;
+}
+
+.brief-video-content {
+  width: 800px;
+}
+
+#brief-campaign-objective {
+  resize: none;
+}
+.brief-campaign-objective {
+  margin-top: 30px;
+  width: 1000px;
+}
+
+.creators {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  label {
+    font-weight: 700;
+    font-size: 18.72px;
+  }
+}
+.button-creators-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px;
+  input {
+    background-color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #000000;
+    border-radius: 20px;
+  }
+}
+
+.button-creators {
+  margin-left: 10px;
+  margin-right: 10px;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 100%;
+  border: #d8007f solid 4px;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: box-shadow 0.3s ease; /* Transición suave para la sombra */
+}
+
+.button-creators:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Agrega una sombra al pasar sobre el botón */
+}
+
+.button-creators:active {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Reduce la sombra al presionar el botón */
+}
+
+.button-number-contents {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-control {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 25px;
+  text-align: center;
+  width: 100px;
+  height: 44px;
+}
+
+.creator-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cities-selected {
+  display: flex;
+  flex-direction: row;
+}
+
+::ng-deep .cities-multiselect {
+  margin: 20px;
+  width: 30%;
+}
+
+.cities {
+  text-align: center;
+  p {
+    margin: 0;
+  }
+}
+
+.navbar {
+  z-index: 3;
+  position: fixed;
+  height: 100px;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0 4px 4px rgb(0, 0, 0, 0.25);
+}
+
+.logo img {
+  height: 60px;
+  padding-left: 30px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links {
+  padding-right: 30px;
+}
+
+.nav-links a {
+  color: #000000; /* Color de texto de los enlaces */
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.nav-links a:hover {
+  background-color: #d20981; /* Fondo rosa para el hover */
+  color: white; /* Color de texto blanco para el hover */
+}
+
+.calendar {
+  margin: 30px;
+}
+
+.content-form {
+  padding: 30px;
+}
+
+/* Descripcion del servicio */
+
+::ng-deep .description .p-card-content {
+  padding: 0;
+}
+
+/* Nuevos input */
+
+::ng-deep .campaign-name p-floatlabel {
+  width: 30%;
+}
+::ng-deep .campaign-name p-floatlabel input {
+  width: 100%;
+}
+
+::ng-deep .p-inputtext {
+  width: 100%;
+}
+
+/* Nuevos select */
+
+::ng-deep p-multiselect {
+  width: 80%;
+}
+::ng-deep .data-audience .p-multiselect-label,
+::ng-deep .data-audience .p-multiselect,
+::ng-deep .data-creator .p-multiselect-label,
+::ng-deep .data-creator .p-multiselect {
+  width: 100%;
+}
+
+::ng-deep p-dropdown {
+  width: 80%;
+}
+
+::ng-deep .p-dropdown,
+::ng-deep .p-dropdown-label {
+  width: 100%;
+}
+
+::ng-deep .data-audience p-floatlabel,
+::ng-deep .data-creator p-floatlabel {
+  width: 80%;
+  margin: 15px 0;
+}
+
+.text-area-objetive {
+  width: 80%;
+  margin: 40px 0;
+}

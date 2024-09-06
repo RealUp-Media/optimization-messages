@@ -103,6 +103,29 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Nuevos modulos
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { BrandAmbassadorComponent } from './components/brand-ambassador/brand-ambassador.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   imports: [
@@ -209,6 +232,41 @@ import { NgModule } from '@angular/core';
     IconFieldModule,
     InputIconModule,
     AutoFocusModule,
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    NgIf,
+    NgFor,
+    MatSlideToggleModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTabsModule,
+    MatCheckboxModule,
+    MatDividerModule,
+    MatIconModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    AsyncPipe,
+    MultiSelectModule,
+    CardModule,
+    ConfirmDialogModule,
+    ToastModule,
+    CalendarModule,
+    AccordionModule,
+    CarouselModule,
+    InputTextModule,
+    FloatLabelModule,
+    InputTextareaModule,
+    DropdownModule,
+    RippleModule,
+    SelectButtonModule,
   ],
   exports: [
     AvatarModule,

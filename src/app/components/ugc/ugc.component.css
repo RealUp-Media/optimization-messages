@@ -1,0 +1,598 @@
+.container {
+  padding-top: 100px;
+  background-image: url(/assets/images/fondoUGC.png);
+  background-color: rgba(255, 255, 255, 0.9);
+  background-size: cover;
+}
+.content {
+  width: 100%;
+
+  background-image: url(/assets/images/FLECHAS.png);
+  background-size: 50%;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: row;
+}
+.content-sale {
+  width: 70%;
+}
+
+.form-ugc {
+  width: 100%;
+}
+.title {
+  width: 40vw;
+  border-top-right-radius: 162px;
+  border-bottom-right-radius: 162px;
+  background-color: #d8007f;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: white;
+  h1 {
+    margin-left: 20px;
+  }
+}
+
+.summary {
+  font-size: 14px;
+  width: 25%;
+  height: 80%;
+  margin: 3vh;
+  border-radius: 33px;
+  background-color: #d8007f;
+  position: fixed;
+  right: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+}
+
+#realup-summary {
+  padding: 25px;
+  padding-left: 10vh;
+  padding-right: 10vh;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #ffffff;
+}
+
+#shopping-cart {
+  width: 10%;
+  margin: 1.2vh;
+}
+
+.summary {
+  h2 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+}
+
+.data {
+  font-size: 1vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+  label {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 1.2vh 0;
+  }
+  label {
+    margin: 1.2vh 0;
+  }
+}
+
+#total {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.introduction-ugc {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  input {
+    font-size: 18px;
+    height: 48px;
+    text-indent: 10px;
+  }
+
+  input::placeholder {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 25px;
+    align-items: center;
+  }
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.product {
+  width: 100%;
+  height: 57px;
+  background-color: #d8007f;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 25px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 33px;
+  h2 {
+    margin: 0px;
+  }
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#product-name {
+  padding-top: 40px;
+  input {
+    font-size: 22px;
+    padding: 10px;
+    text-indent: 10px;
+  }
+}
+.type-product {
+  width: 80%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  h2 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 30px;
+    color: #ffffff;
+    -webkit-text-stroke: 1px #323232;
+  }
+}
+
+.radio-product-boxes {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.radio-product-box {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 18px;
+  margin: 0 20px;
+}
+
+/* Estilos generales para el contenedor */
+.radio-product-boxes {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+}
+
+/* Estilos para el contenedor de cada botón */
+.radio-product-box {
+  position: relative;
+}
+
+/* Estilos para los inputs de tipo radio */
+.radio-product {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Estilos para la apariencia del botón */
+.radio-product + label {
+  display: inline-block;
+  padding: 10px 20px; /* Espaciado interno */
+  border: 2px solid #d8007f; /* Borde */
+  border-radius: 5px; /* Bordes redondeados */
+  color: #d8007f; /* Color del texto */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+/* Cambiar color de fondo del botón cuando está seleccionado */
+.radio-product:checked + label {
+  background-color: #d8007f;
+  color: white; /* Cambiar color del texto */
+}
+
+.all-type-contents {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.type-contents {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  background-color: #d8007f;
+  font-family: "Poppins", sans-serif;
+  font-weight: 7 00;
+  font-style: normal;
+  font-size: 18px;
+  color: #ffffff;
+  border-radius: 28px;
+  input {
+    background-color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #000000;
+    border: none;
+    border-radius: 20px;
+    margin: 20px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+}
+.campaing {
+  width: 100%;
+}
+
+.title-campaing {
+  width: 100%;
+  height: 57px;
+  background-color: #d8007f;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 25px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 33px;
+  h2 {
+    margin: 0px;
+  }
+}
+.select-country,
+.select-cities {
+  margin: 20px;
+  width: auto;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+::ng-deep .location .country-multiselect {
+  margin-bottom: 30px;
+  width: 700px;
+}
+
+.form-content {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+.form-control {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 25px;
+  text-align: center;
+  width: 100px;
+  height: 44px;
+}
+
+.number-button {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.button-content {
+  width: 44px;
+  height: 44px;
+  border-radius: 100%;
+  border: #00eced solid 4px;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: box-shadow 0.3s ease; /* Transición suave para la sombra */
+}
+
+.button-content:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Agrega una sombra al pasar sobre el botón */
+}
+
+.button-content:active {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Reduce la sombra al presionar el botón */
+}
+
+.guideline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+#card-pauta {
+  margin: 20px;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.location-card,
+.card-product {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.recommendations {
+  width: 70%;
+  p {
+    text-align: justify;
+  }
+}
+
+.card-creators {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.creators-recommendations {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  input {
+    background-color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #000000;
+    border-radius: 20px;
+  }
+}
+
+.creators {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  label {
+    font-weight: 700;
+    font-size: 18.72px;
+  }
+}
+.button-creators-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px;
+}
+
+.button-creators {
+  margin-left: 10px;
+  margin-right: 10px;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 100%;
+  border: #d8007f solid 4px;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: box-shadow 0.3s ease; /* Transición suave para la sombra */
+}
+
+.button-creators:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Agrega una sombra al pasar sobre el botón */
+}
+
+.button-creators:active {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Reduce la sombra al presionar el botón */
+}
+
+.button-number-contents {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.recommendations {
+  width: 70%;
+  p {
+    background-color: #e3e3e3;
+    margin-top: 10px;
+    margin: 20px;
+    padding: 25px;
+    border-radius: 20px;
+  }
+}
+
+.card-campaign-objetive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: 20px;
+  h2 {
+    margin-top: px;
+  }
+}
+.button-final {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  button {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    height: 79px;
+    font-size: 41px;
+  }
+}
+.brief-product {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#brief-video-content {
+  resize: none;
+}
+
+#brief-campaign-objective {
+  resize: none;
+}
+.brief-campaign-objective {
+  margin-top: 30px;
+  width: 80%;
+}
+
+.cities {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    margin: 0;
+    width: 30%;
+    text-align: left;
+    padding: 20px;
+  }
+  p-multiSelect {
+    width: 70%;
+    margin: 20px;
+  }
+}
+
+::ng-deep .cities-multiselect {
+  width: 100%;
+}
+
+.recommendations-cities {
+  p {
+    background-color: #e3e3e3;
+    margin-top: 10px;
+    margin: 20px;
+    padding: 25px;
+    border-radius: 20px;
+  }
+}
+
+.text-packages {
+  background-color: #e3e3e3;
+  margin-top: 10px;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: left;
+}
+
+.navbar {
+  z-index: 3;
+  position: fixed;
+  height: 100px;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0 4px 4px rgb(0, 0, 0, 0.25);
+}
+
+.logo img {
+  height: 60px;
+  padding-left: 30px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links {
+  padding-right: 30px;
+}
+
+.nav-links a {
+  color: #000000; /* Color de texto de los enlaces */
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.nav-links a:hover {
+  background-color: #d20981; /* Fondo rosa para el hover */
+  color: white; /* Color de texto blanco para el hover */
+}
+
+/* Nuevo text area */
+.text-area-objetive {
+  padding-top: 40px;
+  width: 93%;
+  margin-bottom: 30px;
+}
+
+#brief-campaign-objective {
+  font-size: 1.2vw;
+  width: 100%;
+}
+
+.data-strong {
+  margin: 5px;
+  padding: 0 10px;
+  border-radius: 10px;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.description {
+  margin-bottom: 20px;
+}
+::ng-deep .description .p-card-content {
+  padding: 0;
+}
