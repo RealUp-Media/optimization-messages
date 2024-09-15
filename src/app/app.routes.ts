@@ -11,6 +11,7 @@ import { CrowdpostingComponent } from './components/crowdposting/crowdposting.co
 import { UgcComponent } from './components/ugc/ugc.component';
 import { BrandAmbassadorComponent } from './components/brand-ambassador/brand-ambassador.component';
 import { HomeComponent } from './components/home/home.component';
+import { DailyChecklistComponent } from './components/daily-checklist/daily-checklist.component';
 
 export const routes: Routes = [
   { path: 'messages-template', component: MessagesTemplateComponent },
@@ -23,4 +24,5 @@ export const routes: Routes = [
   { path: 'ugc', component: UgcComponent },
   { path: 'brand-ambassador', component: BrandAmbassadorComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'daily-checklist', component: DailyChecklistComponent },
 ];

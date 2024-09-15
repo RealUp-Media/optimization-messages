@@ -117,4 +117,25 @@ export class CampaignService {
       null
     );
   }
+
+  getNameCampaign(nameOp: string): Observable<any> {
+    return this.http.get(
+      BASE_URL + `manual-ops/get-name-campaign-op/${nameOp}`
+    );
+  }
+
+  getAllDailyTask(): Observable<any> {
+    return this.http.get(BASE_URL + 'manual-ops/daily/get-daily');
+  }
+
+  getAllCampaigns(): Observable<any> {
+    return this.http.get(BASE_URL + 'manual-ops/see-campaign');
+  }
+
+  updateAllDaily(dailyData: any): Observable<any> {
+    return this.http.put<any>(
+      BASE_URL + 'manual-ops/daily/update-all',
+      dailyData
+    );
+  }
 }

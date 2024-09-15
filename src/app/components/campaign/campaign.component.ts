@@ -104,11 +104,8 @@ interface Pais {
 export class CampaignComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   constructor(
-    private router: Router,
     private fb: FormBuilder,
-    private campaignService: CampaignService,
-    private checkListService: ChecklistService,
-    private http: HttpClient
+    private campaignService: CampaignService
   ) {
     Chart.register(ChartDataLabels);
 
@@ -242,9 +239,9 @@ export class CampaignComponent {
 
   // Daily OPS
 
-  verificarDaily: boolean = false;
+  verificarDaily: boolean = true;
   verificarDailySales: boolean = false;
-  verificarCampaign: boolean = true;
+  verificarCampaign: boolean = false;
   verificaCargas: boolean = false;
   verificarChatbot: boolean = false;
   verificarCampaignArchive: boolean = false;
@@ -260,12 +257,7 @@ export class CampaignComponent {
     this.verificarCampaignArchive = false;
   }
   dailyOPS() {
-    this.verificarCampaign = false;
-    this.verificarDaily = true;
-    this.verificaCargas = false;
-    this.verificarDailySales = false;
-    this.verificarChatbot = false;
-    this.verificarCampaignArchive = false;
+    window.open('daily-checklist', '_self');
   }
 
   showCampaign() {
@@ -1153,6 +1145,7 @@ export class CampaignComponent {
 
     setTimeout(() => {
       this.loadDaily();
+      this.loadDailyTtile();
     }, 200);
   }
 

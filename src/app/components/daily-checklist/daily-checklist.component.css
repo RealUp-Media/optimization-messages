@@ -1,0 +1,491 @@
+.container {
+  padding: 1rem;
+  padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: #fef7ff;
+}
+
+.nav {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+::ng-deep .nav .p-button-label {
+  font-size: 20px;
+}
+.content {
+  width: 95%;
+}
+
+.selector-op {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 1rem;
+}
+
+.selector-op p {
+  margin: 0;
+}
+
+.selector-op button {
+  width: 56px;
+  height: 32px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  border: none;
+  background-color: transparent;
+}
+
+.selector-op button:hover {
+  background-color: #e8def8;
+  cursor: pointer;
+}
+
+.boton-sum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 56px;
+  border-radius: 16px;
+  background-color: #fdd8e4;
+  border: none;
+  margin-bottom: 70px;
+  margin-top: 20px;
+}
+
+.boton-sum:hover {
+  cursor: pointer;
+}
+
+.charts {
+  height: 200px;
+}
+
+.graficas-totales {
+  height: 300px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.campaign {
+  position: relative;
+  margin: 20px;
+  background-color: #d9d9d9;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  justify-content: space-between;
+}
+
+.columna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.columna img {
+  width: 56px;
+  border-radius: 50px;
+  margin-left: 10px;
+}
+
+.columna canvas {
+  width: 170px;
+}
+
+.campaigns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+::ng-deep .p-progressbar {
+  width: 100%;
+}
+
+.columna .card {
+  padding: 1rem;
+  width: 100%;
+}
+
+.logo-marca {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.charts h4 {
+  margin: 1rem;
+}
+
+/* Campaign status */
+
+.campaign-status {
+  width: 32px;
+  position: absolute;
+}
+
+::ng-deep .p-dialog {
+  width: 45vw;
+}
+
+.content-daily-ops {
+  width: 95%;
+}
+
+.checklist-completed {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.checklist-completed p {
+  margin-right: 15px;
+}
+
+.accordion-checkbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+::ng-deep .accordion-checkbox .p-inplace {
+  width: 100%;
+}
+
+.checklist-completed-accordion {
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diferent-ops {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-around;
+}
+
+.accordion-ops {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f8;
+  margin: 10px;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.accordion-ops button {
+  margin-left: 10px;
+  width: 10%;
+  height: 95%;
+}
+
+.campaign-show {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.campaign-father {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-campaign {
+  padding: 15px;
+  width: 100%;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.button-campaign:hover {
+  cursor: pointer;
+}
+
+/* Daily */
+
+.inplace-daily {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  margin: 5px 0;
+  border-radius: 15px;
+  padding: 10px;
+  width: 93%;
+  border: #e6e6e5 1px solid;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+::ng-deep .accordion-ops .p-inplace .p-inplace-display {
+  display: block;
+}
+
+.task-daily {
+  font-weight: bold;
+}
+
+.comment-daily {
+  font-weight: 400;
+}
+
+::ng-deep .accordion-ops .p-inplace .p-inplace-display {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+.checkbox-delete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+::ng-deep .checkbox-delete .p-button {
+  width: 2rem;
+  height: 2rem;
+}
+
+.button-add-daily {
+  margin-top: 10px;
+  display: flex;
+  justify-content: start;
+}
+
+textarea {
+  height: auto !important;
+}
+
+.p-field input,
+.p-field textarea {
+  margin-top: 5px;
+  width: 100%;
+}
+
+::ng-deep .inplace-daily .p-inputtext {
+  width: 90%;
+}
+
+::ng-deep .inplace-daily .p-button {
+  background: #f1f5f9;
+  border: #f1f5f9 1px solid;
+  color: #576273;
+  width: 2.3rem;
+  height: 2.3rem;
+}
+
+::ng-deep .inplace-daily .p-button:hover {
+  background: #e3e8f0;
+}
+
+.div-content-daily-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loading-spinner {
+  z-index: 30;
+}
+
+.no-margin-top {
+  margin-top: 0;
+}
+
+/* Cargas semanales */
+
+.datos-cargas {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input-datos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+::ng-deep p-floatLabel {
+  padding: 1rem;
+}
+
+.grafica {
+  width: 30%;
+}
+
+.graficas-weekly {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.input-filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.container-filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 12px;
+  background-color: #d9d9d9;
+  padding: 0.75rem;
+  margin: 0 20px;
+}
+.boton-recarga {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button-recharge {
+  margin: 1rem;
+}
+
+.grafica,
+.charts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cdk-drag-preview {
+  border: none;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item that has been dropped. */
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.daily-drop {
+  min-height: 100px;
+}
+
+.accordion-ops h2 {
+  text-align: center;
+}
+
+.daily-drop {
+  background-color: #ffffff;
+}
+
+.titulo-button-daily {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.daily-date-sales {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+::ng-deep .date-inplace .p-inplace .p-inplace-display {
+  background-color: #ffbcdc;
+}
+
+::ng-deep .date-inplace .p-inplace .p-inplace-display:hover {
+  background-color: #ff7dba;
+}
+
+.button-daily-sales {
+  margin-left: 10px;
+}
+
+.task-inplace-daily {
+  width: 50%;
+}
+
+.text-area-sales {
+  width: 100%;
+}
+
+.title-campaign {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.campaign-archived {
+  position: relative;
+  margin: 20px;
+  background-color: #d9d9d9;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* -------------------------------------------------------------------------- Daily CheckList -------------------------------------------------------------------------- */
+
+.central-div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-daily-ops {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.container-daily-right {
+  width: 50%;
+}
+
+.container-daily-left {
+  width: 50%;
+}
