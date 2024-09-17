@@ -138,4 +138,11 @@ export class CampaignService {
       dailyData
     );
   }
+
+  updateColorCampaign(data: any): Observable<any> {
+    return this.http.put<any>(
+      BASE_URL + 'manual-ops/update-campaign-color',
+      data
+    );
+  }
 }

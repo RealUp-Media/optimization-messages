@@ -27,8 +27,8 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { error } from 'node:console';
-import { Item } from 'pdfmake-wrapper';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-daily-checklist',
@@ -57,16 +57,32 @@ import { Item } from 'pdfmake-wrapper';
     CdkDropList,
     CdkDrag,
     CdkDropListGroup,
+    MatSelectModule,
+    MatFormFieldModule,
   ],
   providers: [TreeDragDropService],
-
   templateUrl: './daily-checklist.component.html',
   styleUrl: './daily-checklist.component.css',
 })
 export class DailyChecklistComponent {
   constructor(private campaignService: CampaignService) {}
 
-  connectedDropLists: string[] = [];
+  // Datos OPS y Sales
+
+  listOPS: any[] = ['Daniela Quintana', 'Estefany Bermudez', 'Luisa Clavijo'];
+  OpSelected: string = 'Daniela Quintana';
+
+  colors: string[] = ['#4CAF50', '#8BC34A', '#FFC107', '#F44336', '#D0D2D5'];
+  colorSelected: string = '';
+
+  listTitleDaily: any[] = [
+    'Visibilidad a Cliente: 5 min',
+    'Hablar con perfiles para ejecución',
+    'Hablar con perfiles para ppt y/o cotización',
+    'Entrega de propuestas y/o cotizaciones',
+    'Reuniones del día',
+    'Otros',
+  ];
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -77,29 +93,7 @@ export class DailyChecklistComponent {
     }, 500);
   }
 
-  dailyDanielaListFirst: any[] = [];
-  dailyDanielaListSecond: any[] = [];
-  dailyDanielaListThird: any[] = [];
-  dailyDanielaListFourth: any[] = [];
-  dailyDanielaListFifth: any[] = [];
-  dailyDanielaListSixth: any[] = [];
-
-  dailyEstefanyListFirst: any[] = [];
-  dailyEstefanyListSecond: any[] = [];
-  dailyEstefanyListThird: any[] = [];
-  dailyEstefanyListFourth: any[] = [];
-  dailyEstefanyListFifth: any[] = [];
-  dailyEstefanyListSixth: any[] = [];
-
-  dailyLuisaListFirst: any[] = [];
-  dailyLuisaListSecond: any[] = [];
-  dailyLuisaListThird: any[] = [];
-  dailyLuisaListFourth: any[] = [];
-  dailyLuisaListFifth: any[] = [];
-  dailyLuisaListSixth: any[] = [];
-
   saveAndCloseTask(inplace: any, dailyData: any) {
-    // Aquí puedes realizar cualquier acción de guardado antes de cerrar
     this.campaignService.updateDaily(dailyData).subscribe(
       (response) => {
         console.log('Tasks updated successfully', response);
@@ -109,12 +103,10 @@ export class DailyChecklistComponent {
       }
     );
 
-    // Cierra el inplace
     inplace.deactivate();
   }
 
   deleteDaily(idDaily: any) {
-    console.log(idDaily);
     this.campaignService.deleteOpDaily(idDaily).subscribe(
       (response) => {
         console.log('Tasks updated successfully', response);
@@ -147,16 +139,10 @@ export class DailyChecklistComponent {
       }
     );
 
-    this.displayDialogDaniela = false;
-    this.displayDialogEstefany = false;
-    this.displayDialogLuisa = false;
+    this.displayDialogNewTask = false;
 
-    this.newItemHeaderEstefany = '';
-    this.newItemContentEstefany = '';
-    this.newItemHeaderDaniela = '';
-    this.newItemContentDaniela = '';
-    this.newItemHeaderLuisa = '';
-    this.newItemContentLuisa = '';
+    this.newItemHeader = '';
+    this.newItemContent = '';
 
     setTimeout(() => {
       this.getAllDailyTask();
@@ -167,141 +153,21 @@ export class DailyChecklistComponent {
 
   // Daily OPS
 
-  // Daniela
-
-  displayDialogDaniela: boolean = false;
-  newItemHeaderDaniela: string = '';
-  newItemContentDaniela: string = '';
+  displayDialogNewTask: boolean = false;
+  newItemHeader: string = '';
+  newItemContent: string = '';
   nameCampaign: string = '';
+  nameOp: string = '';
 
-  showDialogDaniela(name: string) {
-    this.nameCampaign = name;
-    this.displayDialogDaniela = true;
-  }
-
-  // Estefany
-
-  displayDialogEstefany: boolean = false;
-  newItemHeaderEstefany: string = '';
-  newItemContentEstefany: string = '';
-
-  showDialogEstefany() {
-    this.displayDialogEstefany = true;
-  }
-
-  // Luisa
-
-  displayDialogLuisa: boolean = false;
-  newItemHeaderLuisa: string = '';
-  newItemContentLuisa: string = '';
-
-  showDialogLuisa() {
-    this.displayDialogLuisa = true;
+  showDialogNewTask(nameCampaign: string, nameOp: string) {
+    this.nameCampaign = nameCampaign;
+    this.nameOp = nameOp;
+    this.displayDialogNewTask = true;
   }
 
   // Drop
 
-  // drop(
-  //   event: CdkDragDrop<
-  //     {
-  //       id: number;
-  //       task: string;
-  //       comment: string;
-  //       task_completed: boolean;
-  //       op: string;
-  //       titleTask: String;
-  //       dateTask: string;
-  //       nameCampaign: string;
-  //     }[]
-  //   >,
-  //   title: string,
-  //   nameCampaign: string
-  // ) {
-  //   // Verificar que los contenedores de arrastre tengan datos válidos
-  //   if (!event.previousContainer.data || !event.container.data) {
-  //     console.error('Los datos del contenedor son indefinidos');
-  //     return;
-  //   }
-
-  //   // Si el arrastre ocurre dentro de la misma lista
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex
-  //     );
-
-  //     const newItem = event.container.data[event.currentIndex];
-
-  //     if (newItem) {
-  //       this.campaignService
-  //         .updateDaily({
-  //           ...newItem,
-  //           order_task: event.currentIndex,
-  //           titleTask: title,
-  //         })
-  //         .subscribe(
-  //           (response) => console.log('Task updated successfully', response),
-  //           (error) => console.error('Error updating task', error)
-  //         );
-  //     } else {
-  //       console.error('El nuevo elemento de arrastre es indefinido.');
-  //     }
-  //   } else {
-  //     // Si el arrastre ocurre entre diferentes listas
-  //     transferArrayItem(
-  //       event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex
-  //     );
-
-  //     const newItem = event.container.data[event.currentIndex];
-  //     this.allDailyTask[event.currentIndex] =
-  //       event.container.data[event.currentIndex];
-  //     this.allDailyTask[event.previousIndex] =
-  //       event.container.data[event.previousIndex];
-
-  //     if (newItem) {
-  //       this.campaignService
-  //         .updateDaily({
-  //           ...newItem,
-  //           order_task: event.currentIndex,
-  //           titleTask: title, // Título de la lista de destino
-  //         })
-  //         .subscribe(
-  //           (response) => console.log('Task updated successfully', response),
-  //           (error) => console.error('Error updating task', error)
-  //         );
-
-  //       // Actualizar todas las posiciones de la nueva lista (opcional)
-  //       setTimeout(() => {
-  //         event.container.data.forEach((task, i) => {
-  //           this.campaignService
-  //             .updateDailyTitle({
-  //               id: task.id,
-  //               order_task: i,
-  //             })
-  //             .subscribe(
-  //               (response) =>
-  //                 console.log('Task updated successfully', response),
-  //               (error) => console.error('Error updating task', error)
-  //             );
-  //         });
-  //       }, 1000);
-  //     } else {
-  //       console.error('El nuevo elemento de arrastre es indefinido.');
-  //     }
-
-  //     setTimeout(() => {
-  //       this.getAllDailyTask();
-  //     }, 1000);
-  //   }
-  //   console.log(event);
-  // }
-
   drop(event: CdkDragDrop<any[]>, title: string) {
-    let found = false;
     let indexTask: number = 0;
     let indexPreviousTask: number = 0;
     if (event.previousContainer === event.container) {
@@ -320,14 +186,7 @@ export class DailyChecklistComponent {
           }
         }
       }
-
       this.allDailyTask.sort((a, b) => a.order_task - b.order_task);
-
-      console.log(event.container.data[event.currentIndex]);
-      console.log(event.container.data[event.previousIndex]);
-
-      console.log(event);
-      console.log(this.allDailyTask);
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -337,7 +196,13 @@ export class DailyChecklistComponent {
       );
       for (const item of this.allDailyTask) {
         if (item.id === event.container.data[event.currentIndex].id) {
-          this.allDailyTask[indexTask].titleTask = title;
+          if (this.allDailyTask[indexTask].nameCampaign != 'daily') {
+            console.log('Pene');
+            this.allDailyTask[indexTask].nameCampaign = title;
+          } else {
+            console.log(title);
+            this.allDailyTask[indexTask].titleTask = title;
+          }
           break; // Sale del bucle interno
         } else {
           indexTask++;
@@ -355,79 +220,13 @@ export class DailyChecklistComponent {
       }
 
       this.allDailyTask.sort((a, b) => a.order_task - b.order_task);
-
-      console.log(event);
-      // console.log(this.allDailyTask);
     }
-
+    console.log(event);
     this.updateAllDaily(this.allDailyTask);
   }
 
   showCampaign() {
     window.open('campaign', '_self');
-  }
-
-  nameCampaignDaniela: [] = [];
-  nameCampaignEstefany: [] = [];
-  nameCampaignLuisa: [] = [];
-
-  // Obtiene los nombres de las campaign de cada OP
-  // getNameCampaign() {
-  //   const name = 'Daniela Quintana';
-  //   this.campaignService.getNameCampaign(name).subscribe(
-  //     (response) => {
-  //       this.nameCampaignDaniela = response;
-  //     },
-  //     (error) => {
-  //       console.error('Error updating tasks', error);
-  //     }
-  //   );
-
-  //   this.campaignService.getNameCampaign('Estefany Bermudez').subscribe(
-  //     (response) => {
-  //       this.nameCampaignEstefany = response;
-  //     },
-  //     (error) => {
-  //       console.error('Error updating tasks', error);
-  //     }
-  //   );
-
-  //   this.campaignService.getNameCampaign('Luisa Clavijo').subscribe(
-  //     (response) => {
-  //       this.nameCampaignLuisa = response;
-  //     },
-  //     (error) => {
-  //       console.error('Error updating tasks', error);
-  //     }
-  //   );
-  // }
-
-  @ViewChildren(CdkDropList) dropLists: QueryList<CdkDropList> =
-    new QueryList<CdkDropList>();
-
-  getDropLists(index: number) {
-    // Devuelve una lista de identificadores conectados
-    return this.dropLists.toArray().filter((_, i) => i !== index);
-  }
-
-  getInplaceReference(index: number, type = 'task') {
-    return document.getElementById(`inplace-${index}`);
-  }
-
-  getConnectedLists(currentIndex: number) {
-    // Devuelve todas las listas de arrastre excepto la actual
-    return this.dropLists.toArray().filter((_, i) => i !== currentIndex);
-  }
-
-  trackById(index: number, item: any): number {
-    return item.id; // O cualquier otra propiedad única
-  }
-
-  getItemsByCampaign(titleTask: string, nameOp: string) {
-    return this.allDailyTask.filter(
-      (item) => item.op === nameOp && item.titleTask === titleTask
-    );
-    return this.allDailyTask;
   }
 
   allDailyTask: any[] = [];
@@ -442,17 +241,6 @@ export class DailyChecklistComponent {
       }
     );
   }
-
-  listTitleDaily: any[] = [
-    'Visibilidad a Cliente: 5 min',
-    'Hablar con perfiles para ejecución',
-    'Hablar con perfiles para ppt y/o cotización',
-    'Entrega de propuestas y/o cotizaciones',
-    'Reuniones del día',
-    'Otros',
-  ];
-
-  listOPS: any[] = ['Daniela Quintana', 'Estefany Bermudez', 'Luisa Clavijo'];
 
   allCampaigns: any[] = [];
   getAllCampaigns() {
@@ -479,6 +267,57 @@ export class DailyChecklistComponent {
       },
       (error) => {
         console.error('Error updating tasks', error);
+      }
+    );
+  }
+
+  getBrandByNameOp(nameOp: string): string[] {
+    return Array.from(
+      new Set(
+        this.allCampaigns
+          .filter((item) => item.name_op === nameOp)
+          .map((item) => item.brand)
+      )
+    );
+  }
+
+  getClientByNameOp(nameOp: string, brand: string): string[] {
+    return Array.from(
+      new Set(
+        this.allCampaigns
+          .filter((item) => item.name_op === nameOp && item.brand == brand)
+          .map((item) => item.client)
+      )
+    );
+  }
+
+  getCampaignByNameOp(nameOp: string, brand: string, client: string): any[] {
+    return this.allCampaigns.filter(
+      (item) =>
+        item.name_op === nameOp && item.brand == brand && item.client == client
+    );
+  }
+
+  getItemsByTitle(titleTask: string, nameOp: string) {
+    return this.allDailyTask.filter(
+      (item) =>
+        item.op === nameOp &&
+        item.titleTask === titleTask &&
+        item.nameCampaign === 'daily'
+    );
+  }
+
+  getItemsByCampaign(name: string) {
+    return this.allDailyTask.filter((item) => item.nameCampaign === name);
+  }
+
+  updateColorCampaign(data: any) {
+    this.campaignService.updateColorCampaign(data).subscribe(
+      (response) => {
+        console.log('Color updated successfully', response);
+      },
+      (error) => {
+        console.error('Color updating tasks', error);
       }
     );
   }

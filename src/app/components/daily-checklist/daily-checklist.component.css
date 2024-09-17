@@ -194,10 +194,9 @@
   padding: 10px;
 }
 
-.accordion-ops button {
+.button-add-task {
   margin-left: 10px;
-  width: 10%;
-  height: 95%;
+  height: 3rem;
 }
 
 .campaign-show {
@@ -488,4 +487,34 @@ textarea {
 
 .container-daily-left {
   width: 50%;
+}
+
+::ng-deep .boton-recarga .p-dropdown {
+  width: 240px;
+}
+
+/* ::ng-deep .accordion-ops .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  padding: 0;
+} */
+
+::ng-deep .drop-checklist .p-inputtext {
+  padding: 0.5rem 0rem 0.5rem 0.5rem;
+}
+
+::ng-deep .drop-checklist .p-dropdown-label div {
+  height: 2rem;
+}
+
+.container-header-daily-task {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.header-button-span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
