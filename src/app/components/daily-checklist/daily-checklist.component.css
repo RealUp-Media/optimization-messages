@@ -184,7 +184,15 @@
 
   justify-content: space-around;
 }
-
+/*
+.container-daily-right {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f8;
+  margin: 10px;
+  border-radius: 20px;
+  padding: 10px;
+} */
 .accordion-ops {
   display: flex;
   flex-direction: column;
@@ -238,8 +246,11 @@
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
-::ng-deep .accordion-ops .p-inplace .p-inplace-display {
+::ng-deep .accordion-ops .p-inplace .p-inplace-display,
+::ng-deep .container-daily-right .p-inplace .p-inplace-display {
   display: block;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
 }
 
 .task-daily {

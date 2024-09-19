@@ -30,6 +30,18 @@ import {
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
+interface DailyTask {
+  id: number;
+  op: string;
+  task: string;
+  comment: string;
+  task_completed: boolean;
+  order_task: number;
+  titleTask: string;
+  nameCampaign: string;
+  dateTask: string | Date; // Puede ser string o Date, dependiendo de la conversión
+}
+
 @Component({
   selector: 'app-daily-checklist',
   standalone: true,
@@ -69,8 +81,8 @@ export class DailyChecklistComponent {
 
   // Datos OPS y Sales
 
-  listOPS: any[] = ['Daniela Quintana', 'Estefany Bermudez', 'Luisa Clavijo'];
-  OpSelected: string = 'Daniela Quintana';
+  listOPS: any[] = ['Estefany Bermudez', 'Alejandra Correa', 'Luisa Clavijo'];
+  OpSelected: string = '';
 
   colors: string[] = ['#4CAF50', '#8BC34A', '#FFC107', '#F44336', '#D0D2D5'];
   colorSelected: string = '';
@@ -83,6 +95,8 @@ export class DailyChecklistComponent {
     'Reuniones del día',
     'Otros',
   ];
+
+  time: Date[] | undefined;
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -233,7 +247,15 @@ export class DailyChecklistComponent {
   getAllDailyTask() {
     this.campaignService.getAllDailyTask().subscribe(
       (response) => {
-        this.allDailyTask = response;
+        this.allDailyTask = response.map((task: DailyTask) => {
+          // Convertir dateTask a objeto Date si no lo es
+          if (task.dateTask && !(task.dateTask instanceof Date)) {
+            task.dateTask = new Date(task.dateTask);
+          }
+          return task;
+        });
+
+        // Ordenar las tareas por order_task
         this.allDailyTask.sort((a, b) => a.order_task - b.order_task);
       },
       (error) => {
@@ -320,5 +342,21 @@ export class DailyChecklistComponent {
         console.error('Color updating tasks', error);
       }
     );
+  }
+
+  updateTime(data: any) {
+    console.log(this.time);
+    this.campaignService.updateTimeTask(data).subscribe(
+      (response) => {
+        console.log('Color updated successfully', response);
+      },
+      (error) => {
+        console.error('Color updating tasks', error);
+      }
+    );
+  }
+
+  pruebaCambio() {
+    console.log(this.time);
   }
 }

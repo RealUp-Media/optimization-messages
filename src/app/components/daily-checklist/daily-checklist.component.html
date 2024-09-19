@@ -291,27 +291,54 @@
                   <div *ngFor="let item of getItemsByTitle(title, OpSelected)">
                     <div class="accordion-checkbox box-daily" cdkDrag>
                       <div class="inplace-daily">
-                        <p-inplace #inplaceTask>
-                          <ng-template pTemplate="display">
-                            <span class="task-daily">{{ item.task }}</span>
-                            <p>{{ item.order_task }}</p>
-                          </ng-template>
-                          <ng-template pTemplate="content">
-                            <div class="div-content-daily-input">
-                              <input
-                                type="text"
-                                [(ngModel)]="item.task"
-                                pInputText
-                                placeholder="Tarea"
-                              />
-                              <p-button
-                                icon="pi pi-bookmark"
-                                [rounded]="true"
-                                (click)="saveAndCloseTask(inplaceTask, item)"
-                              />
-                            </div>
-                          </ng-template>
-                        </p-inplace>
+                        <div class="daily-date-sales">
+                          <p-inplace #inplaceTask>
+                            <ng-template pTemplate="display">
+                              <span class="task-daily">{{ item.task }}</span>
+                            </ng-template>
+                            <ng-template pTemplate="content">
+                              <div class="div-content-daily-input">
+                                <input
+                                  type="text"
+                                  [(ngModel)]="item.task"
+                                  pInputText
+                                  placeholder="Tarea"
+                                />
+                                <p-button
+                                  icon="pi pi-bookmark"
+                                  [rounded]="true"
+                                  (click)="saveAndCloseTask(inplaceTask, item)"
+                                />
+                              </div>
+                            </ng-template>
+                          </p-inplace>
+                          <p-inplace #inplaceDateTask class="date-inplace">
+                            <ng-template pTemplate="display">
+                              <span class="task-daily">{{
+                                item.dateTask | date : "h:mm a"
+                              }}</span>
+                            </ng-template>
+                            <ng-template pTemplate="content">
+                              <div class="div-content-daily-input">
+                                <p-calendar
+                                  [(ngModel)]="item.dateTask"
+                                  [showTime]="true"
+                                  [timeOnly]="true"
+                                  placeholder="Hora de entrega"
+                                  (ngModelChange)="pruebaCambio()"
+                                />
+                                <p-button
+                                  class="button-daily-sales"
+                                  icon="pi pi-bookmark"
+                                  [rounded]="true"
+                                  (click)="
+                                    saveAndCloseTask(inplaceDateTask, item)
+                                  "
+                                />
+                              </div>
+                            </ng-template>
+                          </p-inplace>
+                        </div>
 
                         <p-inplace #inplaceComment>
                           <ng-template pTemplate="display">

@@ -145,4 +145,11 @@ export class CampaignService {
       data
     );
   }
+
+  updateTimeTask(data: any): Observable<any> {
+    return this.http.put<any>(
+      BASE_URL + 'manual-ops/daily/update-time-task',
+      data
+    );
+  }
 }
