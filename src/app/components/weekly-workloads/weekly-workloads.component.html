@@ -1,0 +1,143 @@
+<div class="container">
+  <div class="nav">
+    <div class="selector-op">
+      <button (click)="showDailySales()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Daily Sales</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showDailyOps()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Daily OPS</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showCampaign()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Campañas</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showWeeklyWorkload()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Cargas Semanales</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showChatbot()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>ChatBot</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showCotizador()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Cotizador</p>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <h1>Cargas semanales</h1>
+      <div class="graficas-weekly">
+        <div class="grafica">
+          <h3>Campañas en Preparación</h3>
+          <canvas baseChart [data]="barChartDataWeekly" [type]="barChartType">
+          </canvas>
+        </div>
+        <div class="grafica">
+          <h3>Contenidos Con PR vs Sin PR</h3>
+          <canvas
+            baseChart
+            [data]="barChartDataSecondWeekly"
+            [type]="barChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+      <div class="datos-cargas">
+        <div class="input-datos">
+          <h2>Daniela Quintana</h2>
+
+          <p-floatLabel>
+            <p-inputNumber
+              inputId="integeronly"
+              [(ngModel)]="weeklyWorkload.contents_no_pr_daniela"
+              (ngModelChange)="updateWeeklyLoad()"
+            />
+            <label for="number-input">Contenidos sin PR</label>
+          </p-floatLabel>
+          <p-floatLabel>
+            <p-inputNumber
+              inputId="integeronly"
+              [(ngModel)]="weeklyWorkload.contents_pr_daniela"
+              (ngModelChange)="updateWeeklyLoad()"
+            />
+            <label for="number-input">Contenidos con PR</label> </p-floatLabel
+          ><p-floatLabel>
+            <p-inputNumber
+              inputId="integeronly"
+              [(ngModel)]="weeklyWorkload.campaign_preparation_daniela"
+              (ngModelChange)="updateWeeklyLoad()"
+            />
+            <label for="number-input">Campañas en preparacion</label>
+          </p-floatLabel>
+        </div>
+        <div class="input-datos">
+          <h2>Estefany Bermudez</h2>
+          <p-floatLabel>
+            <p-inputNumber
+              inputId="integeronly"
+              [(ngModel)]="weeklyWorkload.contents_no_pr_estefany"
+              (ngModelChange)="updateWeeklyLoad()"
+            />
+            <label for="number-input">Contenidos sin PR</label>
+          </p-floatLabel>
+          <p-floatLabel>
+            <p-inputNumber
+              inputId="integeronly"
+              [(ngModel)]="weeklyWorkload.contents_pr_estefany"
+              (ngModelChange)="updateWeeklyLoad()"
+            />
+            <label for="number-input">Contenidos con PR</label> </p-floatLabel
+          ><p-floatLabel>
+            <p-inputNumber
+              inputId="integeronly"
+              [(ngModel)]="weeklyWorkload.campaign_preparation_estefany"
+              (ngModelChange)="updateWeeklyLoad()"
+            />
+            <label for="number-input">Campañas en preparacion</label>
+          </p-floatLabel>
+        </div>
+        <div class="input-datos">
+          <h2>Luisa Clavijo</h2>
+          <p-floatLabel>
+            <p-inputNumber
+              inputId="integeronly"
+              [(ngModel)]="weeklyWorkload.contents_no_pr_luisa"
+              (ngModelChange)="updateWeeklyLoad()"
+            />
+            <label for="number-input">Contenidos sin PR</label>
+          </p-floatLabel>
+          <p-floatLabel>
+            <p-inputNumber
+              inputId="integeronly"
+              [(ngModel)]="weeklyWorkload.contents_pr_luisa"
+              (ngModelChange)="updateWeeklyLoad()"
+            />
+            <label for="number-input">Contenidos con PR</label> </p-floatLabel
+          ><p-floatLabel>
+            <p-inputNumber
+              inputId="integeronly"
+              [(ngModel)]="weeklyWorkload.campaign_preparation_luisa"
+              (ngModelChange)="updateWeeklyLoad()"
+            />
+            <label for="number-input">Campañas en preparacion</label>
+          </p-floatLabel>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

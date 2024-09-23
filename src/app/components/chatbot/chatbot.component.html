@@ -1,0 +1,224 @@
+<div class="container">
+  <div class="nav">
+    <div class="selector-op">
+      <button (click)="showDailySales()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Daily Sales</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showDailyOps()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Daily OPS</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showCampaign()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Campañas</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showWeeklyWorkload()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Cargas Semanales</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showChatbot()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>ChatBot</p>
+    </div>
+    <div class="selector-op">
+      <button (click)="showCotizador()">
+        <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
+      </button>
+      <p>Cotizador</p>
+    </div>
+  </div>
+  <div class="content-daily-ops">
+    <div class="card">
+      <div class="boton-recarga">
+        <h1>Chatbot</h1>
+        <p-button
+          icon="pi pi-refresh"
+          class="button-recharge"
+          (onClick)="getAllDailyTask()"
+          (onClick)="getAllCampaigns()"
+        />
+
+        <!-- <p-floatLabel>
+          <p-dropdown
+            [showClear]="true"
+            [options]="listSales"
+            [(ngModel)]="SaleSelected"
+            inputId="float-label"
+          />
+          <label for="float-label">Selecciona OPS</label>
+        </p-floatLabel> -->
+      </div>
+      <div class="central-div">
+        <!-- ------------------------------------- Daily Task ------------------------------------- -->
+        <div class="container-daily-ops">
+          <div class="accordion-ops">
+            <h2>ChatBot Solicitados</h2>
+            <div cdkDropListGroup>
+              <div
+                class="daily-drop"
+                cdkDropList
+                [cdkDropListData]="getItemsByTitle()"
+                (cdkDropListDropped)="drop($event)"
+              >
+                <div *ngFor="let item of getItemsByTitle()">
+                  <div class="accordion-checkbox box-daily" cdkDrag>
+                    <div class="inplace-daily">
+                      <div class="daily-date-sales">
+                        <p-inplace #inplaceTask>
+                          <ng-template pTemplate="display">
+                            <span class="task-daily">{{ item.task }}</span>
+                          </ng-template>
+                          <ng-template pTemplate="content">
+                            <div class="div-content-daily-input">
+                              <input
+                                type="text"
+                                [(ngModel)]="item.task"
+                                pInputText
+                                placeholder="Tarea"
+                              />
+                              <p-button
+                                icon="pi pi-bookmark"
+                                [rounded]="true"
+                                (click)="saveAndCloseTask(inplaceTask, item)"
+                              />
+                            </div>
+                          </ng-template>
+                        </p-inplace>
+                        <p-inplace #inplaceDateTask class="date-inplace">
+                          <ng-template pTemplate="display">
+                            <span class="task-daily">{{
+                              item.dateTask | date : "h:mm a"
+                            }}</span>
+                          </ng-template>
+                          <ng-template pTemplate="content">
+                            <div class="div-content-daily-input">
+                              <p-calendar
+                                [(ngModel)]="item.dateTask"
+                                [showTime]="true"
+                                [timeOnly]="true"
+                                placeholder="Hora de entrega"
+                              />
+                              <p-button
+                                class="button-daily-sales"
+                                icon="pi pi-bookmark"
+                                [rounded]="true"
+                                (click)="
+                                  saveAndCloseTask(inplaceDateTask, item)
+                                "
+                              />
+                            </div>
+                          </ng-template>
+                        </p-inplace>
+                      </div>
+
+                      <p-inplace #inplaceComment>
+                        <ng-template pTemplate="display">
+                          <span class="comment-daily">{{ item.comment }}</span>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                          <div class="div-content-daily-input">
+                            <textarea
+                              type="text"
+                              [(ngModel)]="item.comment"
+                              pInputTextarea
+                              rows="4"
+                              [autoResize]="true"
+                            ></textarea>
+                            <p-button
+                              icon="pi pi-bookmark"
+                              [rounded]="true"
+                              (click)="saveAndCloseTask(inplaceComment, item)"
+                            />
+                          </div>
+                        </ng-template>
+                      </p-inplace>
+                    </div>
+                    <div class="checkbox-delete">
+                      <p-checkbox
+                        [(ngModel)]="item.task_completed"
+                        [binary]="true"
+                        inputId="binary"
+                        (ngModelChange)="saveAndCloseTask(inplaceComment, item)"
+                      />
+                      <p-button
+                        icon="pi pi-times"
+                        [rounded]="true"
+                        severity="danger"
+                        (onClick)="deleteDaily(item)"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button
+                pButton
+                class="button-add-task"
+                type="button"
+                label="Añadir Solicitud Chatbot"
+                icon="pi pi-plus"
+                (click)="showDialogNewTask()"
+                (click)="titleOPS = ''"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-add-task">
+    <p-dialog
+      header="Añadir nueva tarea"
+      [(visible)]="displayDialogNewTask"
+      [modal]="true"
+      [closable]="true"
+    >
+      <div class="p-field">
+        <input
+          id="newItemHeader"
+          type="text"
+          pInputText
+          [(ngModel)]="newItemHeader"
+          placeholder="Tarea"
+        />
+      </div>
+      <div class="p-field">
+        <textarea
+          rows="5"
+          cols="30"
+          id="newItemContent"
+          pInputTextarea
+          [autoResize]="true"
+          [(ngModel)]="newItemContent"
+          placeholder="Comentario"
+        ></textarea>
+      </div>
+      <p-footer>
+        <button
+          pButton
+          type="button"
+          label="Cancelar"
+          icon="pi pi-times"
+          (click)="displayDialogNewTask = false"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Añadir"
+          icon="pi pi-check"
+          (click)="addDailyTask(newItemHeader, newItemContent)"
+        ></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>

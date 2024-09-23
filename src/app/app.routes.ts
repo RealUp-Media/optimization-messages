@@ -12,6 +12,9 @@ import { UgcComponent } from './components/ugc/ugc.component';
 import { BrandAmbassadorComponent } from './components/brand-ambassador/brand-ambassador.component';
 import { HomeComponent } from './components/home/home.component';
 import { DailyChecklistComponent } from './components/daily-checklist/daily-checklist.component';
+import { DailySalesComponent } from './components/daily-sales/daily-sales.component';
+import { WeeklyWorkloadsComponent } from './components/weekly-workloads/weekly-workloads.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 
 export const routes: Routes = [
   { path: 'messages-template', component: MessagesTemplateComponent },
@@ -25,4 +28,7 @@ export const routes: Routes = [
   { path: 'brand-ambassador', component: BrandAmbassadorComponent },
   { path: 'home', component: HomeComponent },
   { path: 'daily-checklist', component: DailyChecklistComponent },
+  { path: 'daily-sales', component: DailySalesComponent },
+  { path: 'weekly-workloads', component: WeeklyWorkloadsComponent },
+  { path: 'chatbot', component: ChatbotComponent },
 ];

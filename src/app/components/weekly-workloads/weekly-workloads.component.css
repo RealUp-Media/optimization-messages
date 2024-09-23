@@ -1,0 +1,94 @@
+/* -------------------------------------- Nav -------------------------------------- */
+
+.nav {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+::ng-deep .nav .p-button-label {
+  font-size: 20px;
+}
+
+.selector-op {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 1rem;
+}
+
+.selector-op p {
+  margin: 0;
+}
+
+.selector-op button {
+  width: 56px;
+  height: 32px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  border: none;
+  background-color: transparent;
+}
+
+.selector-op button:hover {
+  background-color: #e8def8;
+  cursor: pointer;
+}
+
+/* -------------------------------------- Nav -------------------------------------- */
+
+.container {
+  padding: 1rem;
+  padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: #fef7ff;
+}
+
+.content {
+  width: 95%;
+}
+
+.columna .card {
+  padding: 1rem;
+  width: 100%;
+}
+
+.graficas-weekly {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.grafica,
+.charts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grafica {
+  width: 30%;
+}
+
+.datos-cargas {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input-datos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+::ng-deep p-floatLabel {
+  padding: 1rem;
+}

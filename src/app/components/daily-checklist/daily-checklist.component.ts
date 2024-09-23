@@ -81,7 +81,21 @@ export class DailyChecklistComponent {
 
   // Datos OPS y Sales
 
-  listOPS: any[] = ['Estefany Bermudez', 'Alejandra Correa', 'Luisa Clavijo'];
+  statusCampaign: any[] = [
+    { status: 'PREPARATION', source: 'assets/icons/letter-p.svg' },
+    { status: 'EXECUTION', source: 'assets/icons/letter-e.svg' },
+    { status: 'CLOSED', source: 'assets/icons/letter-c.svg' },
+    { status: 'ARCHIVED', source: 'assets/icons/letter-a.svg' },
+    { status: 'APPROVAL', source: 'assets/icons/letter-i.svg' },
+    { status: 'DELETED', source: 'assets/icons/letter-d.svg' },
+  ];
+
+  listOPS: any[] = [
+    'Estefany Bermudez',
+    'Alejandra Correa',
+    'Luisa Clavijo',
+    'Daniela Quintana',
+  ];
   OpSelected: string = '';
 
   colors: string[] = ['#4CAF50', '#8BC34A', '#FFC107', '#F44336', '#D0D2D5'];
@@ -239,8 +253,28 @@ export class DailyChecklistComponent {
     this.updateAllDaily(this.allDailyTask);
   }
 
+  showDailySales() {
+    window.open('daily-sales', '_self');
+  }
+
+  showDailyOps() {
+    window.open('daily-checklist', '_self');
+  }
+
   showCampaign() {
     window.open('campaign', '_self');
+  }
+
+  showWeeklyWorkload() {
+    window.open('weekly-workloads', '_self');
+  }
+
+  showChatbot() {
+    window.open('chatbot', '_self');
+  }
+
+  showCotizador() {
+    window.open('home', '_self');
   }
 
   allDailyTask: any[] = [];
@@ -354,9 +388,5 @@ export class DailyChecklistComponent {
         console.error('Color updating tasks', error);
       }
     );
-  }
-
-  pruebaCambio() {
-    console.log(this.time);
   }
 }

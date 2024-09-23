@@ -48,6 +48,7 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
+import { response } from 'express';
 
 interface TypeCampaign {
   name: string;
@@ -102,6 +103,30 @@ interface Pais {
   providers: [TreeDragDropService],
 })
 export class CampaignComponent {
+  showDailySales() {
+    window.open('daily-sales', '_self');
+  }
+
+  showDailyOps() {
+    window.open('daily-checklist', '_self');
+  }
+
+  showCampaign() {
+    window.open('campaign', '_self');
+  }
+
+  showWeeklyWorkload() {
+    window.open('weekly-workloads', '_self');
+  }
+
+  showChatbot() {
+    window.open('chatbot', '_self');
+  }
+
+  showCotizador() {
+    window.open('home', '_self');
+  }
+
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   constructor(
     private fb: FormBuilder,
@@ -150,13 +175,13 @@ export class CampaignComponent {
   operations = [
     { name: 'Estefany Bermudez' },
     { name: 'Luisa Clavijo' },
-    { name: 'Daniela Quintana' },
+    { name: 'Alejandra Correa' },
   ];
 
   operationsFilter = [
     { name: 'Estefany Bermudez', value: 'Estefany Bermudez' },
     { name: 'Luisa Clavijo', value: 'Luisa Clavijo' },
-    { name: 'Daniela Quintana', value: 'Daniela Quintana' },
+    { name: 'Alejandra Correa', value: 'Alejandra Correa' },
     { name: 'Todas', value: '' },
   ];
   selectedOperation: NameOperation | undefined;
@@ -168,13 +193,7 @@ export class CampaignComponent {
   ngOnInit() {
     setTimeout(() => {
       this.loadCampaigns();
-      this.loadDaily();
-      this.loadDailyTtile();
     }, 500);
-
-    // GRAFICOS
-
-    // GRAFICOS
 
     this.campaignForm = this.fb.group({
       name: [''],
@@ -184,6 +203,9 @@ export class CampaignComponent {
       number_contents: [0],
       number_creators: [0],
       name_op: [''],
+      client: [''],
+      brand: [''],
+
       budget: [0],
       campaign_type: [''],
       country: [''],
@@ -239,52 +261,14 @@ export class CampaignComponent {
 
   // Daily OPS
 
-  verificarDaily: boolean = true;
-  verificarDailySales: boolean = false;
-  verificarCampaign: boolean = false;
-  verificaCargas: boolean = false;
-  verificarChatbot: boolean = false;
   verificarCampaignArchive: boolean = false;
+  verificarCampaign: boolean = true;
 
   weeklyWorkload: any = {};
 
-  dailySales() {
-    this.verificarCampaign = false;
-    this.verificarDaily = false;
-    this.verificaCargas = false;
-    this.verificarDailySales = true;
-    this.verificarChatbot = false;
-    this.verificarCampaignArchive = false;
-  }
-  dailyOPS() {
-    window.open('daily-checklist', '_self');
-  }
-
-  showCampaign() {
-    this.verificarCampaign = true;
-    this.verificarDaily = false;
-    this.verificaCargas = false;
-    this.verificarDailySales = false;
-    this.verificarChatbot = false;
-    this.verificarCampaignArchive = false;
-  }
-
-  showChatbot() {
-    this.verificarCampaign = false;
-    this.verificarDaily = false;
-    this.verificaCargas = false;
-    this.verificarDailySales = false;
-    this.verificarChatbot = true;
-    this.verificarCampaignArchive = false;
-  }
-
   openCampaignArchived() {
-    this.verificarCampaign = false;
-    this.verificarDaily = false;
-    this.verificaCargas = false;
-    this.verificarDailySales = false;
-    this.verificarChatbot = false;
     this.verificarCampaignArchive = true;
+    this.verificarCampaign = false;
   }
 
   barChartDataWeekly?: ChartData<'bar'>;
@@ -292,12 +276,6 @@ export class CampaignComponent {
   barChartDataProfileWeekly?: ChartData<'bar'>;
 
   showCargas() {
-    this.verificarCampaign = false;
-    this.verificarDaily = false;
-    this.verificaCargas = true;
-    this.verificarDailySales = false;
-    this.verificarChatbot = false;
-
     this.campaignService.getWeeklyWorkload().subscribe(
       (response) => {
         this.weeklyWorkload = response;
@@ -313,82 +291,6 @@ export class CampaignComponent {
     }, 200);
 
     console.log(this.weeklyWorkload);
-  }
-  dan_checked_one: boolean = false;
-  dan_checked_two: boolean = false;
-  dan_checked_three: boolean = false;
-  dan_checked_four: boolean = false;
-  dan_checked_five: boolean = false;
-  dan_checked_six: boolean = false;
-  dan_checked_seven: boolean = false;
-  dan_checked_eight: boolean = false;
-
-  est_checked_one: boolean = false;
-  est_checked_two: boolean = false;
-  est_checked_three: boolean = false;
-  est_checked_four: boolean = false;
-  est_checked_five: boolean = false;
-  est_checked_six: boolean = false;
-  est_checked_seven: boolean = false;
-  est_checked_eight: boolean = false;
-
-  lui_checked_one: boolean = false;
-  lui_checked_two: boolean = false;
-  lui_checked_three: boolean = false;
-  lui_checked_four: boolean = false;
-  lui_checked_five: boolean = false;
-  lui_checked_six: boolean = false;
-  lui_checked_seven: boolean = false;
-  lui_checked_eight: boolean = false;
-
-  // Daily OPS
-
-  // Daniela
-
-  displayDialogDaniela: boolean = false;
-  newItemHeaderDaniela: string = '';
-  newItemContentDaniela: string = '';
-
-  showDialogDaniela() {
-    this.displayDialogDaniela = true;
-  }
-
-  // Estefany
-
-  displayDialogEstefany: boolean = false;
-  newItemHeaderEstefany: string = '';
-  newItemContentEstefany: string = '';
-
-  showDialogEstefany() {
-    this.displayDialogEstefany = true;
-  }
-
-  // Luisa
-
-  displayDialogLuisa: boolean = false;
-  newItemHeaderLuisa: string = '';
-  newItemContentLuisa: string = '';
-
-  showDialogLuisa() {
-    this.displayDialogLuisa = true;
-  }
-
-  // Carolina
-
-  displayDialogCarolina: boolean = false;
-  newItemHeaderCarolina: string = '';
-  newItemContentCarolina: string = '';
-
-  showDialogCarolina() {
-    this.displayDialogCarolina = true;
-  }
-
-  displayDialogChatbot: boolean = false;
-  newItemHeaderChatbot: string = '';
-  newItemContentChatbot: string = '';
-
-  showDialogChatbot() {
-    this.displayDialogChatbot = true;
   }
 
   // Add Campaign
@@ -426,6 +328,15 @@ export class CampaignComponent {
   campaignsPreparation: any[] = [];
   campaignsExecution: any[] = [];
   campaignsClosed: any[] = [];
+
+  allClients: any[] = [];
+  allBrands: any[] = [
+    'Estefany Bermudez',
+    'Alejandra Correa',
+    'Luisa Clavijo',
+    'Daniela Quintana',
+  ];
+  BrandSelected: string = '';
 
   loadCampaigns(): void {
     this.campaignService.getCampaignPreparation().subscribe(
@@ -477,6 +388,34 @@ export class CampaignComponent {
         console.error('Error updating tasks', error);
       }
     );
+
+    this.campaignService.getAllCampaigns().subscribe(
+      (response) => {
+        // Extraer solo el atributo 'client' de cada campaña y eliminar duplicados
+        this.allClients = [
+          ...new Set(response.map((campaign: any) => campaign.client)),
+        ];
+        this.allBrands = [
+          ...new Set(response.map((campaign: any) => campaign.brand)),
+        ];
+        console.log('Todos las marcas: ' + this.allBrands);
+        console.log('Todos los clientes: ' + this.allClients);
+      },
+      (error) => {
+        console.error('Error updating tasks', error);
+      }
+    );
+    // this.campaignService.getAllCampaigns().subscribe(
+    //   (response) => {
+    //     // Extraer solo el atributo 'client' de cada campaña, eliminar duplicados y asignarlo al array allBrands
+    //     this.allBrands = [
+    //       ...new Set(response.map((campaign: any) => campaign.client)),
+    //     ];
+    //   },
+    //   (error) => {
+    //     console.error('Error updating tasks', error);
+    //   }
+    // );
 
     setTimeout(() => {
       this.chargeData();
@@ -560,7 +499,7 @@ export class CampaignComponent {
         this.campaignBudgetLuisa += campaign.budget;
       }
 
-      if (campaign.name_op == 'Daniela Quintana') {
+      if (campaign.name_op == 'Alejandra Correa') {
         this.campaignActiveDaniela += 1;
         if (campaign.pr === true) {
           this.campaignPRDaniela += campaign.number_contents;
@@ -595,7 +534,7 @@ export class CampaignComponent {
         this.campaignBudgetLuisa += campaign.budget;
       }
 
-      if (campaign.name_op == 'Daniela Quintana') {
+      if (campaign.name_op == 'Alejandra Correa') {
         this.campaignExecutionDaniela += 1;
         if (campaign.pr === true) {
           this.campaignPRDaniela += campaign.number_contents;
@@ -673,7 +612,7 @@ export class CampaignComponent {
     );
 
     this.barChartData = {
-      labels: ['Daniela', 'Estefany', 'Luisa'],
+      labels: ['Alejandra', 'Estefany', 'Luisa'],
       datasets: [
         {
           data: [
@@ -695,7 +634,7 @@ export class CampaignComponent {
     };
 
     this.pieChartData = {
-      labels: [['Daniela'], ['Estefany'], 'Luisa'],
+      labels: [['Alejandra'], ['Estefany'], 'Luisa'],
       datasets: [
         {
           data: [
@@ -708,7 +647,7 @@ export class CampaignComponent {
     };
 
     this.barChartDataSecond = {
-      labels: ['Daniela', 'Estefany', 'Luisa'],
+      labels: ['Alejandra', 'Estefany', 'Luisa'],
       datasets: [
         {
           data: [
@@ -732,458 +671,7 @@ export class CampaignComponent {
 
   // Daily OPS
 
-  dailyDaniela: string = 'Hola que hace';
-
-  dailyDanielaList: any[] = [];
-  dailyEstefanyList: any[] = [];
-  dailyLuisaList: any[] = [];
-  dailyCarolinaList: any[] = [];
   chatbotList: any[] = [];
-
-  loadDaily() {
-    const nameDaniela = {
-      op: 'Daniela Quintana',
-    };
-    const nameEstefany = {
-      op: 'Estefany Bermudez',
-    };
-    const nameLuisa = {
-      op: 'Luisa Clavijo',
-    };
-
-    const nameCarolina = {
-      op: 'Carolina Correa',
-    };
-
-    const nameChatbot = {
-      op: 'Chatbot',
-    };
-    this.campaignService.getOpDaily(nameDaniela).subscribe(
-      (response) => {
-        this.dailyDanielaList = response;
-        console.log('Tasks updated successfully', response);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDaily(nameEstefany).subscribe(
-      (response) => {
-        this.dailyEstefanyList = response;
-        this.dailyEstefanyList.sort((a, b) => a.order_task - b.order_task);
-
-        console.log('Tasks updated successfully', response);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDaily(nameLuisa).subscribe(
-      (response) => {
-        this.dailyLuisaList = response;
-
-        console.log('Tasks updated successfully', response);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDaily(nameCarolina).subscribe(
-      (response) => {
-        this.dailyCarolinaList = response;
-        this.dailyCarolinaList.sort((a, b) => a.order_task - b.order_task);
-
-        console.log('Tasks updated successfully', response);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDaily(nameChatbot).subscribe(
-      (response) => {
-        this.chatbotList = response;
-        this.chatbotList.sort((a, b) => a.order_task - b.order_task);
-
-        console.log('Tasks updated successfully', response);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-  }
-
-  dailyDanielaListFirst: any[] = [];
-  dailyDanielaListSecond: any[] = [];
-  dailyDanielaListThird: any[] = [];
-  dailyDanielaListFourth: any[] = [];
-  dailyDanielaListFifth: any[] = [];
-  dailyDanielaListSixth: any[] = [];
-
-  dailyEstefanyListFirst: any[] = [];
-  dailyEstefanyListSecond: any[] = [];
-  dailyEstefanyListThird: any[] = [];
-  dailyEstefanyListFourth: any[] = [];
-  dailyEstefanyListFifth: any[] = [];
-  dailyEstefanyListSixth: any[] = [];
-
-  dailyLuisaListFirst: any[] = [];
-  dailyLuisaListSecond: any[] = [];
-  dailyLuisaListThird: any[] = [];
-  dailyLuisaListFourth: any[] = [];
-  dailyLuisaListFifth: any[] = [];
-  dailyLuisaListSixth: any[] = [];
-
-  loadDailyTtile() {
-    const nameDanielaFirst = {
-      op: 'Daniela Quintana',
-      titleTask: 'Visibilidad a Cliente: 5 min',
-    };
-
-    const nameDanielaSecond = {
-      op: 'Daniela Quintana',
-      titleTask: 'Hablar con perfiles para ejecución',
-    };
-
-    const nameDanielaThird = {
-      op: 'Daniela Quintana',
-      titleTask: 'Hablar con perfiles para ppt y/o cotización',
-    };
-
-    const nameDanielaFourth = {
-      op: 'Daniela Quintana',
-      titleTask: 'Entrega de propuestas y/o cotizaciones',
-    };
-
-    const nameDanielaFifth = {
-      op: 'Daniela Quintana',
-      titleTask: 'Reuniones del día',
-    };
-
-    const nameDanielaSixth = {
-      op: 'Daniela Quintana',
-      titleTask: '',
-    };
-
-    const nameEstefanyFirst = {
-      op: 'Estefany Bermudez',
-      titleTask: 'Visibilidad a Cliente: 5 min',
-    };
-
-    const nameEstefanySecond = {
-      op: 'Estefany Bermudez',
-      titleTask: 'Hablar con perfiles para ejecución',
-    };
-
-    const nameEstefanyThird = {
-      op: 'Estefany Bermudez',
-      titleTask: 'Hablar con perfiles para ppt y/o cotización',
-    };
-
-    const nameEstefanyFourth = {
-      op: 'Estefany Bermudez',
-      titleTask: 'Entrega de propuestas y/o cotizaciones',
-    };
-
-    const nameEstefanyFifth = {
-      op: 'Estefany Bermudez',
-      titleTask: 'Reuniones del día',
-    };
-
-    const nameEstefanySixth = {
-      op: 'Estefany Bermudez',
-      titleTask: '',
-    };
-
-    const nameLuisaFirst = {
-      op: 'Luisa Clavijo',
-      titleTask: 'Visibilidad a Cliente: 5 min',
-    };
-
-    const nameLuisaSecond = {
-      op: 'Luisa Clavijo',
-      titleTask: 'Hablar con perfiles para ejecución',
-    };
-
-    const nameLuisaThird = {
-      op: 'Luisa Clavijo',
-
-      titleTask: 'Hablar con perfiles para ppt y/o cotización',
-    };
-
-    const nameLuisaFourth = {
-      op: 'Luisa Clavijo',
-      titleTask: 'Entrega de propuestas y/o cotizaciones',
-    };
-
-    const nameLuisaFifth = {
-      op: 'Luisa Clavijo',
-      titleTask: 'Reuniones del día',
-    };
-
-    const nameLuisaSixth = {
-      op: 'Luisa Clavijo',
-      titleTask: '',
-    };
-
-    this.campaignService.getOpDailyTitle(nameDanielaFirst).subscribe(
-      (response) => {
-        this.dailyDanielaListFirst = response;
-        this.dailyDanielaListFirst.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameDanielaSecond).subscribe(
-      (response) => {
-        this.dailyDanielaListSecond = response;
-        this.dailyDanielaListSecond.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameDanielaThird).subscribe(
-      (response) => {
-        this.dailyDanielaListThird = response;
-        this.dailyDanielaListThird.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameDanielaFourth).subscribe(
-      (response) => {
-        this.dailyDanielaListFourth = response;
-        this.dailyDanielaListFourth.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameDanielaFifth).subscribe(
-      (response) => {
-        this.dailyDanielaListFifth = response;
-        this.dailyDanielaListFifth.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameDanielaSixth).subscribe(
-      (response) => {
-        this.dailyDanielaListSixth = response;
-        this.dailyDanielaListSixth.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    // Estefany
-
-    this.campaignService.getOpDailyTitle(nameEstefanyFirst).subscribe(
-      (response) => {
-        this.dailyEstefanyListFirst = response;
-        this.dailyEstefanyListFirst.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameEstefanySecond).subscribe(
-      (response) => {
-        this.dailyEstefanyListSecond = response;
-        this.dailyEstefanyListSecond.sort(
-          (a, b) => a.order_task - b.order_task
-        );
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameEstefanyThird).subscribe(
-      (response) => {
-        this.dailyEstefanyListThird = response;
-        this.dailyEstefanyListThird.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameEstefanyFourth).subscribe(
-      (response) => {
-        this.dailyEstefanyListFourth = response;
-        this.dailyEstefanyListFourth.sort(
-          (a, b) => a.order_task - b.order_task
-        );
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameEstefanyFifth).subscribe(
-      (response) => {
-        this.dailyEstefanyListFifth = response;
-        this.dailyEstefanyListFifth.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameEstefanySixth).subscribe(
-      (response) => {
-        this.dailyEstefanyListSixth = response;
-        this.dailyEstefanyListSixth.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-    // Luisa
-
-    this.campaignService.getOpDailyTitle(nameLuisaFirst).subscribe(
-      (response) => {
-        this.dailyLuisaListFirst = response;
-        this.dailyLuisaListFirst.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameLuisaSecond).subscribe(
-      (response) => {
-        this.dailyLuisaListSecond = response;
-        this.dailyLuisaListSecond.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameLuisaThird).subscribe(
-      (response) => {
-        this.dailyLuisaListThird = response;
-        this.dailyLuisaListThird.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameLuisaFourth).subscribe(
-      (response) => {
-        this.dailyLuisaListFourth = response;
-        this.dailyLuisaListFourth.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameLuisaFifth).subscribe(
-      (response) => {
-        this.dailyLuisaListFifth = response;
-        this.dailyLuisaListFifth.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.campaignService.getOpDailyTitle(nameLuisaSixth).subscribe(
-      (response) => {
-        this.dailyLuisaListSixth = response;
-        this.dailyLuisaListSixth.sort((a, b) => a.order_task - b.order_task);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-  }
-
-  saveAndCloseTask(inplace: any, dailyData: any) {
-    // Aquí puedes realizar cualquier acción de guardado antes de cerrar
-    this.campaignService.updateDaily(dailyData).subscribe(
-      (response) => {
-        console.log('Tasks updated successfully', response);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    // Cierra el inplace
-    inplace.deactivate();
-  }
-
-  deleteDaily(idDaily: any) {
-    console.log(idDaily);
-    this.campaignService.deleteOpDaily(idDaily).subscribe(
-      (response) => {
-        console.log('Tasks updated successfully', response);
-      },
-      (error) => {
-        console.error('Error deleting tasks', error);
-      }
-    );
-
-    setTimeout(() => {
-      this.loadDaily();
-      this.loadDailyTtile();
-    }, 200);
-  }
-
-  addDailyTask(op: string, task: string, comment: string) {
-    const dailyData = {
-      op: op,
-      task: task,
-      comment: comment,
-      titleTask: this.titleOPS,
-    };
-
-    this.campaignService.addDaily(dailyData).subscribe(
-      (response) => {
-        console.log('Tasks updated successfully', response);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-
-    this.displayDialogDaniela = false;
-    this.displayDialogEstefany = false;
-    this.displayDialogLuisa = false;
-    this.displayDialogCarolina = false;
-    this.displayDialogChatbot = false;
-
-    this.newItemHeaderEstefany = '';
-    this.newItemContentEstefany = '';
-    this.newItemHeaderDaniela = '';
-    this.newItemContentDaniela = '';
-    this.newItemHeaderLuisa = '';
-    this.newItemContentLuisa = '';
-
-    setTimeout(() => {
-      this.loadDaily();
-      this.loadDailyTtile();
-    }, 200);
-  }
 
   // Update Campaign
 
@@ -1200,12 +688,17 @@ export class CampaignComponent {
   updateFinalDate: String = '';
   updateUrlCampaign: string = '';
 
+  updateClient: string = '';
+  updateBrand: string = '';
+
   showDialogUpdate(event: Event, campaign: any) {
     event.stopPropagation(); // Evita que el evento se propague al botón principal
     this.updateIdCampaign = campaign.id;
     this.updateCampaignType = { name: '', value: '' };
     this.visibleUpdateDialog = true;
     this.updateNameCampaign = campaign.name;
+    this.updateClient = campaign.client;
+    this.updateBrand = campaign.brand;
     this.updateNameOp = this.operations.find(
       (op) => op.name === campaign.name_op
     );
@@ -1304,6 +797,8 @@ export class CampaignComponent {
       pr: this.updatePr,
       final_date: this.updateFinalDate,
       image_url: this.updateUrlCampaign,
+      client: this.updateClient,
+      brand: this.updateBrand,
     };
     console.log(dataCampaign);
 
@@ -1363,7 +858,7 @@ export class CampaignComponent {
 
   chargeDataWeekly() {
     this.barChartDataWeekly = {
-      labels: ['Daniela', 'Estefany', 'Luisa'],
+      labels: ['Alejandra', 'Estefany', 'Luisa'],
       datasets: [
         {
           data: [
@@ -1377,7 +872,7 @@ export class CampaignComponent {
     };
 
     this.barChartDataSecondWeekly = {
-      labels: ['Daniela', 'Estefany', 'Luisa'],
+      labels: ['Alejandra', 'Estefany', 'Luisa'],
       datasets: [
         {
           data: [
@@ -1399,7 +894,7 @@ export class CampaignComponent {
     };
 
     this.barChartDataProfileWeekly = {
-      labels: ['Daniela', 'Estefany', 'Luisa'],
+      labels: ['Alejandra', 'Estefany', 'Luisa'],
       datasets: [
         {
           data: [
@@ -1586,8 +1081,4 @@ export class CampaignComponent {
   // Update Date
 
   datetime24h: Date[] | undefined;
-
-  openCotizador() {
-    window.open('home', '_self');
-  }
 }

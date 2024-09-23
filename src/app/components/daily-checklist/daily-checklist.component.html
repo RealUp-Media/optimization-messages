@@ -1,16 +1,13 @@
 <div class="container">
   <div class="nav">
-    <button class="boton-sum">
-      <img class="icono-op" src="assets/icons/icono-sum.svg" alt="" />
-    </button>
     <div class="selector-op">
-      <button>
+      <button (click)="showDailySales()">
         <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
       </button>
       <p>Daily Sales</p>
     </div>
     <div class="selector-op">
-      <button>
+      <button (click)="showDailyOps()">
         <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
       </button>
       <p>Daily OPS</p>
@@ -22,19 +19,19 @@
       <p>Campañas</p>
     </div>
     <div class="selector-op">
-      <button>
+      <button (click)="showWeeklyWorkload()">
         <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
       </button>
       <p>Cargas Semanales</p>
     </div>
     <div class="selector-op">
-      <button>
+      <button (click)="showChatbot()">
         <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
       </button>
       <p>ChatBot</p>
     </div>
     <div class="selector-op">
-      <button>
+      <button (click)="showCotizador()">
         <img class="icono-op" src="assets/icons/icono-op.svg" alt="" />
       </button>
       <p>Cotizador</p>
@@ -97,6 +94,17 @@
                                     <span class="p-accordion-header-text">{{
                                       campaign.name
                                     }}</span>
+                                    <div *ngFor="let svg of statusCampaign">
+                                      <img
+                                        *ngIf="
+                                          campaign.campaign_state == svg.status
+                                        "
+                                        class="campaign-status"
+                                        src="{{ svg.source }}"
+                                        alt=""
+                                      />
+                                    </div>
+
                                     <button
                                       pButton
                                       class="button-add-task"
@@ -203,9 +211,6 @@
                                               />
                                             </div>
                                           </ng-template>
-                                        </p-inplace>
-                                        <p-inplace>
-                                          <ng-template #name></ng-template>
                                         </p-inplace>
                                       </div>
 
@@ -325,7 +330,6 @@
                                   [showTime]="true"
                                   [timeOnly]="true"
                                   placeholder="Hora de entrega"
-                                  (ngModelChange)="pruebaCambio()"
                                 />
                                 <p-button
                                   class="button-daily-sales"
