@@ -200,12 +200,10 @@
   margin: 10px;
   border-radius: 20px;
   padding: 10px;
-  width: 100%;
 }
 
 .button-add-task {
-  margin-top: 10px;
-  height: 3rem;
+  margin-left: 10px;
 }
 
 .campaign-show {
@@ -491,7 +489,6 @@ textarea {
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
 }
 
@@ -528,6 +525,12 @@ textarea {
 }
 
 .header-button-span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button-sales {
   display: flex;
   flex-direction: row;
   align-items: center;

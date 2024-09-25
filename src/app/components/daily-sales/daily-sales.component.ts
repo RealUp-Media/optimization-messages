@@ -57,6 +57,7 @@ interface DailyTask {
 })
 export class DailySalesComponent {
   ngOnInit(): void {
+    this.getAllCampaigns();
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.getAllDailyTask();
@@ -71,19 +72,16 @@ export class DailySalesComponent {
   ];
 
   listSales: any[] = ['Maria Cipamocha', 'Carolina Correa', 'Daniela Quintana'];
-  OpSelected: string = '';
+  SaleSelected: string = '';
 
   colors: string[] = ['#4CAF50', '#8BC34A', '#FFC107', '#F44336', '#D0D2D5'];
   colorSelected: string = '';
 
-  SaleSelected: string = '';
-
-  listTitleDaily: any[] = [
-    'Visibilidad a Cliente: 5 min',
-    'Hablar con perfiles para ejecución',
-    'Hablar con perfiles para ppt y/o cotización',
-    'Entrega de propuestas y/o cotizaciones',
-    'Reuniones del día',
+  listTitleDailyCaro: any[] = [
+    'Estrategia',
+    'Equipo',
+    'Ejecución',
+    'FollowUp',
     'Otros',
   ];
 
@@ -127,6 +125,10 @@ export class DailySalesComponent {
 
         // Ordenar las tareas por order_task
         this.allDailyTask.sort((a, b) => a.order_task - b.order_task);
+
+        this.listTitleDailyMapi = response.filter(
+          (task: DailyTask) => task.nameCampaign === 'title-sales'
+        );
       },
       (error) => {
         console.log('Error get DailyTask', error);
@@ -147,6 +149,7 @@ export class DailySalesComponent {
 
   allCampaigns: any[] = [];
 
+  // Campaigns filtradas por Op
   getBrandByNameOp(nameOp: string): string[] {
     return Array.from(
       new Set(
@@ -174,17 +177,58 @@ export class DailySalesComponent {
     );
   }
 
+  getTasklistByClient() {
+    return this.allDailyTask.filter(
+      (item) => item.titleTask === 'sales' && item.op === this.SaleSelected
+    );
+  }
+
+  // Campaigns sin filtrado por Op
+
+  getBrandByNameOpAll(): string[] {
+    return Array.from(new Set(this.allCampaigns.map((item) => item.brand)));
+  }
+
+  getClientByNameOpAll(brand: string): string[] {
+    return Array.from(
+      new Set(
+        this.allCampaigns
+          .filter((item) => item.brand == brand)
+          .map((item) => item.client)
+      )
+    );
+  }
+
+  getCampaignByNameOpAll(brand: string, client: string): any[] {
+    return this.allCampaigns.filter(
+      (item) => item.brand == brand && item.client == client
+    );
+  }
+
   displayDialogNewTask: boolean = false;
+  displayDialogNewTaskSales: boolean = false;
   newItemHeader: string = '';
   newItemContent: string = '';
   nameCampaign: string = '';
   nameOp: string = '';
+  titleTask: string = '';
 
-  titleOPS: string = '';
-
-  showDialogNewTask(nameOp: string) {
+  showDialogNewTask(nameCampaign: string, nameOp: string, titleTask: string) {
     this.nameOp = nameOp;
+    this.nameCampaign = nameCampaign;
+    this.titleTask = titleTask;
     this.displayDialogNewTask = true;
+  }
+
+  showDialogNewTaskSales(
+    nameCampaign: string,
+    nameOp: string,
+    titleTask: string
+  ) {
+    this.nameOp = nameOp;
+    this.nameCampaign = nameCampaign;
+    this.titleTask = titleTask;
+    this.displayDialogNewTaskSales = true;
   }
 
   updateColorCampaign(data: any) {
@@ -198,11 +242,27 @@ export class DailySalesComponent {
     );
   }
 
-  getItemsByCampaign(name: string) {
-    return this.allDailyTask.filter((item) => item.nameCampaign === name);
+  updateColorTask(data: any) {
+    this.campaignService.updateColorTask(data).subscribe(
+      (response) => {
+        console.log('Color updated successfully', response);
+      },
+      (error) => {
+        console.error('Color updating tasks', error);
+      }
+    );
   }
 
-  drop(event: CdkDragDrop<any[]>) {
+  getItemsByCampaign(name: string, nameOp: string) {
+    return this.allDailyTask.filter(
+      (item) =>
+        item.nameCampaign === name &&
+        item.op === nameOp &&
+        item.titleTask != 'sales'
+    );
+  }
+
+  drop(event: CdkDragDrop<any[]>, title: string) {
     let indexTask: number = 0;
     let indexPreviousTask: number = 0;
     if (event.previousContainer === event.container) {
@@ -229,6 +289,20 @@ export class DailySalesComponent {
         event.previousIndex,
         event.currentIndex
       );
+      for (const item of this.allDailyTask) {
+        if (item.id === event.container.data[event.currentIndex].id) {
+          if (this.allDailyTask[indexTask].nameCampaign != 'daily') {
+            console.log('Pene');
+            this.allDailyTask[indexTask].nameCampaign = title;
+          } else {
+            console.log(title);
+            this.allDailyTask[indexTask].titleTask = title;
+          }
+          break; // Sale del bucle interno
+        } else {
+          indexTask++;
+        }
+      }
 
       for (const item of event.container.data) {
         for (const itemAll of this.allDailyTask) {
@@ -285,16 +359,25 @@ export class DailySalesComponent {
     }, 200);
   }
 
-  getItemsByTitle(nameOp: string) {
-    return this.allDailyTask.filter((item) => item.op === nameOp);
+  getItemsByTitle(titleTask: string, nameOp: string) {
+    return this.allDailyTask.filter(
+      (item) => item.op === nameOp && item.titleTask === titleTask
+    );
   }
 
-  addDailyTask(op: string, task: string, comment: string) {
+  addDailyTask(
+    op: string,
+    task: string,
+    comment: string,
+    titleTask: string,
+    nameCampaign: string
+  ) {
     const dailyData = {
       op: op,
       task: task,
       comment: comment,
-      titleTask: this.titleOPS,
+      titleTask: titleTask,
+      nameCampaign: nameCampaign,
     };
 
     this.campaignService.addDaily(dailyData).subscribe(
@@ -307,6 +390,7 @@ export class DailySalesComponent {
     );
 
     this.displayDialogNewTask = false;
+    this.displayDialogNewTaskSales = false;
 
     this.newItemHeader = '';
     this.newItemContent = '';
@@ -315,4 +399,8 @@ export class DailySalesComponent {
       this.getAllDailyTask();
     }, 200);
   }
+
+  // Checklist Maria Paula Cipamocha
+
+  listTitleDailyMapi: any[] = [];
 }

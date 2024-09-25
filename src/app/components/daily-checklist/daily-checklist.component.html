@@ -164,7 +164,7 @@
                                 class="daily-drop"
                                 cdkDropList
                                 [cdkDropListData]="
-                                  getItemsByCampaign(campaign.name)
+                                  getItemsByCampaign(campaign.name, OpSelected)
                                 "
                                 (cdkDropListDropped)="
                                   drop($event, campaign.name)
@@ -173,7 +173,8 @@
                                 <div
                                   *ngFor="
                                     let item of getItemsByCampaign(
-                                      campaign.name
+                                      campaign.name,
+                                      OpSelected
                                     )
                                   "
                                 >

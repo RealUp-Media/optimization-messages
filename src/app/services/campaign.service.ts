@@ -146,6 +146,13 @@ export class CampaignService {
     );
   }
 
+  updateColorTask(data: any): Observable<any> {
+    return this.http.put<any>(
+      BASE_URL + 'manual-ops/daily/update-task-color',
+      data
+    );
+  }
+
   updateTimeTask(data: any): Observable<any> {
     return this.http.put<any>(
       BASE_URL + 'manual-ops/daily/update-time-task',

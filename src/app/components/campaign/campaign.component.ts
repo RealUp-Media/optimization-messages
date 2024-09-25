@@ -176,12 +176,14 @@ export class CampaignComponent {
     { name: 'Estefany Bermudez' },
     { name: 'Luisa Clavijo' },
     { name: 'Alejandra Correa' },
+    { name: 'Daniela Quintana' },
   ];
 
   operationsFilter = [
     { name: 'Estefany Bermudez', value: 'Estefany Bermudez' },
     { name: 'Luisa Clavijo', value: 'Luisa Clavijo' },
     { name: 'Alejandra Correa', value: 'Alejandra Correa' },
+    { name: 'Daniela Quintana', value: 'Daniela Quintana' },
     { name: 'Todas', value: '' },
   ];
   selectedOperation: NameOperation | undefined;

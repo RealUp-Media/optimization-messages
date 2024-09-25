@@ -90,12 +90,7 @@ export class DailyChecklistComponent {
     { status: 'DELETED', source: 'assets/icons/letter-d.svg' },
   ];
 
-  listOPS: any[] = [
-    'Estefany Bermudez',
-    'Alejandra Correa',
-    'Luisa Clavijo',
-    'Daniela Quintana',
-  ];
+  listOPS: any[] = ['Estefany Bermudez', 'Alejandra Correa', 'Luisa Clavijo'];
   OpSelected: string = '';
 
   colors: string[] = ['#4CAF50', '#8BC34A', '#FFC107', '#F44336', '#D0D2D5'];
@@ -363,8 +358,10 @@ export class DailyChecklistComponent {
     );
   }
 
-  getItemsByCampaign(name: string) {
-    return this.allDailyTask.filter((item) => item.nameCampaign === name);
+  getItemsByCampaign(name: string, nameOp: string) {
+    return this.allDailyTask.filter(
+      (item) => item.nameCampaign === name && item.op === nameOp
+    );
   }
 
   updateColorCampaign(data: any) {
