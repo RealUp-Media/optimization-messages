@@ -1,6 +1,10 @@
 <!-- Segundo diseño -->
 <div class="container">
-  <h1>Checklist Operaciones</h1>
+  <div class="boton-recarga">
+    <h1>Checklist Operaciones | {{ campaign.name }}</h1>
+    <img class="logo-marca" src="{{ campaign.image_url }}" alt="Logo Marca" />
+    <p-button icon="pi pi-home" class="button-recharge" (onClick)="goHome()" />
+  </div>
   <p-accordion [multiple]="true" [activeIndex]="[0]">
     <div class="accordion-checkbox">
       <p-accordionTab
@@ -40,6 +44,7 @@
     </div>
     <div class="accordion-checkbox">
       <p-accordionTab header="2. Montar propuesta y/o cotización">
+        <!-- Comentario -->
         <p-inplace #inplace_2>
           <ng-template pTemplate="display">
             <span class="task-daily"
@@ -62,15 +67,14 @@
             </div>
           </ng-template>
         </p-inplace>
+
         <!-- Link -->
         <p-inplace #inplace_3>
           <ng-template pTemplate="display">
-            <span class="task-daily"
-              ><strong>Link: </strong
-              ><a target="_blank" href="{{ linkTask2 }}">{{
-                linkTask2
-              }}</a></span
-            >
+            <span class="task-daily">
+              <strong>Link: </strong>
+              <a target="_blank" href="{{ linkTask2 }}">{{ linkTask2 }}</a>
+            </span>
           </ng-template>
           <ng-template pTemplate="content">
             <div class="div-content-daily-input">
@@ -90,6 +94,8 @@
           </ng-template>
         </p-inplace>
       </p-accordionTab>
+
+      <!-- Checkbox que depende del contenido del link -->
       <div class="checklist-completed-accordion">
         <p-checkbox
           [(ngModel)]="checked_two"
@@ -175,6 +181,7 @@
               <input
                 type="text"
                 [(ngModel)]="linkTask4"
+                (ngModelChange)="verifyContent()"
                 pInputText
                 placeholder="Link"
               />
@@ -193,6 +200,7 @@
           [binary]="true"
           inputId="binary"
           (onChange)="onTaskChange()"
+          [disabled]="disableFour"
         />
       </div>
     </div>
@@ -238,6 +246,7 @@
               <input
                 type="text"
                 [(ngModel)]="linkTask5"
+                (ngModelChange)="verifyContent()"
                 pInputText
                 placeholder="Link"
               />
@@ -256,6 +265,7 @@
           [binary]="true"
           inputId="binary"
           (onChange)="onTaskChange()"
+          [disabled]="disableFive"
         />
       </div>
     </div>
@@ -336,6 +346,7 @@
               <input
                 type="text"
                 [(ngModel)]="linkTask7"
+                (ngModelChange)="verifyContent()"
                 pInputText
                 placeholder="Link"
               />
@@ -354,6 +365,7 @@
           [binary]="true"
           inputId="binary"
           (onChange)="onTaskChange()"
+          [disabled]="disableSeven"
         />
       </div>
     </div>
@@ -432,6 +444,7 @@
               <input
                 type="text"
                 [(ngModel)]="linkTask9"
+                (ngModelChange)="verifyContent()"
                 pInputText
                 placeholder="Link"
               />
@@ -451,6 +464,7 @@
           [binary]="true"
           inputId="binary"
           (onChange)="onTaskChange()"
+          [disabled]="disableNine"
         />
       </div>
     </div>
@@ -715,6 +729,7 @@
               <input
                 type="text"
                 [(ngModel)]="linkTask16"
+                (ngModelChange)="verifyContent()"
                 pInputText
                 placeholder="Link"
               />
@@ -733,6 +748,7 @@
           [binary]="true"
           inputId="binary"
           (onChange)="onTaskChange()"
+          [disabled]="disableSixteen"
         />
       </div>
     </div>
@@ -772,6 +788,14 @@
     </div>
     <div class="accordion-checkbox">
       <p-accordionTab header="18. Llenar Biblioteca consultiva">
+        <h3>
+          <a
+            class="padding-class"
+            href="https://docs.google.com/spreadsheets/d/1nVqJPz0SotxO5HDQlf2jzy4Jh608y6TCzclNU5kHAMI/edit?gid=0#gid=0"
+            >Biblioteca Consultiva</a
+          >
+        </h3>
+
         <p-inplace #inplace_24>
           <ng-template pTemplate="display">
             <span class="task-daily"
@@ -809,6 +833,7 @@
               <input
                 type="text"
                 [(ngModel)]="linkTask18"
+                (ngModelChange)="verifyContent()"
                 pInputText
                 placeholder="Link"
               />
@@ -827,6 +852,7 @@
           [binary]="true"
           inputId="binary"
           (onChange)="onTaskChange()"
+          [disabled]="disableEighteen"
         />
       </div>
     </div>

@@ -99,6 +99,7 @@
             [(ngModel)]="filtroOp"
             optionLabel="name"
             placeholder="Nombre OP"
+            (ngModelChange)="changeOpFilter()"
           />
           <input
             pInputText
@@ -125,82 +126,27 @@
       </div>
 
       <div class="campaigns">
-        <div class="campaign">
-          <img class="campaign-status" src="assets/icons/letter-i.svg" alt="" />
+        <div *ngFor="let typeCampaign of listTypeCampaign" class="campaign">
           <div class="columna">
-            <h2>PROPUESTA INICIAL</h2>
-
-            <div *ngIf="campaignsPropuesta.length > 0" class="campaign-father">
-              <div
-                class="campaign-show"
-                *ngFor="
-                  let campaign of getFilteredCampaigns(campaignsPropuesta)
-                "
-              >
-                <button
-                  class="button-campaign"
-                  type="button"
-                  (click)="verChecklist(campaign.id)"
-                >
-                  <div class="logo-marca">
-                    <img
-                      src="{{ campaign.image_url }}"
-                      alt="Logo de la marca"
-                    />
-                    <h2>{{ campaign.name }}</h2>
-                    <p-button
-                      icon="pi pi-pen-to-square"
-                      [text]="true"
-                      [raised]="true"
-                      severity="secondary"
-                      (onClick)="showDialogUpdate($event, campaign)"
-                    />
-                  </div>
-                  <p>Op a Cargo: {{ campaign.name_op }}</p>
-                  <p>
-                    Fecha final: {{ campaign.final_date | date : "dd/MM/yyyy" }}
-                  </p>
-                  <p>
-                    Tareas completadas: {{ campaign.task_completed }}/{{ 18 }}
-                  </p>
-                  <p>Número de creadores: {{ campaign.number_creators }}</p>
-                  <p>Número de acciones: {{ campaign.number_contents }}</p>
-                  <div class="card">
-                    <h3 class="no-margin-top">Progreso campaña</h3>
-                    <p-progressBar
-                      [value]="
-                        (campaign.task_completed / 18) * 100 | number : '1.0-1'
-                      "
-                    ></p-progressBar>
-                  </div>
-                  <div class="card">
-                    <h3 class="no-margin-top">Numero de acciones realizadas</h3>
-                    <p-progressBar
-                      [value]="
-                        (campaign.number_contents_done /
-                          campaign.number_contents) *
-                          100 | number : '1.0-1'
-                      "
-                    ></p-progressBar>
-                  </div>
-                </button>
-              </div>
+            <div class="title-icon-campaign">
+              <h2>{{ typeCampaign.name }}</h2>
+              <img
+                class="campaign-status"
+                src="{{ typeCampaign.image }}"
+                alt=""
+              />
             </div>
-          </div>
-        </div>
-        <div class="campaign">
-          <img class="campaign-status" src="assets/icons/letter-p.svg" alt="" />
-          <div class="columna">
-            <h2>PREPARACIÓN</h2>
 
             <div
-              *ngIf="campaignsPreparation.length > 0"
+              *ngIf="getFilteredCampaignsByType(typeCampaign.value).length > 0"
               class="campaign-father"
             >
               <div
                 class="campaign-show"
                 *ngFor="
-                  let campaign of getFilteredCampaigns(campaignsPreparation)
+                  let campaign of getFilteredCampaigns(
+                    getFilteredCampaignsByType(typeCampaign.value)
+                  )
                 "
               >
                 <button
@@ -213,163 +159,79 @@
                       src="{{ campaign.image_url }}"
                       alt="Logo de la marca"
                     />
-                    <h2>{{ campaign.name }}</h2>
+                    <h3>{{ campaign.name }}</h3>
                     <p-button
                       icon="pi pi-pen-to-square"
-                      [text]="true"
-                      [raised]="true"
+                      [rounded]="true"
                       severity="secondary"
+                      [outlined]="true"
                       (onClick)="showDialogUpdate($event, campaign)"
                     />
                   </div>
-                  <p>Op a Cargo: {{ campaign.name_op }}</p>
-                  <p>
-                    Fecha final: {{ campaign.final_date | date : "dd/MM/yyyy" }}
-                  </p>
-                  <p>
-                    Tareas completadas: {{ campaign.task_completed }}/{{ 18 }}
-                  </p>
-                  <p>Número de creadores: {{ campaign.number_creators }}</p>
-                  <p>Número de acciones: {{ campaign.number_contents }}</p>
-                  <div class="card">
-                    <h3 class="no-margin-top">Progreso campaña</h3>
-                    <p-progressBar
-                      [value]="
-                        (campaign.task_completed / 18) * 100 | number : '1.0-1'
-                      "
-                    ></p-progressBar>
-                  </div>
-                  <div class="card">
-                    <h3 class="no-margin-top">Numero de acciones realizadas</h3>
-                    <p-progressBar
-                      [value]="
-                        (campaign.number_contents_done /
-                          campaign.number_contents) *
-                          100 | number : '1.0-1'
-                      "
-                    ></p-progressBar>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="campaign">
-          <img class="campaign-status" src="assets/icons/letter-e.svg" alt="" />
-          <div class="columna">
-            <h2>EJECUCIÓN</h2>
 
-            <div *ngIf="campaignsExecution.length > 0" class="campaign-father">
-              <div
-                class="campaign-show"
-                *ngFor="
-                  let campaign of getFilteredCampaigns(campaignsExecution)
-                "
-              >
-                <button
-                  class="button-campaign"
-                  type="button"
-                  (click)="verChecklist(campaign.id)"
-                >
-                  <div class="logo-marca">
-                    <img
-                      src="{{ campaign.image_url }}"
-                      alt="Logo de la marca"
-                    />
-                    <h2>{{ campaign.name }}</h2>
-                    <p-button
-                      icon="pi pi-pen-to-square"
-                      [text]="true"
-                      [raised]="true"
-                      severity="secondary"
-                      (onClick)="showDialogUpdate($event, campaign)"
-                    />
+                  <div class="data-group">
+                    <span class="pi pi-user"></span>
+                    <p class="font-bold">Op a Cargo</p>
+                    <p></p>
+                    <p class="content-subtitle">{{ campaign.name_op }}</p>
                   </div>
-                  <p>Op a Cargo: {{ campaign.name_op }}</p>
-                  <p>
-                    Fecha final: {{ campaign.final_date | date : "dd/MM/yyyy" }}
-                  </p>
-                  <p>
-                    Tareas completadas: {{ campaign.task_completed }}/{{ 18 }}
-                  </p>
-                  <p>Número de creadores: {{ campaign.number_creators }}</p>
-                  <p>Número de acciones: {{ campaign.number_contents }}</p>
-                  <div class="card">
-                    <h3 class="no-margin-top">Progreso campaña</h3>
-                    <p-progressBar
-                      [value]="
-                        (campaign.task_completed / 18) * 100 | number : '1.0-1'
-                      "
-                    ></p-progressBar>
+                  <div class="data-group">
+                    <span class="pi pi-calendar"></span>
+                    <p class="font-bold">Fecha final</p>
+                    <p></p>
+                    <p class="content-subtitle">
+                      {{ campaign.final_date | date : "dd/MM/yyyy" }}
+                    </p>
                   </div>
-                  <div class="card">
-                    <h3 class="no-margin-top">Numero de acciones realizadas</h3>
-                    <p-progressBar
-                      [value]="
-                        (campaign.number_contents_done /
-                          campaign.number_contents) *
-                          100 | number : '1.0-1'
-                      "
-                    ></p-progressBar>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="campaign">
-          <img class="campaign-status" src="assets/icons/letter-c.svg" alt="" />
-          <div class="columna">
-            <h2>CERRADAS</h2>
 
-            <div *ngIf="campaignsClosed.length > 0" class="campaign-father">
-              <div
-                class="campaign-show"
-                *ngFor="let campaign of getFilteredCampaigns(campaignsClosed)"
-              >
-                <button
-                  class="button-campaign"
-                  type="button"
-                  (click)="verChecklist(campaign.id)"
-                >
-                  <div class="logo-marca">
-                    <img
-                      src="{{ campaign.image_url }}"
-                      alt="Logo de la marca"
-                    />
-                    <h2>{{ campaign.name }}</h2>
-                    <p-button
-                      icon="pi pi-pen-to-square"
-                      [text]="true"
-                      [raised]="true"
-                      severity="secondary"
-                      (onClick)="showDialogUpdate($event, campaign)"
-                    />
+                  <div class="data-group">
+                    <span class="pi pi-book"></span>
+                    <p class="font-bold">Tareas completadas</p>
+                    <p></p>
+                    <p class="content-subtitle">
+                      {{ campaign.task_completed }}/{{ 18 }}
+                    </p>
                   </div>
-                  <p>Op a Cargo: {{ campaign.name_op }}</p>
-                  <p>
-                    Fecha final: {{ campaign.final_date | date : "dd/MM/yyyy" }}
-                  </p>
-                  <p>
-                    Tareas completadas: {{ campaign.task_completed }}/{{ 18 }}
-                  </p>
-                  <p>Número de creadores: {{ campaign.number_creators }}</p>
-                  <p>Número de acciones: {{ campaign.number_contents }}</p>
-                  <div class="card">
-                    <h3 class="no-margin-top">Progreso campaña</h3>
+
+                  <div class="data-group">
+                    <span class="pi pi-users"></span>
+                    <p class="font-bold">Número de creadores</p>
+                    <p></p>
+                    <p class="content-subtitle">
+                      {{ campaign.number_creators }}
+                    </p>
+                  </div>
+
+                  <div class="data-group">
+                    <span class="pi pi-video"></span>
+                    <p class="font-bold">Número de acciones</p>
+                    <p></p>
+                    <p class="content-subtitle">
+                      {{ campaign.number_contents }}
+                    </p>
+                  </div>
+
+                  <div class="data-group">
+                    <p class="no-margin-top font-bold item-2-column">
+                      Progreso campaña
+                    </p>
                     <p-progressBar
+                      class="item-2-column"
                       [value]="
-                        (campaign.task_completed / 18) * 100 | number : '1.0-1'
+                        (campaign.task_completed / 18) * 100 | number : '1.0-0'
                       "
                     ></p-progressBar>
                   </div>
-                  <div class="card">
-                    <h3 class="no-margin-top">Numero de acciones realizadas</h3>
+                  <div class="data-group">
+                    <p class="no-margin-top font-bold item-2-column">
+                      Numero de acciones realizadas
+                    </p>
                     <p-progressBar
+                      class="item-2-column"
                       [value]="
                         (campaign.number_contents_done /
                           campaign.number_contents) *
-                          100 | number : '1.0-1'
+                          100 | number : '1.0-0'
                       "
                     ></p-progressBar>
                   </div>
@@ -384,22 +246,38 @@
     <!-- NEW CAMPAIGN FORM -->
     <p-dialog header="Nueva Campaña" [modal]="true" [(visible)]="visible">
       <form [formGroup]="campaignForm">
-        <span class="p-text-secondary block mb-5">Datos</span>
-        <div class="flex align-items-center gap-3 mb-3">
-          <p><strong>OP a cargo</strong></p>
-          <p-dropdown
-            [options]="operations"
-            [(ngModel)]="selectedOperation"
-            optionLabel="name"
-            placeholder="Seleccione OP"
-            formControlName="name_op"
-          />
+        <span class="p-text-secondary block mb-5"
+          >Ingresa los siguientes datos</span
+        >
+        <div class="flex-row-campaign">
+          <div
+            class="flex gap-2 mb-3 flex-column-div-campaign width-low-campaign"
+          >
+            <label class="font-semibold">OP a cargo</label>
+            <p-dropdown
+              [options]="operations"
+              [(ngModel)]="selectedOperation"
+              optionLabel="name"
+              placeholder="Seleccione OP"
+              formControlName="name_op"
+            />
+          </div>
+          <div
+            class="flex gap-2 mb-3 ml-3 flex-column-div-campaign width-high-campaign"
+          >
+            <label for="name" class="font-semibold">Nombre de la campaña</label>
+            <input
+              pInputText
+              id="name"
+              class="flex-auto"
+              autocomplete="off"
+              formControlName="name"
+            />
+          </div>
         </div>
 
-        <div class="flex align-items-center gap-3 mb-3">
-          <label for="name" class="font-semibold w-6rem"
-            >Nombre de la marca</label
-          >
+        <div class="flex gap-2 mb-3 flex-column-div-campaign">
+          <label for="name" class="font-semibold">Nombre de la marca</label>
           <p-dropdown
             [options]="allBrands"
             [editable]="true"
@@ -407,10 +285,8 @@
             formControlName="brand"
           />
         </div>
-        <div class="flex align-items-center gap-3 mb-3">
-          <label for="name" class="font-semibold w-6rem"
-            >Nombre del cliente</label
-          >
+        <div class="flex gap-2 mb-3 flex-column-div-campaign">
+          <label for="name" class="font-semibold">Nombre del cliente</label>
           <p-dropdown
             [options]="allClients"
             [editable]="true"
@@ -419,44 +295,8 @@
           />
         </div>
 
-        <!-- <div class="flex align-items-center gap-3 mb-3">
-          <label for="name" class="font-semibold w-6rem"
-            >Nombre de la marca</label
-          >
-          <input
-            pInputText
-            id="name"
-            class="flex-auto"
-            autocomplete="off"
-            formControlName="brand"
-          />
-        </div>
-        <div class="flex align-items-center gap-3 mb-3">
-          <label for="name" class="font-semibold w-6rem"
-            >Nombre del cliente</label
-          >
-          <input
-            pInputText
-            id="name"
-            class="flex-auto"
-            autocomplete="off"
-            formControlName="client"
-          />
-        </div> -->
-        <div class="flex align-items-center gap-3 mb-3">
-          <label for="name" class="font-semibold w-6rem"
-            >Nombre de la campaña</label
-          >
-          <input
-            pInputText
-            id="name"
-            class="flex-auto"
-            autocomplete="off"
-            formControlName="name"
-          />
-        </div>
-        <div class="flex align-items-center gap-3 mb-3">
-          <label for="name" class="font-semibold w-6rem"
+        <div class="flex gap-2 mb-3 flex-column-div-campaign">
+          <label for="name" class="font-semibold"
             >Imagen de la marca (URL)</label
           >
           <input
@@ -467,8 +307,8 @@
             formControlName="image_url"
           />
         </div>
-        <div class="flex align-items-center gap-3 mb-3">
-          <p><strong>Tipo de campaña</strong></p>
+        <div class="flex gap-2 mb-3 flex-column-div-campaign">
+          <label for="name" class="font-semibold">Tipo de campaña</label>
           <p-dropdown
             [options]="campaigns"
             [(ngModel)]="selectedTypeCampaign"
@@ -477,8 +317,8 @@
             formControlName="campaign_type"
           />
         </div>
-        <div class="flex align-items-center gap-3 mb-3">
-          <p><strong>País</strong></p>
+        <div class="flex gap-2 mb-3 flex-column-div-campaign">
+          <label for="name" class="font-semibold">País</label>
           <p-dropdown
             [options]="paises"
             [(ngModel)]="selectedPais"
@@ -487,72 +327,80 @@
             formControlName="country"
           />
         </div>
-        <div class="flex align-items-center gap-3 mb-3">
-          <label for="budget" class="font-semibold w-6rem">Presupuesto</label>
-          <p-inputNumber
-            id="budget"
-            class="flex-auto"
-            autocomplete="off"
-            formControlName="budget"
-          />
-        </div>
-        <div class="flex align-items-center gap-3 mb-3">
-          <label for="" class="font-semibold w-6rem">Numero de creadores</label>
-          <p-inputNumber
-            id="number_creators"
-            class="flex-auto"
-            autocomplete="off"
-            formControlName="number_creators"
-          />
+        <div class="flex-row-campaign gap-3">
+          <div class="flex gap-2 mb-3 flex-column-div-campaign full-width">
+            <label for="budget" class="font-semibold">Presupuesto</label>
+            <p-inputNumber
+              id="budget"
+              autocomplete="off"
+              formControlName="budget"
+            />
+          </div>
+          <div class="flex gap-2 mb-3 flex-column-div-campaign full-width">
+            <label for="" class="font-semibold">Numero de creadores</label>
+            <p-inputNumber
+              id="number_creators"
+              autocomplete="off"
+              formControlName="number_creators"
+            />
+          </div>
+
+          <div class="flex gap-2 mb-3 flex-column-div-campaign full-width">
+            <label for="email" class="font-semibold">Contenidos totales</label>
+            <p-inputNumber
+              id="total_contents"
+              autocomplete="off"
+              formControlName="number_contents"
+            />
+          </div>
         </div>
 
-        <div class="flex align-items-center gap-3 mb-3">
-          <label for="email" class="font-semibold w-6rem"
-            >Contenidos totales</label
-          >
-          <p-inputNumber
-            id="total_contents"
-            class="flex-auto"
-            autocomplete="off"
-            formControlName="number_contents"
-          />
-        </div>
-        <div class="flex align-items-center gap-3 mb-3">
-          <p><strong>¿Hay PR?</strong></p>
-          <p-selectButton
-            [options]="stateOptions"
-            [(ngModel)]="value"
-            optionLabel="label"
-            optionValue="value"
-            formControlName="pr"
-            autocomplete="off"
-          />
+        <div class="flex-row-campaign gap-3">
+          <div class="flex gap-2 mb-3 flex-column-div-campaign full-width">
+            <label for="name" class="font-semibold">Fecha Inicial</label>
+
+            <p-calendar
+              [(ngModel)]="initialDate"
+              formControlName="initial_date"
+              autocomplete="off"
+              autocomplete="off"
+            />
+          </div>
+          <div class="flex gap-2 mb-3 flex-column-div-campaign full-width">
+            <label for="name" class="font-semibold">Fecha final</label>
+
+            <p-calendar
+              [(ngModel)]="date"
+              formControlName="final_date"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="flex gap-2 mb-3 flex-column-div-campaign full-width">
+            <label for="name" class="font-semibold">¿Hay PR?</label>
+
+            <p-selectButton
+              [options]="stateOptions"
+              [(ngModel)]="value"
+              optionLabel="label"
+              optionValue="value"
+              formControlName="pr"
+              autocomplete="off"
+            />
+          </div>
         </div>
 
-        <div class="flex align-items-center gap-3 mb-3">
-          <p><strong>Fecha Inicial</strong></p>
-          <p-calendar
-            [(ngModel)]="initialDate"
-            formControlName="initial_date"
-            autocomplete="off"
-            autocomplete="off"
-          />
-        </div>
-        <div class="flex align-items-center gap-3 mb-3">
-          <p><strong>Fecha final</strong></p>
-          <p-calendar
-            [(ngModel)]="date"
-            formControlName="final_date"
-            autocomplete="off"
-          />
-        </div>
         <div class="flex justify-content-end gap-2">
           <p-button
             label="Cancelar"
             severity="secondary"
             (onClick)="visible = false"
           />
-          <p-button label="Crear" (onClick)="addCampaign()" />
+          <p-button
+            label="Crear"
+            (onClick)="addCampaign()"
+            [disabled]="campaignForm.invalid"
+          ></p-button>
         </div>
       </form>
     </p-dialog>
@@ -620,7 +468,6 @@
         <p-dropdown
           [options]="operations"
           [(ngModel)]="updateNameOp"
-          [editable]="true"
           optionLabel="name"
           placeholder="Selecciona OP a cargo"
         />
@@ -1065,7 +912,7 @@
 
       <div class="flex align-items-center gap-3 mb-5">
         <p><strong>Fecha final</strong></p>
-        <p-calendar [(ngModel)]="updateFinalDate" />
+        <p-calendar [(ngModel)]="updateFinalDate" [showTime]="true" />
       </div>
 
       <div class="flex justify-content-end gap-2">

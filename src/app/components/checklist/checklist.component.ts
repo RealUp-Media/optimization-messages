@@ -24,6 +24,11 @@ interface TipoContenido {
   name: string;
 }
 
+interface Campaign {
+  name: string;
+  image_url: string;
+}
+
 @Component({
   selector: 'app-checklist',
   standalone: true,
@@ -56,7 +61,11 @@ export class ChecklistComponent {
   ) {}
 
   numberOfContents: number = 0;
+
+  campaign: Campaign = { name: '', image_url: '' };
+
   ngOnInit() {
+    this.verifyContent();
     this.tipoContenidos = [
       { name: 'Reel' },
       { name: 'TikTok' },
@@ -74,19 +83,21 @@ export class ChecklistComponent {
         });
     });
 
+    this.campaignService.getCampaignById(this.idCampaign).subscribe(
+      (response) => {
+        this.campaign = response;
+        console.log('Tasks updated successfully', response);
+      },
+      (error) => {
+        console.error('Error updating tasks', error);
+      }
+    );
+
     this.campaignService
       .getNumberOfContents(this.idCampaign)
       .subscribe((data) => {
         this.numberOfContents = data;
       });
-
-    if (this.tasks.link_task_2 != '') {
-      this.disableTwo = false;
-    }
-
-    if (this.tasks.link_task_2 == '') {
-      this.disableTwo = true;
-    }
   }
 
   // Configurar Dialog
@@ -159,6 +170,8 @@ export class ChecklistComponent {
     this.linkTask18 = this.tasks.link_task_18;
 
     this.contentCompleted = this.tasks.content_completed;
+
+    this.verifyContent(); // Verifica el contenido del link y actualiza el estado del checkbox
   }
 
   checked_one: boolean = false;
@@ -272,14 +285,6 @@ export class ChecklistComponent {
   commentTask17: string = '';
   commentTask18: string = '';
 
-  linkTask2: string = '';
-  linkTask4: string = '';
-  linkTask5: string = '';
-  linkTask7: string = '';
-  linkTask9: string = '';
-  linkTask16: string = '';
-  linkTask18: string = '';
-
   contentCompleted: number = 0;
 
   saveContentTask(inplace: any) {
@@ -327,22 +332,79 @@ export class ChecklistComponent {
         }
       );
     inplace.deactivate();
+  }
 
-    if (this.linkTask2 == '') {
-      this.checked_two = false;
-    }
+  goHome() {
+    window.open('campaign', '_self');
   }
 
   // Verificar contenidos (comentario, link)
 
-  disableTwo: boolean = true;
+  linkTask2: string = '';
+  linkTask4: string = '';
+  linkTask5: string = '';
+  linkTask7: string = '';
+  linkTask9: string = '';
+  linkTask16: string = '';
+  linkTask18: string = '';
 
+  disableTwo: boolean = true;
+  disableFour: boolean = true;
+  disableFive: boolean = true;
+  disableSeven: boolean = true;
+  disableNine: boolean = true;
+  disableSixteen: boolean = true;
+  disableEighteen: boolean = true;
+
+  // Verifica si el link está vacío y actualiza el checkbox
   verifyContent() {
-    if (this.linkTask2 != '') {
-      this.disableTwo = false;
+    if (this.linkTask2 === '') {
+      this.disableTwo = true; // Deshabilitar el checkbox si está vacío
+      this.checked_two = false; // Desmarcar el checkbox si el link está vacío
+    } else {
+      this.disableTwo = false; // Habilitar el checkbox si hay contenido
     }
-    if (this.linkTask2 == '') {
-      this.disableTwo = true;
+
+    if (this.linkTask4 === '') {
+      this.disableFour = true; // Deshabilitar el checkbox si está vacío
+      this.checked_four = false; // Desmarcar el checkbox si el link está vacío
+    } else {
+      this.disableFour = false; // Habilitar el checkbox si hay contenido
+    }
+
+    if (this.linkTask5 === '') {
+      this.disableFive = true; // Deshabilitar el checkbox si está vacío
+      this.checked_five = false; // Desmarcar el checkbox si el link está vacío
+    } else {
+      this.disableFive = false; // Habilitar el checkbox si hay contenido
+    }
+
+    if (this.linkTask7 === '') {
+      this.disableSeven = true; // Deshabilitar el checkbox si está vacío
+      this.checked_seven = false; // Desmarcar el checkbox si el link está vacío
+    } else {
+      this.disableSeven = false; // Habilitar el checkbox si hay contenido
+    }
+
+    if (this.linkTask9 === '') {
+      this.disableNine = true; // Deshabilitar el checkbox si está vacío
+      this.checked_nine = false; // Desmarcar el checkbox si el link está vacío
+    } else {
+      this.disableNine = false; // Habilitar el checkbox si hay contenido
+    }
+
+    if (this.linkTask16 === '') {
+      this.disableSixteen = true; // Deshabilitar el checkbox si está vacío
+      this.checked_sixteen = false; // Desmarcar el checkbox si el link está vacío
+    } else {
+      this.disableSixteen = false; // Habilitar el checkbox si hay contenido
+    }
+
+    if (this.linkTask18 === '') {
+      this.disableEighteen = true; // Deshabilitar el checkbox si está vacío
+      this.checked_eighteen = false; // Desmarcar el checkbox si el link está vacío
+    } else {
+      this.disableEighteen = false; // Habilitar el checkbox si hay contenido
     }
   }
 }

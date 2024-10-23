@@ -169,7 +169,7 @@ export class CampaignComponent {
   campaigns = [
     { name: 'Crowdposting', value: '0' },
     { name: 'UGC', value: '1' },
-    { name: 'Brand Ambassadors', value: '2' },
+    { name: 'Brand Ambassador', value: '2' },
   ];
   selectedTypeCampaign: TypeCampaign | undefined;
   operations = [
@@ -193,26 +193,42 @@ export class CampaignComponent {
 
   treeNodes?: any[];
   ngOnInit() {
+    const nameOpFilterSelected = localStorage.getItem('nameOp');
+
+    if (nameOpFilterSelected) {
+      if (nameOpFilterSelected == 'Todas') {
+        this.filtroOp = {
+          name: nameOpFilterSelected,
+          value: '',
+        };
+      } else {
+        this.filtroOp = {
+          name: nameOpFilterSelected,
+          value: nameOpFilterSelected,
+        };
+      }
+    } else {
+      // Si no hay valor almacenado, puedes manejar un valor por defecto o un mensaje
+      this.filtroOp = { name: '', value: '0' }; // Por ejemplo, un nombre vacío
+    }
     setTimeout(() => {
       this.loadCampaigns();
     }, 500);
 
     this.campaignForm = this.fb.group({
-      name: [''],
-      initial_date: [''],
-      final_date: [''],
-      task_completed: [0],
-      number_contents: [0],
-      number_creators: [0],
-      name_op: [''],
-      client: [''],
-      brand: [''],
-
-      budget: [0],
-      campaign_type: [''],
-      country: [''],
-      pr: [false],
-      image_url: [''],
+      name_op: ['', Validators.required], // OP a cargo es obligatorio
+      brand: ['', Validators.required], // Nombre de la marca es obligatorio
+      client: ['', Validators.required], // Nombre del cliente es obligatorio
+      name: ['', [Validators.required, Validators.maxLength(100)]], // Nombre de la campaña, obligatorio y con máximo de 100 caracteres
+      image_url: ['', Validators.required], // Imagen debe ser una URL válida
+      campaign_type: ['', Validators.required], // Tipo de campaña obligatorio
+      country: ['', Validators.required], // País obligatorio
+      budget: ['', [Validators.required, Validators.min(1)]], // Presupuesto obligatorio y debe ser mayor a 0
+      number_creators: ['', [Validators.required, Validators.min(1)]], // Número de creadores obligatorio y mayor a 0
+      number_contents: ['', [Validators.required, Validators.min(1)]], // Contenidos totales obligatorio y mayor a 0
+      pr: ['', Validators.required], // PR obligatorio
+      initial_date: ['', Validators.required], // Fecha inicial obligatoria
+      final_date: ['', Validators.required], // Fecha final obligatoria
     });
 
     this.paises = [
@@ -331,6 +347,8 @@ export class CampaignComponent {
   campaignsExecution: any[] = [];
   campaignsClosed: any[] = [];
 
+  allCampaigns: any[] = [];
+
   allClients: any[] = [];
   allBrands: any[] = [
     'Estefany Bermudez',
@@ -341,6 +359,16 @@ export class CampaignComponent {
   BrandSelected: string = '';
 
   loadCampaigns(): void {
+    this.campaignService.getAllCampaigns().subscribe(
+      (response) => {
+        this.allCampaigns = response;
+        console.log('Tasks updated successfully', response);
+      },
+      (error) => {
+        console.error('Error updating tasks', error);
+      }
+    );
+
     this.campaignService.getCampaignPreparation().subscribe(
       (response) => {
         this.campaignsPreparation = response;
@@ -434,7 +462,11 @@ export class CampaignComponent {
 
   verChecklist(idCampaign: number) {
     const url = `checklist/${idCampaign}`;
-    window.open(url, '_blank');
+    window.open(url, '_self');
+  }
+
+  changeOpFilter() {
+    localStorage.setItem('nameOp', this.filtroOp.name);
   }
 
   // Estadisticas
@@ -687,7 +719,7 @@ export class CampaignComponent {
   updateNumberCreators: number = 0;
   updateNumberContents: number = 0;
   updatePr?: any[];
-  updateFinalDate: String = '';
+  updateFinalDate: Date = new Date('2024-12-31');
   updateUrlCampaign: string = '';
 
   updateClient: string = '';
@@ -726,7 +758,8 @@ export class CampaignComponent {
     this.updateNumberCreators = campaign.number_creators;
     this.updateNumberContents = campaign.number_contents;
     this.updatePr = campaign.pr;
-    this.updateFinalDate = campaign.final_date;
+    this.updateFinalDate = new Date(campaign.final_date);
+    console.log(campaign.final_date);
     this.updateUrlCampaign = campaign.image_url;
   }
 
@@ -924,7 +957,13 @@ export class CampaignComponent {
   filtroFecha: string = '';
   filtroAcciones: number | null = null;
   filtroCreadores: number | null = null;
-  filtroOp?: NameOperationFilter;
+  filtroOp: NameOperationFilter = { name: '', value: '' };
+
+  getFilteredCampaignsByType(typeCampaign: string) {
+    return this.allCampaigns.filter(
+      (campaign) => campaign.campaign_state == typeCampaign
+    );
+  }
 
   getFilteredCampaigns(campaigns: any[]): any[] {
     return campaigns.filter((campaign) => {
@@ -1083,4 +1122,31 @@ export class CampaignComponent {
   // Update Date
 
   datetime24h: Date[] | undefined;
+
+  listTypeCampaign: any[] = [
+    {
+      name: 'Propuesta Inicial',
+      value: 'APPROVAL',
+      valueInteger: 4,
+      image: 'assets/icons/letter-i.svg',
+    },
+    {
+      name: 'Preparación',
+      value: 'PREPARATION',
+      valueInteger: 0,
+      image: 'assets/icons/letter-p.svg',
+    },
+    {
+      name: 'Ejecución',
+      value: 'EXECUTION',
+      valueInteger: 1,
+      image: 'assets/icons/letter-e.svg',
+    },
+    {
+      name: 'Cerradas',
+      value: 'CLOSED',
+      valueInteger: 2,
+      image: 'assets/icons/letter-c.svg',
+    },
+  ];
 }

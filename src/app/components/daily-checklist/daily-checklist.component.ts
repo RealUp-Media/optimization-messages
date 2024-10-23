@@ -326,7 +326,13 @@ export class DailyChecklistComponent {
     return Array.from(
       new Set(
         this.allCampaigns
-          .filter((item) => item.name_op === nameOp)
+          .filter(
+            (item) =>
+              item.name_op === nameOp &&
+              item.campaign_state != 'ARCHIVED' &&
+              item.campaign_state != 'DELETED' &&
+              item.campaign_state != 'CLOSED'
+          )
           .map((item) => item.brand)
       )
     );
@@ -336,7 +342,14 @@ export class DailyChecklistComponent {
     return Array.from(
       new Set(
         this.allCampaigns
-          .filter((item) => item.name_op === nameOp && item.brand == brand)
+          .filter(
+            (item) =>
+              item.name_op === nameOp &&
+              item.brand == brand &&
+              item.campaign_state != 'ARCHIVED' &&
+              item.campaign_state != 'DELETED' &&
+              item.campaign_state != 'CLOSED'
+          )
           .map((item) => item.client)
       )
     );
@@ -345,7 +358,12 @@ export class DailyChecklistComponent {
   getCampaignByNameOp(nameOp: string, brand: string, client: string): any[] {
     return this.allCampaigns.filter(
       (item) =>
-        item.name_op === nameOp && item.brand == brand && item.client == client
+        item.name_op === nameOp &&
+        item.brand == brand &&
+        item.client == client &&
+        item.campaign_state != 'ARCHIVED' &&
+        item.campaign_state != 'DELETED' &&
+        item.campaign_state != 'CLOSED'
     );
   }
 

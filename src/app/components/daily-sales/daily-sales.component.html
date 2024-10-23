@@ -780,39 +780,48 @@
                             (click)="$event.stopPropagation()"
                           ></button>
                         </div>
-                        <p-dropdown
-                          class="drop-checklist"
-                          [options]="colors"
-                          [(ngModel)]="campaign.dailyStateChecklist"
-                          (onChange)="updateColorTask(campaign)"
-                          inputId="float-label"
-                          (click)="$event.stopPropagation()"
-                        >
-                          <ng-template pTemplate="selectedItem">
-                            <div *ngIf="colorSelected === ''">
-                              <svg width="4.5rem" height="2rem">
+                        <div>
+                          <p-button
+                            class="mr-2"
+                            icon="pi pi-times"
+                            [rounded]="true"
+                            severity="danger"
+                            (onClick)="deleteDaily(campaign)"
+                          />
+                          <p-dropdown
+                            class="drop-checklist"
+                            [options]="colors"
+                            [(ngModel)]="campaign.dailyStateChecklist"
+                            (onChange)="updateColorTask(campaign)"
+                            inputId="float-label"
+                            (click)="$event.stopPropagation()"
+                          >
+                            <ng-template pTemplate="selectedItem">
+                              <div *ngIf="colorSelected === ''">
+                                <svg width="4.5rem" height="2rem">
+                                  <rect
+                                    width="4.5rem"
+                                    height="2rem"
+                                    [attr.fill]="campaign.dailyStateChecklist"
+                                    rx="8"
+                                    ry="8"
+                                  />
+                                </svg>
+                              </div>
+                            </ng-template>
+                            <ng-template let-color pTemplate="item">
+                              <svg width="5rem" height="2rem">
                                 <rect
-                                  width="4.5rem"
+                                  width="5rem"
                                   height="2rem"
-                                  [attr.fill]="campaign.dailyStateChecklist"
+                                  [attr.fill]="color"
                                   rx="8"
                                   ry="8"
                                 />
                               </svg>
-                            </div>
-                          </ng-template>
-                          <ng-template let-color pTemplate="item">
-                            <svg width="5rem" height="2rem">
-                              <rect
-                                width="5rem"
-                                height="2rem"
-                                [attr.fill]="color"
-                                rx="8"
-                                ry="8"
-                              />
-                            </svg>
-                          </ng-template>
-                        </p-dropdown>
+                            </ng-template>
+                          </p-dropdown>
+                        </div>
                       </div>
                     </ng-template>
                     <div

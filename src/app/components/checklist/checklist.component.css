@@ -118,3 +118,23 @@
   margin: 0;
   padding: 0.75rem;
 }
+
+.boton-recarga {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.padding-class {
+  padding: 0.75rem;
+}
+
+.logo-marca {
+  width: 45px;
+  height: 45px;
+  border-radius: 50px;
+  object-fit: contain;
+  object-position: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

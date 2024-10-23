@@ -159,4 +159,10 @@ export class CampaignService {
       data
     );
   }
+
+  getCampaignById(idCampaign: number): Observable<any> {
+    return this.http.get(
+      BASE_URL + `manual-ops/get-campaign-by-id/${idCampaign}`
+    );
+  }
 }

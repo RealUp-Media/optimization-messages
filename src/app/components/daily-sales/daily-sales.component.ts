@@ -154,7 +154,13 @@ export class DailySalesComponent {
     return Array.from(
       new Set(
         this.allCampaigns
-          .filter((item) => item.name_op === nameOp)
+          .filter(
+            (item) =>
+              item.name_op === nameOp &&
+              item.campaign_state != 'ARCHIVED' &&
+              item.campaign_state != 'DELETED' &&
+              item.campaign_state != 'CLOSED'
+          )
           .map((item) => item.brand)
       )
     );
@@ -164,7 +170,14 @@ export class DailySalesComponent {
     return Array.from(
       new Set(
         this.allCampaigns
-          .filter((item) => item.name_op === nameOp && item.brand == brand)
+          .filter(
+            (item) =>
+              item.name_op === nameOp &&
+              item.brand == brand &&
+              item.campaign_state != 'ARCHIVED' &&
+              item.campaign_state != 'DELETED' &&
+              item.campaign_state != 'CLOSED'
+          )
           .map((item) => item.client)
       )
     );
@@ -173,7 +186,12 @@ export class DailySalesComponent {
   getCampaignByNameOp(nameOp: string, brand: string, client: string): any[] {
     return this.allCampaigns.filter(
       (item) =>
-        item.name_op === nameOp && item.brand == brand && item.client == client
+        item.name_op === nameOp &&
+        item.brand == brand &&
+        item.client == client &&
+        item.campaign_state != 'ARCHIVED' &&
+        item.campaign_state != 'DELETED' &&
+        item.campaign_state != 'CLOSED'
     );
   }
 
@@ -186,14 +204,31 @@ export class DailySalesComponent {
   // Campaigns sin filtrado por Op
 
   getBrandByNameOpAll(): string[] {
-    return Array.from(new Set(this.allCampaigns.map((item) => item.brand)));
+    return Array.from(
+      new Set(
+        this.allCampaigns
+          .filter(
+            (item) =>
+              item.campaign_state != 'ARCHIVED' &&
+              item.campaign_state != 'DELETED' &&
+              item.campaign_state != 'CLOSED'
+          )
+          .map((item) => item.brand)
+      )
+    );
   }
 
   getClientByNameOpAll(brand: string): string[] {
     return Array.from(
       new Set(
         this.allCampaigns
-          .filter((item) => item.brand == brand)
+          .filter(
+            (item) =>
+              item.brand == brand &&
+              item.campaign_state != 'ARCHIVED' &&
+              item.campaign_state != 'DELETED' &&
+              item.campaign_state != 'CLOSED'
+          )
           .map((item) => item.client)
       )
     );
@@ -201,7 +236,12 @@ export class DailySalesComponent {
 
   getCampaignByNameOpAll(brand: string, client: string): any[] {
     return this.allCampaigns.filter(
-      (item) => item.brand == brand && item.client == client
+      (item) =>
+        item.brand == brand &&
+        item.client == client &&
+        item.campaign_state != 'ARCHIVED' &&
+        item.campaign_state != 'DELETED' &&
+        item.campaign_state != 'CLOSED'
     );
   }
 
