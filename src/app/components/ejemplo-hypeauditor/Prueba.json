@@ -1,0 +1,16 @@
+{
+  "er": [
+    {
+      "media": "Instagram",
+      "value": 0.87
+    },
+    {
+      "media": "TikTok",
+      "value": 0.2
+    },
+    {
+      "media": "YouTube",
+      "value": 0.1
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+.button-social-media {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* ::ng-deep .button-social-media .p-button {
+  height: 3rem;
+  width: 3rem;
+} */
+
+/* ::ng-deep .data-contact .p-button {
+  width: 8rem;
+} */

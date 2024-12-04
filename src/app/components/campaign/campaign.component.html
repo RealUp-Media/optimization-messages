@@ -591,6 +591,7 @@
           <p-dropdown
             [options]="operationsFilter"
             [(ngModel)]="filtroOp"
+            (ngModelChange)="changeOpFilter()"
             optionLabel="name"
             placeholder="Nombre OP"
           />
@@ -624,15 +625,30 @@
       </div>
 
       <div class="campaigns">
-        <div class="campaign-archived">
-          <img class="campaign-status" src="assets/icons/letter-a.svg" alt="" />
+        <div
+          *ngFor="let typeCampaign of listTypeCampaignArchived"
+          class="campaign-archived"
+        >
           <div class="columna">
-            <h2>ARCHIVADAS</h2>
-            <div *ngIf="campaignsArchivados.length > 0" class="campaign-father">
+            <div class="title-icon-campaign">
+              <h2>{{ typeCampaign.name }}</h2>
+              <img
+                class="campaign-status"
+                src="{{ typeCampaign.image }}"
+                alt=""
+              />
+            </div>
+
+            <div
+              *ngIf="getFilteredCampaignsByType(typeCampaign.value).length > 0"
+              class="campaign-father"
+            >
               <div
                 class="campaign-show"
                 *ngFor="
-                  let campaign of getFilteredCampaigns(campaignsArchivados)
+                  let campaign of getFilteredCampaigns(
+                    getFilteredCampaignsByType(typeCampaign.value)
+                  )
                 "
               >
                 <button
@@ -645,24 +661,82 @@
                       src="{{ campaign.image_url }}"
                       alt="Logo de la marca"
                     />
-                    <h2>{{ campaign.name }}</h2>
+                    <h3>{{ campaign.name }}</h3>
                     <p-button
                       icon="pi pi-pen-to-square"
-                      [text]="true"
-                      [raised]="true"
+                      [rounded]="true"
                       severity="secondary"
+                      [outlined]="true"
                       (onClick)="showDialogUpdate($event, campaign)"
                     />
                   </div>
-                  <p>Op a Cargo: {{ campaign.name_op }}</p>
-                  <p>
-                    Fecha final: {{ campaign.final_date | date : "dd/MM/yyyy" }}
-                  </p>
-                  <p>
-                    Tareas completadas: {{ campaign.task_completed }}/{{ 18 }}
-                  </p>
-                  <p>Número de creadores: {{ campaign.number_creators }}</p>
-                  <p>Número de acciones: {{ campaign.number_contents }}</p>
+
+                  <div class="data-group">
+                    <span class="pi pi-user"></span>
+                    <p class="font-bold">Op a Cargo</p>
+                    <p></p>
+                    <p class="content-subtitle">{{ campaign.name_op }}</p>
+                  </div>
+                  <div class="data-group">
+                    <span class="pi pi-calendar"></span>
+                    <p class="font-bold">Fecha final</p>
+                    <p></p>
+                    <p class="content-subtitle">
+                      {{ campaign.final_date | date : "dd/MM/yyyy" }}
+                    </p>
+                  </div>
+
+                  <div class="data-group">
+                    <span class="pi pi-book"></span>
+                    <p class="font-bold">Tareas completadas</p>
+                    <p></p>
+                    <p class="content-subtitle">
+                      {{ campaign.task_completed }}/{{ 18 }}
+                    </p>
+                  </div>
+
+                  <div class="data-group">
+                    <span class="pi pi-users"></span>
+                    <p class="font-bold">Número de creadores</p>
+                    <p></p>
+                    <p class="content-subtitle">
+                      {{ campaign.number_creators }}
+                    </p>
+                  </div>
+
+                  <div class="data-group">
+                    <span class="pi pi-video"></span>
+                    <p class="font-bold">Número de acciones</p>
+                    <p></p>
+                    <p class="content-subtitle">
+                      {{ campaign.number_contents }}
+                    </p>
+                  </div>
+
+                  <div class="data-group">
+                    <p class="no-margin-top font-bold item-2-column">
+                      Progreso campaña
+                    </p>
+                    <p-progressBar
+                      class="item-2-column"
+                      [value]="
+                        (campaign.task_completed / 18) * 100 | number : '1.0-0'
+                      "
+                    ></p-progressBar>
+                  </div>
+                  <div class="data-group">
+                    <p class="no-margin-top font-bold item-2-column">
+                      Numero de acciones realizadas
+                    </p>
+                    <p-progressBar
+                      class="item-2-column"
+                      [value]="
+                        (campaign.number_contents_done /
+                          campaign.number_contents) *
+                          100 | number : '1.0-0'
+                      "
+                    ></p-progressBar>
+                  </div>
                 </button>
               </div>
             </div>

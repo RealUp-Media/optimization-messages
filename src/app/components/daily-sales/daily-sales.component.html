@@ -54,6 +54,7 @@
             [options]="listSales"
             [(ngModel)]="SaleSelected"
             inputId="float-label"
+            (ngModelChange)="changeOpFilter()"
           />
           <label for="float-label">Selecciona Sales</label>
         </p-floatLabel>

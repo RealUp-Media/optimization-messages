@@ -1,0 +1,288 @@
+<div class="card">
+  <!-- Input para escribir el prompt -->
+  <div class="mb-3">
+    <textarea
+      pInputTextarea
+      [(ngModel)]="prompt"
+      placeholder="Escribe tu búsqueda en lenguaje natural, por ejemplo: 'Quiero influenciadores con más de 100,000 seguidores en Colombia'"
+      rows="3"
+      cols="30"
+      style="width: 500px"
+    ></textarea>
+    <p-button pButton label="Buscar" icon="pi pi-search" (click)="onSearch()" />
+  </div>
+  <div class="card">
+    <p-dataView #dv [value]="influencers" [rows]="5" [paginator]="true">
+      <ng-template pTemplate="list" let-influencers>
+        <div class="grid grid-nogutter">
+          <div
+            class="col-12"
+            *ngFor="let influencer of influencers"
+            class="col-12"
+          >
+            <div
+              class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3 border-top-1 surface-border"
+            >
+              <!-- Image/Placeholder -->
+              <div class="md:w-10rem relative">
+                <img
+                  class="block xl:block mx-auto border-round w-full"
+                  [src]="'https://via.placeholder.com/150'"
+                  alt="{{ influencer.name }}"
+                />
+                <p-tag
+                  *ngIf="influencer.ugc"
+                  value="UGC"
+                  severity="success"
+                  class="absolute"
+                  [style.left.px]="4"
+                  [style.top.px]="4"
+                ></p-tag>
+              </div>
+              <!-- Influencer Details -->
+              <div
+                class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4"
+              >
+                <div class="flex flex-column gap-2">
+                  <span class="font-medium text-secondary text-sm">{{
+                    influencer.username
+                  }}</span>
+                  <div class="text-lg font-medium text-900">
+                    {{ influencer.name }}
+                  </div>
+                  <div class="text-sm text-600">
+                    Country: {{ influencer.country }} | City:
+                    {{ influencer.city }}
+                  </div>
+                  <div class="text-sm text-600">
+                    Followers:
+                    {{ influencer.followersTotal | number : "1.0-0" }}
+                  </div>
+                  <p-tag
+                    [value]="
+                      'ER: ' +
+                      (influencer.engagementRate | number : '1.2-2') +
+                      '%'
+                    "
+                    severity="info"
+                    class="font-medium text-sm"
+                  ></p-tag>
+                  <div
+                    class="surface-100 p-1"
+                    style="border-radius: 30px; width: 3.5rem"
+                  >
+                    <div
+                      class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2"
+                      style="
+                        border-radius: 30px;
+                        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04),
+                          0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+                      "
+                    >
+                      <span class="text-900 font-medium text-sm">{{
+                        influencer.teamExperienceRating
+                      }}</span>
+                      <i class="pi pi-star-fill text-yellow-500"></i>
+                    </div>
+                  </div>
+                </div>
+                <!-- Rating and Actions -->
+                <div class="flex flex-column md:align-items-end gap-3">
+                  <div class="button-social-media">
+                    <p-button
+                      icon="pi pi-instagram"
+                      [rounded]="true"
+                      [text]="true"
+                      [raised]="true"
+                      [severity]="
+                        influencer.urlInstagram !== 'NA' &&
+                        influencer.urlInstagram !== ''
+                          ? 'info'
+                          : 'secondary'
+                      "
+                      [disabled]="
+                        influencer.urlInstagram === 'NA' ||
+                        influencer.urlInstagram === ''
+                      "
+                      (onClick)="openSocialMedia(influencer.urlInstagram)"
+                    ></p-button>
+                    <p-button
+                      icon="pi pi-tiktok"
+                      [rounded]="true"
+                      [text]="true"
+                      [raised]="true"
+                      [severity]="
+                        influencer.urlTiktok !== 'NA' &&
+                        influencer.urlTiktok !== ''
+                          ? 'info'
+                          : 'secondary'
+                      "
+                      [disabled]="
+                        influencer.urlTiktok === 'NA' ||
+                        influencer.urlTiktok === ''
+                      "
+                      (onClick)="openSocialMedia(influencer.urlTiktok)"
+                    />
+                    <p-button
+                      icon="pi pi-youtube"
+                      [rounded]="true"
+                      [text]="true"
+                      [raised]="true"
+                      [severity]="
+                        influencer.urlYoutube !== 'NA' &&
+                        influencer.urlYoutube !== ''
+                          ? 'info'
+                          : 'secondary'
+                      "
+                      [disabled]="
+                        influencer.urlYoutube === 'NA' ||
+                        influencer.urlYoutube === ''
+                      "
+                      (onClick)="openSocialMedia(influencer.urlYoutube)"
+                    />
+                  </div>
+
+                  <div
+                    class="flex flex-row-reverse md:flex-row gap-2 data-contact"
+                  >
+                    <p-button
+                      icon="pi pi-envelope"
+                      [outlined]="true"
+                      label="Email"
+                      (onClick)="sendEmailToInfluencer(influencer.contactEmail)"
+                    ></p-button>
+                    <p-button
+                      icon="pi pi-whatsapp"
+                      [outlined]="true"
+                      label="Message"
+                      [disabled]="
+                        influencer.contactPhone === 'NA' ||
+                        influencer.contactPhone === ''
+                      "
+                      (onClick)="
+                        sendMessageToInfluencer(influencer.contactPhone)
+                      "
+                    ></p-button>
+                    <p-button
+                      icon="pi pi-info"
+                      label="Details"
+                      class="white-space-nowrap"
+                      (onClick)="showDetails($event, influencer, overlayPanel)"
+                    ></p-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
+
+    <p-overlayPanel
+      #overlayPanel
+      [style]="{ width: '450px' }"
+      [showCloseIcon]="true"
+    >
+      <ng-template pTemplate="content">
+        <div class="p-4 surface-card shadow-2 border-round">
+          <!-- Header -->
+          <div class="flex align-items-center gap-3 mb-3">
+            <img
+              class="w-4rem h-4rem border-circle"
+              [src]="'https://via.placeholder.com/150'"
+              alt="{{ selectedInfluencer?.name }}"
+            />
+            <div>
+              <h2 class="text-lg font-bold text-900 m-0">
+                {{ selectedInfluencer?.name }}
+              </h2>
+              <span class="text-sm text-600">{{
+                selectedInfluencer?.username
+              }}</span>
+            </div>
+          </div>
+
+          <!-- Personal Info Section -->
+          <div class="mb-3">
+            <h3 class="text-base font-medium text-primary-600 mb-2">
+              Personal Info
+            </h3>
+            <div class="text-sm text-700">
+              <strong>Country:</strong> {{ selectedInfluencer?.country }}<br />
+              <strong>City:</strong> {{ selectedInfluencer?.city }}<br />
+              <strong>Age:</strong> {{ selectedInfluencer?.creatorAge }}<br />
+              <strong>Gender:</strong> {{ selectedInfluencer?.gender }}
+            </div>
+          </div>
+
+          <!-- Social Media Stats Section -->
+          <div class="mb-3">
+            <h3 class="text-base font-medium text-primary-600 mb-2">
+              Social Media Stats
+            </h3>
+            <div class="flex justify-content-between">
+              <div>
+                <strong>Instagram:</strong><br />
+                <span class="text-sm text-700">
+                  Followers:
+                  {{ selectedInfluencer?.followersInstagram | number }}
+                </span>
+              </div>
+              <div>
+                <strong>TikTok:</strong><br />
+                <span class="text-sm text-700">
+                  Followers: {{ selectedInfluencer?.followersTiktok | number }}
+                </span>
+              </div>
+              <div>
+                <strong>YouTube:</strong><br />
+                <span class="text-sm text-700">
+                  Followers: {{ selectedInfluencer?.followersYoutube | number }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Audience Info Section -->
+          <div class="mb-3">
+            <h3 class="text-base font-medium text-primary-600 mb-2">
+              Audience Info
+            </h3>
+            <div class="text-sm text-700">
+              <strong>Engagement Rate:</strong>
+              {{ selectedInfluencer?.engagementRate | number : "1.2-2" }}%<br />
+              <strong>Male Audience:</strong>
+              {{
+                selectedInfluencer?.audienceMalePercentage | number : "1.1-1"
+              }}%<br />
+              <strong>Female Audience:</strong>
+              {{
+                selectedInfluencer?.audienceFemalePercentage | number : "1.1-1"
+              }}%<br />
+              <strong>Top Audience City:</strong>
+              {{ selectedInfluencer?.top1AudienceCity }}<br />
+              <strong>Top Audience Country:</strong>
+              {{ selectedInfluencer?.top1AudienceCountry }}
+            </div>
+          </div>
+
+          <!-- Team Feedback Section -->
+          <div>
+            <h3 class="text-base font-medium text-primary-600 mb-2">
+              Team Feedback
+            </h3>
+            <div class="text-sm text-700">
+              <strong>Comment:</strong>
+              {{ selectedInfluencer?.teamExperienceComment || "N/A" }}<br />
+              <strong>Rating:</strong>
+              <span class="flex align-items-center">
+                {{ selectedInfluencer?.teamExperienceRating }}
+                <i class="pi pi-star-fill text-yellow-500 ml-1"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-overlayPanel>
+  </div>
+</div>

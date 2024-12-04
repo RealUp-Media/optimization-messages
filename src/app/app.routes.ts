@@ -15,6 +15,10 @@ import { DailyChecklistComponent } from './components/daily-checklist/daily-chec
 import { DailySalesComponent } from './components/daily-sales/daily-sales.component';
 import { WeeklyWorkloadsComponent } from './components/weekly-workloads/weekly-workloads.component';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { EjemploHypeauditorComponent } from './components/ejemplo-hypeauditor/ejemplo-hypeauditor.component';
+import { InfluencersComponent } from './components/influencers/influencers.component';
+import { AddInfluencerComponent } from './components/add-influencer/add-influencer.component';
+import { DiscoverInfluencersComponent } from './components/discover-influencers/discover-influencers.component';
 
 export const routes: Routes = [
   { path: 'messages-template', component: MessagesTemplateComponent },
@@ -31,4 +35,8 @@ export const routes: Routes = [
   { path: 'daily-sales', component: DailySalesComponent },
   { path: 'weekly-workloads', component: WeeklyWorkloadsComponent },
   { path: 'chatbot', component: ChatbotComponent },
+  { path: 'ejemplo-hype-auditor', component: EjemploHypeauditorComponent },
+  { path: 'influencers', component: InfluencersComponent },
+  { path: 'add-influencers', component: AddInfluencerComponent },
+  { path: 'discover-influencers', component: DiscoverInfluencersComponent },
 ];

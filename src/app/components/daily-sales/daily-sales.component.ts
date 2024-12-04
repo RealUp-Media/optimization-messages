@@ -57,6 +57,15 @@ interface DailyTask {
 })
 export class DailySalesComponent {
   ngOnInit(): void {
+    const nameOpFilterSelectedDaily = localStorage.getItem('nameSales');
+
+    if (nameOpFilterSelectedDaily) {
+      this.SaleSelected = nameOpFilterSelectedDaily;
+    } else {
+      // Si no hay valor almacenado, puedes manejar un valor por defecto o un mensaje
+      this.SaleSelected = ''; // Por ejemplo, un nombre vacío
+    }
+
     this.getAllCampaigns();
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -443,4 +452,8 @@ export class DailySalesComponent {
   // Checklist Maria Paula Cipamocha
 
   listTitleDailyMapi: any[] = [];
+
+  changeOpFilter() {
+    localStorage.setItem('nameSales', this.SaleSelected);
+  }
 }

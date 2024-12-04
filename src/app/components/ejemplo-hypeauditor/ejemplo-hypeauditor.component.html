@@ -1,0 +1,152 @@
+<input type="text" pInputText [(ngModel)]="nameInfluencer" />
+
+<p-button label="Search" (onClick)="getReportByUsername()" />
+<div *ngIf="influencerInfo">
+  <h1>{{ influencerInfo.name }}</h1>
+  <p>Followers: {{ influencerInfo.followers }}</p>
+  <p>Engagement Rate: {{ influencerInfo.engagementRate }}</p>
+  <p>Reach: {{ influencerInfo.reach }}</p>
+
+  <h3>Gender Distribution</h3>
+  <p>Male Audience: {{ influencerInfo.genderDistribution.male }}%</p>
+  <p>Female Audience: {{ influencerInfo.genderDistribution.female }}%</p>
+
+  <h3>Top 3 Countries</h3>
+  <ul>
+    <li *ngFor="let country of influencerInfo.topCountries">
+      {{ country.name }} - {{ country.percentage }}%
+    </li>
+  </ul>
+</div>
+
+<div class="container">
+  <h2>Google Sheets API Integration</h2>
+  <button (click)="handleAuthClick()">Create and Populate Google Sheet</button>
+</div>
+
+<div class="filters">
+  <h3>Filtrar Búsqueda</h3>
+
+  <!-- Social Network Selection -->
+  <label for="socialNetwork">Red Social:</label>
+  <p-dropdown
+    id="socialNetwork"
+    [(ngModel)]="filters.socialNetwork"
+    [options]="socialNetworkOptions"
+    placeholder="Seleccione una Red"
+  ></p-dropdown>
+
+  <!-- Account Gender Selection -->
+  <label for="accountGender">Género de la cuenta:</label>
+  <p-dropdown
+    id="accountGender"
+    [(ngModel)]="filters.accountGender"
+    [options]="genderOptions"
+    placeholder="Seleccione un Género"
+  ></p-dropdown>
+
+  <!-- Country Selection -->
+  <label for="accountCountry">País de la cuenta:</label>
+  <p-dropdown
+    id="accountCountry"
+    [(ngModel)]="filters.accountCountry"
+    [options]="countryOptions"
+    placeholder="Seleccione un País"
+  ></p-dropdown>
+
+  <!-- Age Range Selection -->
+  <label for="accountAge">Rango de Edad:</label>
+  <p-multiSelect
+    id="accountAge"
+    [(ngModel)]="filters.accountAge"
+    [options]="ageRangeOptions"
+    placeholder="Seleccione Rangos de Edad"
+    display="chip"
+  >
+  </p-multiSelect>
+
+  <!-- Subscribers Count Range -->
+  <label>Cantidad de Seguidores:</label>
+  <p-inputNumber
+    [(ngModel)]="filters.subscribersCount.from"
+    placeholder="Desde"
+  ></p-inputNumber>
+  <p-inputNumber
+    [(ngModel)]="filters.subscribersCount.to"
+    placeholder="Hasta"
+  ></p-inputNumber>
+
+  <!-- Engagement Rate Range -->
+  <label>Engagement Rate (%):</label>
+  <p-inputNumber
+    [(ngModel)]="filters.er.from"
+    placeholder="Desde"
+    [min]="0"
+    [max]="100"
+  ></p-inputNumber>
+  <p-inputNumber
+    [(ngModel)]="filters.er.to"
+    placeholder="Hasta"
+    [min]="0"
+    [max]="100"
+  ></p-inputNumber>
+
+  <!-- Account Has Contacts Switch -->
+  <label for="accountHasContacts">¿Cuenta con contacto?</label>
+  <p-inputSwitch [(ngModel)]="filters.accountHasContacts"></p-inputSwitch>
+
+  <!-- Search Button -->
+  <button (click)="sendRequest()">Buscar</button>
+</div>
+
+<!-- Tu tabla de resultados aquí -->
+
+<p-table
+  [value]="searchResults"
+  [paginator]="true"
+  [rows]="10"
+  [responsiveLayout]="'scroll'"
+  [selection]="selectedResults"
+  (selectionChange)="selectedResults = $event"
+  dataKey="basic.id"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3em">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>Title</th>
+      <th>Username</th>
+      <th>Avatar</th>
+      <th>ER (%)</th>
+      <th>Subscribers</th>
+      <th>Real Subscribers</th>
+      <th>AQS</th>
+      <th>Blogger Topics</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-result>
+    <tr [pSelectableRow]="result">
+      <td>
+        <p-tableCheckbox [value]="result"></p-tableCheckbox>
+      </td>
+      <td>{{ result.basic.title }}</td>
+      <td>{{ result.basic.username }}</td>
+      <td>
+        <img [src]="result.basic.avatar_url" alt="Avatar" width="50" />
+      </td>
+      <td>{{ result.metrics.er.value }}</td>
+      <td>{{ result.metrics.subscribers_count.value }}</td>
+      <td>{{ result.metrics.real_subscribers_count.value }}</td>
+      <td>{{ result.features.aqs.data.mark }}</td>
+      <td>{{ result.features.blogger_topics.data.join(", ") }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- <button (click)="uploadAllSearchResultsToGoogleSheet()">
+  Guardar todos los resultados en Google Sheets
+</button> -->
+
+<button (click)="generateReportsForSelectedRows()">Sacar Reporte</button>

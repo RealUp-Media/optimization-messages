@@ -54,6 +54,7 @@
             [options]="listOPS"
             [(ngModel)]="OpSelected"
             inputId="float-label"
+            (ngModelChange)="changeOpFilter()"
           />
           <label for="float-label">Selecciona OPS</label>
         </p-floatLabel>

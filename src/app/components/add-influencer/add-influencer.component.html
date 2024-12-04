@@ -1,0 +1,127 @@
+<div class="card flex flex-column md:flex-row gap-3 items-influencer">
+  <p-inputGroup>
+    <p-inputGroupAddon>
+      <i class="pi pi-user"></i>
+    </p-inputGroupAddon>
+    <input pInputText placeholder="Username" [(ngModel)]="usernameSelected" />
+  </p-inputGroup>
+  <p-inputGroup>
+    <p-inputGroupAddon>
+      <i class="pi pi-mobile"></i>
+    </p-inputGroupAddon>
+    <p-dropdown
+      class="dropdown-social-network"
+      [options]="socialNetwork"
+      [(ngModel)]="socialNetworkSelect"
+      optionLabel="name"
+      placeholder="Platform"
+    />
+  </p-inputGroup>
+  <p-inputGroup>
+    <p-inputGroupAddon>$</p-inputGroupAddon>
+    <p-inputNumber
+      class="input-integer"
+      inputId="integeronly"
+      placeholder="Price"
+    />
+    <!-- <input type="text" pInputText placeholder="Price" /> -->
+    <p-inputGroupAddon>USD</p-inputGroupAddon>
+  </p-inputGroup>
+  <p-inputGroup>
+    <p-inputGroupAddon><i class="pi pi-phone"></i></p-inputGroupAddon>
+    <input
+      type="text"
+      pInputText
+      placeholder="Phone"
+      [(ngModel)]="contactPhone"
+    />
+  </p-inputGroup>
+  <p-inputGroup>
+    <p-inputGroupAddon><i class="pi pi-envelope"></i></p-inputGroupAddon>
+    <input
+      type="text"
+      pInputText
+      placeholder="Email"
+      [(ngModel)]="contactEmail"
+    />
+  </p-inputGroup>
+</div>
+<div class="card flex rating-box padding-2rem">
+  <p-rating
+    [cancel]="false"
+    [(ngModel)]="teamExperienceRating"
+    (ngModelChange)="pruebaRating()"
+  />
+  <input
+    type="text"
+    pInputText
+    [(ngModel)]="teamExperienceComment"
+    placeholder="Comment"
+  />
+  <p-button label="Search" (onClick)="getReportByUsername()" />
+  <p-button label="Add" (onClick)="postInfluencer()" />
+</div>
+
+<div class="card">
+  <p-table [value]="influencerData" [tableStyle]="{ 'min-width': '80rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Username</th>
+        <th>Creator Age</th>
+        <th>Gender</th>
+        <th>URL</th>
+        <th>País</th>
+        <th>Ciudad</th>
+        <th>Seguidores Ig</th>
+        <th>Tasa de Engagement</th>
+        <th>Audiencia Masculina</th>
+        <th>Audiencia Femenina</th>
+        <th>Categorías</th>
+        <th>Contacto</th>
+        <th>Lenguaje</th>
+        <th>Ciudad Top 1</th>
+        <th>Pais Top 1</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-influencer>
+      <tr>
+        <td>{{ influencer.name }}</td>
+        <td>{{ influencer.username }}</td>
+        <td>{{ influencer.creatorAge }}</td>
+        <td>{{ influencer.gender }}</td>
+        <td>
+          <p-button
+            icon="pi pi-instagram"
+            [rounded]="true"
+            [text]="true"
+            [raised]="true"
+            [severity]="
+              influencer.urlInstagram !== 'NA' && influencer.urlInstagram !== ''
+                ? 'info'
+                : 'secondary'
+            "
+            [disabled]="
+              influencer.urlInstagram === 'NA' || influencer.urlInstagram === ''
+            "
+            (onClick)="openSocialMedia(influencer.urlInstagram)"
+          ></p-button>
+        </td>
+        <td>{{ influencer.country }}</td>
+        <td>{{ influencer.city }}</td>
+        <td>{{ influencer.followersInstagram }}</td>
+        <td>{{ influencer.engagementRate | number : "1.1-3" }}%</td>
+        <td>{{ influencer.audienceMalePercentage | number : "1.1-2" }}%</td>
+        <td>{{ influencer.audienceFemalePercentage | number : "1.1-2" }}%</td>
+        <td>{{ influencer.contentCategories }}</td>
+        <td>
+          <p>Teléfono: {{ influencer.contactPhone }}</p>
+          <p>Email: {{ influencer.contactEmail }}</p>
+        </td>
+        <td>{{ influencer.languages }}</td>
+        <td>{{ influencer.top1AudienceCity }}</td>
+        <td>{{ influencer.top1AudienceCountry }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

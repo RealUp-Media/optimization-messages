@@ -108,8 +108,15 @@ export class DailyChecklistComponent {
   time: Date[] | undefined;
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.'
+    const nameOpFilterSelectedDaily = localStorage.getItem('OpDailySales');
+
+    if (nameOpFilterSelectedDaily) {
+      this.OpSelected = nameOpFilterSelectedDaily;
+    } else {
+      // Si no hay valor almacenado, puedes manejar un valor por defecto o un mensaje
+      this.OpSelected = ''; // Por ejemplo, un nombre vacío
+    }
+
     setTimeout(() => {
       this.getAllDailyTask();
       this.getAllCampaigns();
@@ -403,5 +410,9 @@ export class DailyChecklistComponent {
         console.error('Color updating tasks', error);
       }
     );
+  }
+
+  changeOpFilter() {
+    localStorage.setItem('OpDailySales', this.OpSelected);
   }
 }

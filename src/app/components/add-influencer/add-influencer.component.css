@@ -1,0 +1,31 @@
+::ng-deep .input-integer input {
+  border-radius: 0px;
+  border-right: 0px;
+}
+
+::ng-deep .dropdown-social-network .p-dropdown {
+  width: 100%;
+  border-top-left-radius: 0px; /* Esquina superior derecha */
+  border-bottom-left-radius: 0px; /* Esquina inferior derecha */
+}
+
+.rating-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1%;
+  /* justify-content: space-between; */
+}
+
+.rating-box input {
+  width: 90%;
+}
+
+::ng-deep .rating-box .p-rating {
+  width: 10%;
+}
+
+.items-influencer {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}

@@ -95,8 +95,6 @@ interface Pais {
     FloatLabelModule,
     ProgressSpinnerModule,
     TreeModule,
-    CdkDropList,
-    CdkDrag,
   ],
   templateUrl: './campaign.component.html',
   styleUrl: './campaign.component.css',
@@ -209,8 +207,9 @@ export class CampaignComponent {
       }
     } else {
       // Si no hay valor almacenado, puedes manejar un valor por defecto o un mensaje
-      this.filtroOp = { name: '', value: '0' }; // Por ejemplo, un nombre vacío
+      this.filtroOp = { name: 'Todas', value: '' }; // Por ejemplo, un nombre vacío
     }
+
     setTimeout(() => {
       this.loadCampaigns();
     }, 500);
@@ -362,7 +361,12 @@ export class CampaignComponent {
     this.campaignService.getAllCampaigns().subscribe(
       (response) => {
         this.allCampaigns = response;
-        console.log('Tasks updated successfully', response);
+        this.allClients = [
+          ...new Set(response.map((campaign: any) => campaign.client)),
+        ];
+        this.allBrands = [
+          ...new Set(response.map((campaign: any) => campaign.brand)),
+        ];
       },
       (error) => {
         console.error('Error updating tasks', error);
@@ -418,34 +422,6 @@ export class CampaignComponent {
         console.error('Error updating tasks', error);
       }
     );
-
-    this.campaignService.getAllCampaigns().subscribe(
-      (response) => {
-        // Extraer solo el atributo 'client' de cada campaña y eliminar duplicados
-        this.allClients = [
-          ...new Set(response.map((campaign: any) => campaign.client)),
-        ];
-        this.allBrands = [
-          ...new Set(response.map((campaign: any) => campaign.brand)),
-        ];
-        console.log('Todos las marcas: ' + this.allBrands);
-        console.log('Todos los clientes: ' + this.allClients);
-      },
-      (error) => {
-        console.error('Error updating tasks', error);
-      }
-    );
-    // this.campaignService.getAllCampaigns().subscribe(
-    //   (response) => {
-    //     // Extraer solo el atributo 'client' de cada campaña, eliminar duplicados y asignarlo al array allBrands
-    //     this.allBrands = [
-    //       ...new Set(response.map((campaign: any) => campaign.client)),
-    //     ];
-    //   },
-    //   (error) => {
-    //     console.error('Error updating tasks', error);
-    //   }
-    // );
 
     setTimeout(() => {
       this.chargeData();
@@ -1147,6 +1123,15 @@ export class CampaignComponent {
       value: 'CLOSED',
       valueInteger: 2,
       image: 'assets/icons/letter-c.svg',
+    },
+  ];
+
+  listTypeCampaignArchived: any[] = [
+    {
+      name: 'Archivadas',
+      value: 'ARCHIVED',
+      valueInteger: 3,
+      image: 'assets/icons/letter-a.svg',
     },
   ];
 }
