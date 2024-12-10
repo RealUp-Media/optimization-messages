@@ -1,16 +1,94 @@
 {
-  "er": [
+  "id": 739,
+  "country": " USA",
+  "city": "Miami, FL, USA",
+  "creatorAge": "18-25",
+  "gender": "Female",
+  "name": "",
+  "urlPhoto": [
     {
       "media": "Instagram",
-      "value": 0.87
+      "value": "https://instagram.fbog19-1.fna.fbcdn.net/v/t51.2885-19/455838318_3851067085214096_7292417260720310489_n.jpg?stp=dst-jpg_tt6&_nc_ht=instagram.fbog19-1.fna.fbcdn.net&_nc_cat=108&_nc_ohc=WeA8paxqracQ7kNvgEJMLoe&_nc_gid=544c1f580e444b9e98e99b1cd5d6e3f2&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_AYCk6PwJyiw4NdI9DKQuLDAnD7dp8nswGrlofAWvm4V8EA&oe=675DB4CC&_nc_sid=7a9f4b"
+    }
+  ],
+  "usernameInfluencers": [
+    {
+      "media": "Instagram",
+      "value": "vaneoliveiras"
+    }
+  ],
+  "urlSocialMedia": [
+    {
+      "media": "Instagram",
+      "value": "https://www.instagram.com/vaneoliveiras/"
+    }
+  ],
+  "followers": [
+    {
+      "media": "Instagram",
+      "value": 518767
     },
     {
       "media": "TikTok",
-      "value": 0.2
+      "value": 0
     },
     {
       "media": "YouTube",
-      "value": 0.1
+      "value": 0
     }
-  ]
+  ],
+  "priceInfluencer": [
+    {
+      "action": "stories",
+      "value": 8353.49
+    },
+    {
+      "action": "reels",
+      "value": 11137.99
+    }
+  ],
+  "contentCategories": "Beauty, Lifestyle",
+  "directManagerAgency": "",
+  "contactPhone": "17863284460",
+  "contactEmail": "management@vaneoliveira.com",
+  "languages": "English, Spanish",
+  "engagementRate": [
+    {
+      "media": "Instagram",
+      "value": 10.7350631728872
+    }
+  ],
+  "audienceMalePercentage": [
+    {
+      "media": "Instagram",
+      "value": 0.249665311368063
+    }
+  ],
+  "audienceFemalePercentage": [
+    {
+      "media": "Instagram",
+      "value": 0.750334688631938
+    }
+  ],
+  "topAudienceCity": {
+    "Instagram": [
+      {
+        "name": "Maracaibo",
+        "weight": 0.039824,
+        "country": "Venezuela"
+      }
+    ]
+  },
+  "topAudienceCountry": {
+    "Instagram": [
+      {
+        "name": "Venezuela",
+        "weight": 0.338591,
+        "country": null
+      }
+    ]
+  },
+  "ugc": false,
+  "teamExperienceComment": "Trabajar con el influenciador fue una experiencia interesante, aunque hubo algunos desafÃ­os en la comunicaciÃ³n. Al final, la colaboraciÃ³n resultÃ³ en un contenido atractivo.",
+  "teamExperienceRating": 4
 }

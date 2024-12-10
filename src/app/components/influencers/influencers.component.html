@@ -1,18 +1,20 @@
+<h1 style="text-align: center">RealUp DataBase</h1>
 <div class="card">
   <!-- Input para escribir el prompt -->
-  <div class="mb-3">
-    <textarea
+  <div class="prompt-search">
+    <input id="username" pInputText [(ngModel)]="prompt" placeholder="Prompt" />
+    <!-- <textarea
       pInputTextarea
       [(ngModel)]="prompt"
       placeholder="Escribe tu búsqueda en lenguaje natural, por ejemplo: 'Quiero influenciadores con más de 100,000 seguidores en Colombia'"
       rows="3"
       cols="30"
       style="width: 500px"
-    ></textarea>
-    <p-button pButton label="Buscar" icon="pi pi-search" (click)="onSearch()" />
+    ></textarea> -->
+    <p-button pButton label="Search" icon="pi pi-search" (click)="onSearch()" />
   </div>
   <div class="card">
-    <p-dataView #dv [value]="influencers" [rows]="5" [paginator]="true">
+    <p-dataView #dv [value]="influencers" [rows]="15" [paginator]="true">
       <ng-template pTemplate="list" let-influencers>
         <div class="grid grid-nogutter">
           <div
@@ -27,7 +29,11 @@
               <div class="md:w-10rem relative">
                 <img
                   class="block xl:block mx-auto border-round w-full"
-                  [src]="'https://via.placeholder.com/150'"
+                  [src]="
+                    this.baseUrl +
+                    'manual-ops/api/influencers/proxy-image?url=' +
+                    encodeUrl(influencer.urlPhoto[0].value)
+                  "
                   alt="{{ influencer.name }}"
                 />
                 <p-tag
@@ -45,7 +51,7 @@
               >
                 <div class="flex flex-column gap-2">
                   <span class="font-medium text-secondary text-sm">{{
-                    influencer.username
+                    influencer.usernameInfluencer[0].value
                   }}</span>
                   <div class="text-lg font-medium text-900">
                     {{ influencer.name }}
@@ -56,12 +62,12 @@
                   </div>
                   <div class="text-sm text-600">
                     Followers:
-                    {{ influencer.followersTotal | number : "1.0-0" }}
+                    {{ influencer.followers[0].value | number : "1.0-0" }}
                   </div>
                   <p-tag
                     [value]="
                       'ER: ' +
-                      (influencer.engagementRate | number : '1.2-2') +
+                      (influencer.engagementRate[0].value | number : '1.2-2') +
                       '%'
                     "
                     severity="info"
@@ -95,16 +101,18 @@
                       [text]="true"
                       [raised]="true"
                       [severity]="
-                        influencer.urlInstagram !== 'NA' &&
-                        influencer.urlInstagram !== ''
+                        influencer.urlSocialMedia[0].value !== 'NA' &&
+                        influencer.urlSocialMedia[0].value !== ''
                           ? 'info'
                           : 'secondary'
                       "
                       [disabled]="
-                        influencer.urlInstagram === 'NA' ||
-                        influencer.urlInstagram === ''
+                        influencer.urlSocialMedia[0].value === 'NA' ||
+                        influencer.urlSocialMedia[0].value === ''
                       "
-                      (onClick)="openSocialMedia(influencer.urlInstagram)"
+                      (onClick)="
+                        openSocialMedia(influencer.urlSocialMedia[0].value)
+                      "
                     ></p-button>
                     <p-button
                       icon="pi pi-tiktok"
@@ -189,7 +197,10 @@
           <div class="flex align-items-center gap-3 mb-3">
             <img
               class="w-4rem h-4rem border-circle"
-              [src]="'https://via.placeholder.com/150'"
+              [src]="
+                'http://localhost:8080/manual-ops/api/influencers/proxy-image?url=' +
+                encodeUrl(selectedInfluencer?.urlPhoto[0].value)
+              "
               alt="{{ selectedInfluencer?.name }}"
             />
             <div>
@@ -197,7 +208,7 @@
                 {{ selectedInfluencer?.name }}
               </h2>
               <span class="text-sm text-600">{{
-                selectedInfluencer?.username
+                selectedInfluencer?.usernameInfluencer[0].value
               }}</span>
             </div>
           </div>
@@ -225,19 +236,23 @@
                 <strong>Instagram:</strong><br />
                 <span class="text-sm text-700">
                   Followers:
-                  {{ selectedInfluencer?.followersInstagram | number }}
+                  {{ selectedInfluencer?.followers[0].value | number }}
                 </span>
               </div>
               <div>
                 <strong>TikTok:</strong><br />
                 <span class="text-sm text-700">
-                  Followers: {{ selectedInfluencer?.followersTiktok | number }}
+                  Followers:
+                  <!-- {{ selectedInfluencer?.urlSocialMedia[0].value | number }} -->
+                  {{ 0 }}
                 </span>
               </div>
               <div>
                 <strong>YouTube:</strong><br />
                 <span class="text-sm text-700">
-                  Followers: {{ selectedInfluencer?.followersYoutube | number }}
+                  Followers:
+                  <!-- {{ selectedInfluencer?.urlSocialMedia[0].value | number }} -->
+                  {{ 0 }}
                 </span>
               </div>
             </div>
@@ -250,19 +265,21 @@
             </h3>
             <div class="text-sm text-700">
               <strong>Engagement Rate:</strong>
-              {{ selectedInfluencer?.engagementRate | number : "1.2-2" }}%<br />
+              {{
+                selectedInfluencer?.engagementRate[0].value | number : "1.2-2"
+              }}%<br />
               <strong>Male Audience:</strong>
               {{
-                selectedInfluencer?.audienceMalePercentage | number : "1.1-1"
+                selectedInfluencer?.audienceMale[0].value | number : "1.1-1"
               }}%<br />
               <strong>Female Audience:</strong>
               {{
-                selectedInfluencer?.audienceFemalePercentage | number : "1.1-1"
+                selectedInfluencer?.audienceFemale[0].value | number : "1.1-1"
               }}%<br />
               <strong>Top Audience City:</strong>
-              {{ selectedInfluencer?.top1AudienceCity }}<br />
+              {{ selectedInfluencer?.topAudienceCity.Instagram[0].name }}<br />
               <strong>Top Audience Country:</strong>
-              {{ selectedInfluencer?.top1AudienceCountry }}
+              {{ selectedInfluencer?.topAudienceCountry.Instagram[0].name }}
             </div>
           </div>
 

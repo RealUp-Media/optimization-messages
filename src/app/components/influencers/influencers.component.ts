@@ -20,7 +20,10 @@ import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ToastModule } from 'primeng/toast';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { GlobalConfig } from '../../global-config';
 
+const BASE_URL = GlobalConfig.apiUrl;
 @Component({
   selector: 'app-influencers',
   standalone: true,
@@ -41,6 +44,7 @@ import { ToastModule } from 'primeng/toast';
     DataViewModule,
     OverlayPanelModule,
     ToastModule,
+    FloatLabelModule,
   ],
   templateUrl: './influencers.component.html',
   styleUrl: './influencers.component.css',
@@ -49,8 +53,13 @@ export class InfluencersComponent {
   prompt: string = ''; // Guardará el prompt del usuario
   influencers: any[] = []; // Datos mostrados en la tabla
   loading: boolean = false;
+  baseUrl: string = BASE_URL;
 
   constructor(private http: HttpClient) {}
+
+  encodeUrl(url: string): string {
+    return encodeURIComponent(url);
+  }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.

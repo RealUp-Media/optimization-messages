@@ -14,3 +14,19 @@
 /* ::ng-deep .data-contact .p-button {
   width: 8rem;
 } */
+
+.prompt-search {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.prompt-search input {
+  width: 85%;
+  height: 3rem;
+}
+
+.prompt-search p-button {
+  height: 3rem;
+}

@@ -51,6 +51,7 @@ export class DiscoverInfluencersComponent {
   locationsSelected: any = [];
 
   ngOnInit(): void {
+    console.log(this.dataFilter);
     this.locations = this.getLocations();
     console.log(this.locations);
   }
@@ -69,10 +70,10 @@ export class DiscoverInfluencersComponent {
     filter: {
       influencer: {
         followers: {
-          min: 20000,
-          max: 70000,
+          min: 50000,
+          max: 80000,
         },
-        engagementRate: 0.02,
+        engagementRate: 0.04,
         language: 'en',
         lastposted: 90,
         gender: 'MALE',
