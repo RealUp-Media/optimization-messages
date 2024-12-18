@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap");
 .button-social-media {
   display: flex;
   flex-direction: row;
@@ -16,10 +17,18 @@
 } */
 
 .prompt-search {
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  justify-content: center;
+
+  position: sticky; /* Se queda pegada al hacer scroll */
+  top: 0; /* Pegada al borde superior */
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 10px 20px; /* Espaciado interno */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  z-index: 1000; /* Prioridad sobre otros elementos */
 }
 
 .prompt-search input {
@@ -29,4 +38,75 @@
 
 .prompt-search p-button {
   height: 3rem;
+}
+
+.selected-card {
+  border: 1px solid #007ad9;
+  background-color: #f0f8ff;
+  transition: all 0.5s ease-in-out;
+}
+
+.influencers-selected {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); /* Sin sombra inicialmente */
+  transition: all 0.3s ease-in-out; /* Aplica la transición al estado normal */
+}
+
+.influencers-selected:hover {
+  box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.1); /* Sombra uniforme hacia afuera */
+}
+
+/* Gradiente Instagram */
+
+.instagram-gradient {
+  background: linear-gradient(
+    90deg,
+    #f3c20e 0%,
+    #fa7e1e 10%,
+    #d62976 20%,
+    #962fbf 30%,
+    #4f5bd5 40%
+  );
+  background-size: 100% 100%; /* Ajusta el tamaño del degradado para letras pequeñas */
+  background-position: center; /* Centra el degradado */
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  font-weight: bold;
+}
+
+.tiktok-logo {
+  color: #000000;
+}
+
+/* YouTube Texto Logo */
+
+.youtube-logo {
+  display: inline-block;
+}
+
+.youtube-text-black {
+  color: black; /* "You" en negro */
+}
+
+.youtube-text-red {
+  display: inline-block;
+  color: white; /* Texto "Tube" en blanco */
+  background-color: #ff0000; /* Fondo rojo (YouTube red) */
+  padding: 3px 3px; /* Espaciado interno */
+  border-radius: 6px; /* Bordes redondeados */
+}
+
+.flex-basis-33 {
+  flex: 1;
+  min-width: 0;
+  flex-basis: 33%;
+}
+
+.empty-column {
+  height: 100px; /* Altura para que sea visualmente uniforme */
+  background-color: transparent;
+  border-radius: 5px;
 }

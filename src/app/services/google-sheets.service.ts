@@ -72,20 +72,12 @@ export class GoogleSheetsService {
     const values = [
       [
         'Name',
+        'Network',
         'Username',
-        'Creator Age',
-        'Gender',
-        'Instagram URL',
-        'Country',
-        'City',
         'Followers',
         'Engagement Rate',
-        'Female Audience %',
-        'Male Audience %',
-        'Content Categories',
-        'Languages',
-        'Top Audience City',
-        'Top Audience Country',
+        'Country',
+        'City',
       ],
     ];
 
@@ -93,32 +85,26 @@ export class GoogleSheetsService {
     data.forEach((item) => {
       values.push([
         item.name,
+        item.network,
         item.username,
-        item.creatorAge,
-        item.gender,
-        item.urlInstagram,
+        item.followers,
+        item.engagementRate,
         item.country,
         item.city,
-        item.followersInstagram,
-        item.engagementRate,
-        item.audienceFemalePercentage,
-        item.audienceMalePercentage,
-        item.contentCategories,
-        item.languages,
-        item.top1AudienceCity,
-        item.top1AudienceCountry,
       ]);
     });
 
     try {
+      // Crear la hoja de cálculo
       const response = await gapi.client.sheets.spreadsheets.create({
         properties: {
-          title: 'Influencer Reports',
+          title: 'Influencer Styled Report',
         },
       });
 
       const spreadsheetId = response.result.spreadsheetId;
 
+      // Insertar los datos
       await gapi.client.sheets.spreadsheets.values.update({
         spreadsheetId,
         range: 'Sheet1!A1',
@@ -128,7 +114,69 @@ export class GoogleSheetsService {
         },
       });
 
-      console.log(`Datos agregados correctamente a la hoja: ${spreadsheetId}`);
+      // Aplicar estilos al encabezado y ajustar columnas
+      await gapi.client.sheets.spreadsheets.batchUpdate({
+        spreadsheetId,
+        resource: {
+          requests: [
+            // 1. Aplicar estilos al encabezado
+            {
+              repeatCell: {
+                range: {
+                  sheetId: 0,
+                  startRowIndex: 0,
+                  endRowIndex: 1,
+                },
+                cell: {
+                  userEnteredFormat: {
+                    backgroundColor: { red: 0.2, green: 0.6, blue: 0.86 }, // Color azul claro
+                    horizontalAlignment: 'CENTER',
+                    textFormat: {
+                      foregroundColor: { red: 1, green: 1, blue: 1 }, // Texto blanco
+                      fontSize: 12,
+                      bold: true,
+                    },
+                  },
+                },
+                fields:
+                  'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment)',
+              },
+            },
+            // 2. Ajustar el ancho de las columnas
+            {
+              updateDimensionProperties: {
+                range: {
+                  sheetId: 0,
+                  dimension: 'COLUMNS',
+                  startIndex: 0,
+                  endIndex: 7, // Ajustar las primeras 7 columnas
+                },
+                properties: {
+                  pixelSize: 150, // Ancho de 150 píxeles
+                },
+                fields: 'pixelSize',
+              },
+            },
+            // 3. Ajustar altura de filas
+            {
+              updateDimensionProperties: {
+                range: {
+                  sheetId: 0,
+                  dimension: 'ROWS',
+                  startIndex: 0,
+                  endIndex: values.length,
+                },
+                properties: {
+                  pixelSize: 25,
+                },
+                fields: 'pixelSize',
+              },
+            },
+          ],
+        },
+      });
+
+      console.log(`Datos y estilos agregados correctamente: ${spreadsheetId}`);
     } catch (error) {
       console.error('Error interactuando con Google Sheets:', error);
     }

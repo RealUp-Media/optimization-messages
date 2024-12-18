@@ -17,4 +17,10 @@ export class InfluencersService {
       influencer
     );
   }
+
+  getAllInfluencer(): Observable<any> {
+    return this.http.get(
+      BASE_URL + 'manual-ops/api/influencers/see-influencer'
+    );
+  }
 }

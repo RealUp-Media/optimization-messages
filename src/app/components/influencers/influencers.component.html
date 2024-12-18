@@ -1,305 +1,477 @@
-<h1 style="text-align: center">RealUp DataBase</h1>
-<div class="card">
-  <!-- Input para escribir el prompt -->
+<div>
+  <h1 style="text-align: center">RealUp DataBase</h1>
   <div class="prompt-search">
     <input id="username" pInputText [(ngModel)]="prompt" placeholder="Prompt" />
-    <!-- <textarea
-      pInputTextarea
-      [(ngModel)]="prompt"
-      placeholder="Escribe tu búsqueda en lenguaje natural, por ejemplo: 'Quiero influenciadores con más de 100,000 seguidores en Colombia'"
-      rows="3"
-      cols="30"
-      style="width: 500px"
-    ></textarea> -->
-    <p-button pButton label="Search" icon="pi pi-search" (click)="onSearch()" />
+    <p-button label="Search" icon="pi pi-search" (click)="onSearch()" />
+    <p-button
+      label="Export"
+      icon="pi pi-google"
+      (onClick)="openExportDialog()"
+    />
   </div>
   <div class="card">
-    <p-dataView #dv [value]="influencers" [rows]="15" [paginator]="true">
-      <ng-template pTemplate="list" let-influencers>
-        <div class="grid grid-nogutter">
+    <!-- Input para escribir el prompt -->
+
+    <div *ngIf="loading" class="p-4">
+      <div class="grid grid-nogutter">
+        <div class="col-12" *ngFor="let i of counterArray(6)">
           <div
-            class="col-12"
-            *ngFor="let influencer of influencers"
-            class="col-12"
+            class="flex flex-column sm:flex-row align-items-center p-4 gap-4 border-top-1 surface-border"
           >
+            <p-skeleton styleClass="w-10rem h-6rem border-round" />
+            <div class="flex flex-column gap-3 flex-1">
+              <p-skeleton styleClass="w-8rem h-2rem border-round" />
+              <p-skeleton styleClass="w-6rem h-1rem border-round" />
+              <p-skeleton styleClass="w-10rem h-1rem border-round" />
+            </div>
+            <p-skeleton shape="circle" styleClass="w-3rem h-3rem" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!loading" class="card">
+      <p-dataView #dv [value]="influencersData" [rows]="15" [paginator]="true">
+        <ng-template pTemplate="list" let-influencers>
+          <div class="grid grid-nogutter">
             <div
-              class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3 border-top-1 surface-border"
+              (click)="toggleSelection(influencer)"
+              [ngClass]="{ 'selected-card': influencer.selected }"
+              style="cursor: pointer"
+              class="col-12 influencers-selected"
+              *ngFor="let influencer of influencers"
+              @delayedFadeIn
             >
-              <!-- Image/Placeholder -->
-              <div class="md:w-10rem relative">
-                <img
-                  class="block xl:block mx-auto border-round w-full"
-                  [src]="
-                    this.baseUrl +
-                    'manual-ops/api/influencers/proxy-image?url=' +
-                    encodeUrl(influencer.urlPhoto[0].value)
-                  "
-                  alt="{{ influencer.name }}"
-                />
-                <p-tag
-                  *ngIf="influencer.ugc"
-                  value="UGC"
-                  severity="success"
-                  class="absolute"
-                  [style.left.px]="4"
-                  [style.top.px]="4"
-                ></p-tag>
-              </div>
-              <!-- Influencer Details -->
               <div
-                class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4"
+                class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3 border-top-1 surface-border"
               >
-                <div class="flex flex-column gap-2">
-                  <span class="font-medium text-secondary text-sm">{{
-                    influencer.usernameInfluencer[0].value
-                  }}</span>
-                  <div class="text-lg font-medium text-900">
-                    {{ influencer.name }}
-                  </div>
-                  <div class="text-sm text-600">
-                    Country: {{ influencer.country }} | City:
-                    {{ influencer.city }}
-                  </div>
-                  <div class="text-sm text-600">
-                    Followers:
-                    {{ influencer.followers[0].value | number : "1.0-0" }}
-                  </div>
-                  <p-tag
-                    [value]="
-                      'ER: ' +
-                      (influencer.engagementRate[0].value | number : '1.2-2') +
-                      '%'
+                <div class="md:w-10rem relative">
+                  <img
+                    class="block xl:block mx-auto border-round w-full"
+                    [src]="
+                      this.baseUrl +
+                      'manual-ops/api/influencers/proxy-image?url=' +
+                      encodeUrl(influencer.urlPhoto[0].value)
                     "
-                    severity="info"
-                    class="font-medium text-sm"
+                    alt="{{ influencer.name }}"
+                  />
+                  <p-tag
+                    *ngIf="influencer.ugc"
+                    value="UGC"
+                    severity="success"
+                    class="absolute"
+                    [style.left.px]="4"
+                    [style.top.px]="4"
                   ></p-tag>
-                  <div
-                    class="surface-100 p-1"
-                    style="border-radius: 30px; width: 3.5rem"
-                  >
-                    <div
-                      class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2"
-                      style="
-                        border-radius: 30px;
-                        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04),
-                          0px 1px 2px 0px rgba(0, 0, 0, 0.06);
-                      "
-                    >
-                      <span class="text-900 font-medium text-sm">{{
-                        influencer.teamExperienceRating
-                      }}</span>
-                      <i class="pi pi-star-fill text-yellow-500"></i>
-                    </div>
-                  </div>
                 </div>
-                <!-- Rating and Actions -->
-                <div class="flex flex-column md:align-items-end gap-3">
-                  <div class="button-social-media">
-                    <p-button
-                      icon="pi pi-instagram"
-                      [rounded]="true"
-                      [text]="true"
-                      [raised]="true"
-                      [severity]="
-                        influencer.urlSocialMedia[0].value !== 'NA' &&
-                        influencer.urlSocialMedia[0].value !== ''
-                          ? 'info'
-                          : 'secondary'
+                <!-- Influencer Details -->
+                <div
+                  class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4"
+                >
+                  <!-- Instagram Data -->
+                  <div class="flex flex-column gap-2 flex-basis-33">
+                    <span
+                      class="font-medium text-secondary text-sm instagram-gradient"
+                    >
+                      Instagram
+                    </span>
+                    <span class="font-medium text-secondary text-sm">
+                      {{ influencer.usernameInfluencer[0]?.value || "-" }}
+                    </span>
+                    <div class="text-sm text-600">
+                      Country: {{ influencer.country }} | City:
+                      {{ influencer.city }}
+                    </div>
+                    <div class="text-sm text-600">
+                      Followers:
+                      {{ influencer.followers[0]?.value | number : "1.0-0" }}
+                    </div>
+                    <p-tag
+                      *ngIf="influencer.engagementRate[0]?.value"
+                      [value]="
+                        'ER: ' +
+                        (influencer.engagementRate[0]?.value
+                          | number : '1.2-2') +
+                        '%'
                       "
-                      [disabled]="
-                        influencer.urlSocialMedia[0].value === 'NA' ||
-                        influencer.urlSocialMedia[0].value === ''
-                      "
-                      (onClick)="
-                        openSocialMedia(influencer.urlSocialMedia[0].value)
-                      "
-                    ></p-button>
-                    <p-button
-                      icon="pi pi-tiktok"
-                      [rounded]="true"
-                      [text]="true"
-                      [raised]="true"
-                      [severity]="
-                        influencer.urlTiktok !== 'NA' &&
-                        influencer.urlTiktok !== ''
-                          ? 'info'
-                          : 'secondary'
-                      "
-                      [disabled]="
-                        influencer.urlTiktok === 'NA' ||
-                        influencer.urlTiktok === ''
-                      "
-                      (onClick)="openSocialMedia(influencer.urlTiktok)"
-                    />
-                    <p-button
-                      icon="pi pi-youtube"
-                      [rounded]="true"
-                      [text]="true"
-                      [raised]="true"
-                      [severity]="
-                        influencer.urlYoutube !== 'NA' &&
-                        influencer.urlYoutube !== ''
-                          ? 'info'
-                          : 'secondary'
-                      "
-                      [disabled]="
-                        influencer.urlYoutube === 'NA' ||
-                        influencer.urlYoutube === ''
-                      "
-                      (onClick)="openSocialMedia(influencer.urlYoutube)"
-                    />
+                      severity="info"
+                      class="font-medium text-sm"
+                    ></p-tag>
                   </div>
 
-                  <div
-                    class="flex flex-row-reverse md:flex-row gap-2 data-contact"
-                  >
-                    <p-button
-                      icon="pi pi-envelope"
-                      [outlined]="true"
-                      label="Email"
-                      (onClick)="sendEmailToInfluencer(influencer.contactEmail)"
-                    ></p-button>
-                    <p-button
-                      icon="pi pi-whatsapp"
-                      [outlined]="true"
-                      label="Message"
-                      [disabled]="
-                        influencer.contactPhone === 'NA' ||
-                        influencer.contactPhone === ''
-                      "
-                      (onClick)="
-                        sendMessageToInfluencer(influencer.contactPhone)
-                      "
-                    ></p-button>
-                    <p-button
-                      icon="pi pi-info"
-                      label="Details"
-                      class="white-space-nowrap"
-                      (onClick)="showDetails($event, influencer, overlayPanel)"
-                    ></p-button>
+                  <!-- TikTok Data -->
+                  <div class="flex flex-column gap-2 flex-basis-33">
+                    <ng-container
+                      *ngIf="influencer?.usernameInfluencer?.[1]?.value; else emptyColumn"
+                    >
+                      <span
+                        class="font-medium text-secondary text-sm tiktok-logo"
+                      >
+                        TikTok
+                      </span>
+                      <span class="font-medium text-secondary text-sm">
+                        {{ influencer.usernameInfluencer[1]?.value }}
+                      </span>
+                      <div class="text-sm text-600">
+                        Country: {{ influencer.country }} | City:
+                        {{ influencer.city }}
+                      </div>
+                      <div class="text-sm text-600">
+                        Followers:
+                        {{ influencer.followers[1]?.value | number : "1.0-0" }}
+                      </div>
+                      <p-tag
+                        [value]="
+                          'ER: ' +
+                          (influencer.engagementRate[1]?.value
+                            | number : '1.2-2') +
+                          '%'
+                        "
+                        severity="info"
+                        class="font-medium text-sm"
+                      ></p-tag>
+                    </ng-container>
+                    <ng-template #emptyColumn>
+                      <div class="empty-column"></div>
+                    </ng-template>
+                  </div>
+
+                  <!-- YouTube Data -->
+                  <div class="flex flex-column gap-2 flex-basis-33">
+                    <ng-container
+                      *ngIf="influencer?.usernameInfluencer?.[2]?.value; else emptyColumn"
+                    >
+                      <span
+                        class="font-medium text-secondary text-sm youtube-logo"
+                      >
+                        <span class="youtube-text-black">You </span>
+                        <span class="youtube-text-red">Tube</span>
+                      </span>
+                      <span class="font-medium text-secondary text-sm">
+                        {{ influencer.usernameInfluencer[2]?.value }}
+                      </span>
+                      <div class="text-sm text-600">
+                        Country: {{ influencer.country }} | City:
+                        {{ influencer.city }}
+                      </div>
+                      <div class="text-sm text-600">
+                        Followers:
+                        {{ influencer.followers[2]?.value | number : "1.0-0" }}
+                      </div>
+                      <p-tag
+                        [value]="
+                          'ER: ' +
+                          (influencer.engagementRate[2]?.value
+                            | number : '1.2-2') +
+                          '%'
+                        "
+                        severity="info"
+                        class="font-medium text-sm"
+                      ></p-tag>
+                    </ng-container>
+                  </div>
+
+                  <!-- Rating and Actions -->
+                  <div class="flex flex-column md:align-items-end gap-3">
+                    <div
+                      class="surface-100 p-1"
+                      style="border-radius: 30px; width: 3.5rem"
+                    >
+                      <div
+                        class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2"
+                        style="
+                          border-radius: 30px;
+                          box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04),
+                            0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+                        "
+                      >
+                        <span class="text-900 font-medium text-sm">{{
+                          influencer.teamExperienceRating
+                        }}</span>
+                        <i class="pi pi-star-fill text-yellow-500"></i>
+                      </div>
+                    </div>
+                    <div class="button-social-media">
+                      <p-button
+                        icon="pi pi-instagram"
+                        [rounded]="true"
+                        [text]="true"
+                        [raised]="true"
+                        [severity]="
+                          influencer.urlSocialMedia[0].value !== 'NA' &&
+                          influencer.urlSocialMedia[0].value !== ''
+                            ? 'info'
+                            : 'secondary'
+                        "
+                        [disabled]="
+                          influencer.urlSocialMedia[0].value === 'NA' ||
+                          influencer.urlSocialMedia[0].value === ''
+                        "
+                        (onClick)="
+                          openSocialMedia(influencer.urlSocialMedia[0].value)
+                        "
+                      ></p-button>
+                      <p-button
+                        icon="pi pi-tiktok"
+                        [rounded]="true"
+                        [text]="true"
+                        [raised]="true"
+                        [severity]="
+                          influencer.urlTiktok !== 'NA' &&
+                          influencer.urlTiktok !== ''
+                            ? 'info'
+                            : 'secondary'
+                        "
+                        [disabled]="
+                          influencer.urlTiktok === 'NA' ||
+                          influencer.urlTiktok === ''
+                        "
+                        (onClick)="
+                          openSocialMedia(influencer.urlSocialMedia[1].value)
+                        "
+                      />
+                      <p-button
+                        icon="pi pi-youtube"
+                        [rounded]="true"
+                        [text]="true"
+                        [raised]="true"
+                        [severity]="
+                          influencer.urlYoutube !== 'NA' &&
+                          influencer.urlYoutube !== ''
+                            ? 'info'
+                            : 'secondary'
+                        "
+                        [disabled]="
+                          influencer.urlYoutube === 'NA' ||
+                          influencer.urlYoutube === ''
+                        "
+                        (onClick)="
+                          openSocialMedia(influencer.urlSocialMedia[2].value)
+                        "
+                      />
+                    </div>
+
+                    <div
+                      class="flex flex-row-reverse md:flex-row gap-2 data-contact"
+                    >
+                      <p-button
+                        icon="pi pi-envelope"
+                        [outlined]="true"
+                        label="Email"
+                        (onClick)="
+                          sendEmailToInfluencer(influencer.contactEmail, $event)
+                        "
+                      ></p-button>
+                      <p-button
+                        icon="pi pi-whatsapp"
+                        [outlined]="true"
+                        label="Message"
+                        [disabled]="
+                          influencer.contactPhone === 'NA' ||
+                          influencer.contactPhone === ''
+                        "
+                        (onClick)="
+                          sendMessageToInfluencer(
+                            influencer.contactPhone,
+                            $event
+                          )
+                        "
+                      ></p-button>
+                      <p-button
+                        icon="pi pi-info"
+                        label="Details"
+                        class="white-space-nowrap"
+                        (onClick)="
+                          showDetails($event, influencer, overlayPanel)
+                        "
+                      ></p-button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </ng-template>
-    </p-dataView>
+        </ng-template>
+      </p-dataView>
 
-    <p-overlayPanel
-      #overlayPanel
-      [style]="{ width: '450px' }"
-      [showCloseIcon]="true"
-    >
-      <ng-template pTemplate="content">
-        <div class="p-4 surface-card shadow-2 border-round">
-          <!-- Header -->
-          <div class="flex align-items-center gap-3 mb-3">
-            <img
+      <p-overlayPanel
+        #overlayPanel
+        [style]="{ width: '450px' }"
+        [showCloseIcon]="true"
+      >
+        <ng-template pTemplate="content">
+          <div class="p-4 surface-card shadow-2 border-round">
+            <!-- Header -->
+            <div class="flex align-items-center gap-3 mb-3">
+              <!-- <img
               class="w-4rem h-4rem border-circle"
               [src]="
                 'http://localhost:8080/manual-ops/api/influencers/proxy-image?url=' +
                 encodeUrl(selectedInfluencer?.urlPhoto[0].value)
               "
               alt="{{ selectedInfluencer?.name }}"
-            />
+            /> -->
+              <div>
+                <h2 class="text-lg font-bold text-900 m-0">
+                  {{ selectedInfluencer?.name }}
+                </h2>
+                <span class="text-sm text-600">{{
+                  selectedInfluencer?.usernameInfluencer[0].value
+                }}</span>
+              </div>
+            </div>
+
+            <!-- Personal Info Section -->
+            <div class="mb-3">
+              <h3 class="text-base font-medium text-primary-600 mb-2">
+                Personal Info
+              </h3>
+              <div class="text-sm text-700">
+                <strong>Country:</strong> {{ selectedInfluencer?.country
+                }}<br />
+                <strong>City:</strong> {{ selectedInfluencer?.city }}<br />
+                <strong>Age:</strong> {{ selectedInfluencer?.creatorAge }}<br />
+                <strong>Gender:</strong> {{ selectedInfluencer?.gender }}
+              </div>
+            </div>
+
+            <!-- Social Media Stats Section -->
+            <div class="mb-3">
+              <h3 class="text-base font-medium text-primary-600 mb-2">
+                Social Media Stats
+              </h3>
+              <div class="flex justify-content-between">
+                <div>
+                  <strong>Instagram:</strong><br />
+                  <span class="text-sm text-700">
+                    Followers:
+                    {{ selectedInfluencer?.followers[0].value | number }}
+                  </span>
+                </div>
+                <div>
+                  <strong>TikTok:</strong><br />
+                  <span class="text-sm text-700">
+                    Followers:
+                    <!-- {{ selectedInfluencer?.urlSocialMedia[0].value | number }} -->
+                    {{ 0 }}
+                  </span>
+                </div>
+                <div>
+                  <strong>YouTube:</strong><br />
+                  <span class="text-sm text-700">
+                    Followers:
+                    <!-- {{ selectedInfluencer?.urlSocialMedia[0].value | number }} -->
+                    {{ 0 }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Audience Info Section -->
+            <div class="mb-3">
+              <h3 class="text-base font-medium text-primary-600 mb-2">
+                Audience Info
+              </h3>
+              <div class="text-sm text-700">
+                <strong>Engagement Rate:</strong>
+                {{
+                  selectedInfluencer?.engagementRate[0].value
+                    | number : "1.2-2"
+                }}%<br />
+                <strong>Male Audience:</strong>
+                {{
+                  selectedInfluencer?.audienceMale[0].value | number : "1.1-1"
+                }}%<br />
+                <strong>Female Audience:</strong>
+                {{
+                  selectedInfluencer?.audienceFemale[0].value
+                    | number : "1.1-1"
+                }}%<br />
+                <strong>Top Audience City:</strong>
+                {{ selectedInfluencer?.topAudienceCity.Instagram[0].name
+                }}<br />
+                <strong>Top Audience Country:</strong>
+                {{ selectedInfluencer?.topAudienceCountry.Instagram[0].name }}
+              </div>
+            </div>
+
+            <!-- Team Feedback Section -->
             <div>
-              <h2 class="text-lg font-bold text-900 m-0">
-                {{ selectedInfluencer?.name }}
-              </h2>
-              <span class="text-sm text-600">{{
-                selectedInfluencer?.usernameInfluencer[0].value
-              }}</span>
-            </div>
-          </div>
-
-          <!-- Personal Info Section -->
-          <div class="mb-3">
-            <h3 class="text-base font-medium text-primary-600 mb-2">
-              Personal Info
-            </h3>
-            <div class="text-sm text-700">
-              <strong>Country:</strong> {{ selectedInfluencer?.country }}<br />
-              <strong>City:</strong> {{ selectedInfluencer?.city }}<br />
-              <strong>Age:</strong> {{ selectedInfluencer?.creatorAge }}<br />
-              <strong>Gender:</strong> {{ selectedInfluencer?.gender }}
-            </div>
-          </div>
-
-          <!-- Social Media Stats Section -->
-          <div class="mb-3">
-            <h3 class="text-base font-medium text-primary-600 mb-2">
-              Social Media Stats
-            </h3>
-            <div class="flex justify-content-between">
-              <div>
-                <strong>Instagram:</strong><br />
-                <span class="text-sm text-700">
-                  Followers:
-                  {{ selectedInfluencer?.followers[0].value | number }}
-                </span>
-              </div>
-              <div>
-                <strong>TikTok:</strong><br />
-                <span class="text-sm text-700">
-                  Followers:
-                  <!-- {{ selectedInfluencer?.urlSocialMedia[0].value | number }} -->
-                  {{ 0 }}
-                </span>
-              </div>
-              <div>
-                <strong>YouTube:</strong><br />
-                <span class="text-sm text-700">
-                  Followers:
-                  <!-- {{ selectedInfluencer?.urlSocialMedia[0].value | number }} -->
-                  {{ 0 }}
+              <h3 class="text-base font-medium text-primary-600 mb-2">
+                Team Feedback
+              </h3>
+              <div class="text-sm text-700">
+                <strong>Comment:</strong>
+                {{ selectedInfluencer?.teamExperienceComment || "N/A" }}<br />
+                <strong>Rating:</strong>
+                <span class="flex align-items-center">
+                  {{ selectedInfluencer?.teamExperienceRating }}
+                  <i class="pi pi-star-fill text-yellow-500 ml-1"></i>
                 </span>
               </div>
             </div>
           </div>
+        </ng-template>
+      </p-overlayPanel>
+    </div>
+  </div>
+  <p-toast />
 
-          <!-- Audience Info Section -->
-          <div class="mb-3">
-            <h3 class="text-base font-medium text-primary-600 mb-2">
-              Audience Info
-            </h3>
-            <div class="text-sm text-700">
-              <strong>Engagement Rate:</strong>
-              {{
-                selectedInfluencer?.engagementRate[0].value | number : "1.2-2"
-              }}%<br />
-              <strong>Male Audience:</strong>
-              {{
-                selectedInfluencer?.audienceMale[0].value | number : "1.1-1"
-              }}%<br />
-              <strong>Female Audience:</strong>
-              {{
-                selectedInfluencer?.audienceFemale[0].value | number : "1.1-1"
-              }}%<br />
-              <strong>Top Audience City:</strong>
-              {{ selectedInfluencer?.topAudienceCity.Instagram[0].name }}<br />
-              <strong>Top Audience Country:</strong>
-              {{ selectedInfluencer?.topAudienceCountry.Instagram[0].name }}
-            </div>
-          </div>
+  <!-- Diálogo de selección -->
+  <p-dialog
+    header="Seleccionar Redes Sociales"
+    [(visible)]="visibleDialog"
+    [modal]="true"
+    [style]="{ width: '30rem' }"
+  >
+    <!-- Recorre cada influenciador seleccionado -->
+    <div *ngFor="let influencer of selectedInfluencers" class="mb-4">
+      <h3>{{ influencer.name }}</h3>
 
-          <!-- Team Feedback Section -->
-          <div>
-            <h3 class="text-base font-medium text-primary-600 mb-2">
-              Team Feedback
-            </h3>
-            <div class="text-sm text-700">
-              <strong>Comment:</strong>
-              {{ selectedInfluencer?.teamExperienceComment || "N/A" }}<br />
-              <strong>Rating:</strong>
-              <span class="flex align-items-center">
-                {{ selectedInfluencer?.teamExperienceRating }}
-                <i class="pi pi-star-fill text-yellow-500 ml-1"></i>
-              </span>
+      <!-- Mostrar la información de usuario y seguidores -->
+      <div *ngFor="let option of exportOptions" class="mb-3">
+        <div *ngIf="influencer.usernameInfluencer[option.index]?.value">
+          <div class="flex align-items-center justify-content-between gap-3">
+            <!-- Información de la red social -->
+            <div>
+              <span class="font-bold">{{ option.name }}</span>
+              <div class="text-sm">
+                Username:
+                <span class="font-medium text-primary">
+                  {{ influencer.usernameInfluencer[option.index]?.value }}
+                </span>
+              </div>
+              <div class="text-sm">
+                Followers:
+                <span class="font-medium text-primary">
+                  {{ influencer.followers[option.index]?.value | number }}
+                </span>
+              </div>
             </div>
+            <!-- Checkbox para selección -->
+            <p-checkbox
+              [value]="option.key"
+              [(ngModel)]="influencer.selectedNetworks"
+              inputId="{{ influencer.id + option.key }}"
+            ></p-checkbox>
           </div>
         </div>
-      </ng-template>
-    </p-overlayPanel>
-  </div>
+      </div>
+
+      <hr />
+    </div>
+
+    <!-- Footer -->
+    <ng-template pTemplate="footer">
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        (onClick)="visibleDialog = false"
+      ></p-button>
+      <p-button
+        label="Exportar"
+        icon="pi pi-check"
+        (onClick)="exportSelectedInfluencers()"
+      ></p-button>
+    </ng-template>
+  </p-dialog>
 </div>

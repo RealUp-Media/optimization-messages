@@ -11,24 +11,24 @@ const BASE_URL = GlobalConfig.apiUrl;
 export class ModashService {
   constructor(private http: HttpClient) {}
 
-  getReportInstagram(username: string): Observable<any> {
-    return this.http.get(
-      `${BASE_URL}manual-ops/api/modash/ig-report?username=${username}`
-    );
-  }
-
   // getReportInstagram(username: string): Observable<any> {
-  //   return this.http.get('/assets/data.json');
+  //   return this.http.get(
+  //     `${BASE_URL}manual-ops/api/modash/ig-report?username=${username}`
+  //   );
   // }
 
-  discoverInfluencers(filterData: any): Observable<any> {
-    return this.http.post<any>(
-      BASE_URL + 'manual-ops/api/modash/ig-discover',
-      filterData
-    );
+  getReportInstagram(username: string): Observable<any> {
+    return this.http.get('/assets/data.json');
   }
 
-  // discoverInfluencers(filterData: string): Observable<any> {
-  //   return this.http.post('/assets/dataDiscover.json', filterData);
+  // discoverInfluencers(filterData: any): Observable<any> {
+  //   return this.http.post<any>(
+  //     BASE_URL + 'manual-ops/api/modash/ig-discover',
+  //     filterData
+  //   );
   // }
+
+  discoverInfluencers(filterData: string): Observable<any> {
+    return this.http.post('/assets/dataDiscover.json', filterData);
+  }
 }

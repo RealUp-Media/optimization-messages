@@ -153,7 +153,7 @@ export class DiscoverInfluencersComponent {
         const influencerInfo = {
           name: userData.profile?.fullname || '', // Nombre completo
           username: userData.profile?.username || '', // Nombre de usuario
-          creatorAge: userData.ageGroup || '', // Rango de edad
+          creatorAge: userData.ageGroup || '', // Rango de edad,
           gender: userData.gender || '', // Género
           urlInstagram: userData.profile?.url || '', // URL de Instagram
           country: userData.country || '', // País
