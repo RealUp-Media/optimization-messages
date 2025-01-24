@@ -91,9 +91,7 @@ export class InfluencersComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    setTimeout(() => {
-      this.getAllInfluencers();
-    }, 1000); // 1000 ms = 1 segundo
+    this.getAllInfluencers();
   }
 
   getAllInfluencers() {

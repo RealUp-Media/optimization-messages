@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap");
 .button-social-media {
   display: flex;
   flex-direction: row;
@@ -17,7 +16,7 @@
 } */
 
 .prompt-search {
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   gap: 1rem;

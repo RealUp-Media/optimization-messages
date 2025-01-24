@@ -1,4 +1,6 @@
 [
-  { "media": "Instagram", "value": 2.45118549511854 },
-  { "media": "TikTok", "value": 6.118549511854 }
+  {
+    "media": "Instagram",
+    "value": "https://instagram.fbog19-1.fna.fbcdn.net/v/t51.2885-19/468257798_3900438413549883_9009392548887629883_n.jpg?_nc_ht=instagram.fbog19-1.fna.fbcdn.net&_nc_cat=1&_nc_ohc=d6pu775aq_YQ7kNvgHbHrNU&_nc_gid=b52afa53514846eabb5435befe7f43c8&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_AYD2nv3duZxWTn_FGhJH2_-kGWJwaRGSm4ac_9PPJs8Pvw&oe=67694E63&_nc_sid=7a9f4b"
+  }
 ]

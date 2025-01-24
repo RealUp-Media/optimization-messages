@@ -25,7 +25,6 @@ export class GoogleSheetsService {
     this.initializeGisClient();
   }
 
-  // Carga la API de Google
   private loadGapi() {
     const script = document.createElement('script');
     script.src = 'https://apis.google.com/js/api.js';
@@ -41,7 +40,6 @@ export class GoogleSheetsService {
     document.body.appendChild(script);
   }
 
-  // Inicializa el cliente de autenticación
   private initializeGisClient() {
     this.tokenClient = google.accounts.oauth2.initTokenClient({
       client_id: this.CLIENT_ID,
@@ -53,7 +51,6 @@ export class GoogleSheetsService {
     this.gisInitialized = true;
   }
 
-  // Solicita un token de acceso
   requestAccessToken(): Promise<string> {
     return new Promise((resolve, reject) => {
       this.tokenClient.callback = (tokenResponse: any) => {
@@ -67,7 +64,6 @@ export class GoogleSheetsService {
     });
   }
 
-  // Crear y poblar una hoja con los datos
   async createAndPopulateSheet(data: any[]): Promise<void> {
     const values = [
       [
@@ -81,7 +77,6 @@ export class GoogleSheetsService {
       ],
     ];
 
-    // Agrega las filas de datos
     data.forEach((item) => {
       values.push([
         item.name,
@@ -95,44 +90,78 @@ export class GoogleSheetsService {
     });
 
     try {
-      // Crear la hoja de cálculo
       const response = await gapi.client.sheets.spreadsheets.create({
         properties: {
-          title: 'Influencer Styled Report',
+          title: 'Influencer Report',
         },
       });
 
       const spreadsheetId = response.result.spreadsheetId;
 
-      // Insertar los datos
       await gapi.client.sheets.spreadsheets.values.update({
         spreadsheetId,
-        range: 'Sheet1!A1',
+        range: 'Sheet1!A2',
         valueInputOption: 'RAW',
         resource: {
           values: values,
         },
       });
 
-      // Aplicar estilos al encabezado y ajustar columnas
       await gapi.client.sheets.spreadsheets.batchUpdate({
         spreadsheetId,
         resource: {
           requests: [
-            // 1. Aplicar estilos al encabezado
+            {
+              mergeCells: {
+                range: {
+                  sheetId: 0,
+                  startRowIndex: 0,
+                  endRowIndex: 1,
+                  startColumnIndex: 0,
+                  endColumnIndex: 7,
+                },
+                mergeType: 'MERGE_ALL',
+              },
+            },
             {
               repeatCell: {
                 range: {
                   sheetId: 0,
                   startRowIndex: 0,
                   endRowIndex: 1,
+                  startColumnIndex: 0,
+                  endColumnIndex: 7,
+                },
+                cell: {
+                  userEnteredValue: { stringValue: 'Mapeo de influenciadores' },
+                  userEnteredFormat: {
+                    backgroundColor: { red: 0, green: 1, blue: 1 },
+                    horizontalAlignment: 'CENTER',
+                    textFormat: {
+                      foregroundColor: { red: 0, green: 0, blue: 0 },
+                      fontSize: 14,
+                      bold: true,
+                    },
+                  },
+                },
+                fields: 'userEnteredValue,userEnteredFormat',
+              },
+            },
+            {
+              repeatCell: {
+                range: {
+                  sheetId: 0,
+                  startRowIndex: 1,
+                  endRowIndex: 2,
+                  startColumnIndex: 0,
+                  endColumnIndex: 7,
                 },
                 cell: {
                   userEnteredFormat: {
-                    backgroundColor: { red: 0.2, green: 0.6, blue: 0.86 }, // Color azul claro
+                    backgroundColor: { red: 0, green: 0, blue: 0 },
                     horizontalAlignment: 'CENTER',
                     textFormat: {
-                      foregroundColor: { red: 1, green: 1, blue: 1 }, // Texto blanco
+                      foregroundColor: { red: 1, green: 1, blue: 1 },
                       fontSize: 12,
                       bold: true,
                     },
@@ -142,34 +171,140 @@ export class GoogleSheetsService {
                   'userEnteredFormat(backgroundColor,textFormat,horizontalAlignment)',
               },
             },
-            // 2. Ajustar el ancho de las columnas
+            {
+              repeatCell: {
+                range: {
+                  sheetId: 0,
+                  startRowIndex: 2,
+                  endRowIndex: values.length + 1,
+                  startColumnIndex: 0,
+                  endColumnIndex: 7,
+                },
+                cell: {
+                  userEnteredFormat: {
+                    horizontalAlignment: 'CENTER',
+                  },
+                },
+                fields: 'userEnteredFormat(horizontalAlignment)',
+              },
+            },
+            {
+              updateCells: {
+                range: {
+                  sheetId: 0,
+                  startRowIndex: 2,
+                  endRowIndex: values.length + 1,
+                  startColumnIndex: 3,
+                  endColumnIndex: 4,
+                },
+                rows: values.slice(1).map((row) => ({
+                  values: [
+                    {
+                      userEnteredValue: { numberValue: parseInt(row[3], 10) },
+                      userEnteredFormat: {
+                        numberFormat: {
+                          type: 'NUMBER',
+                          pattern: '#,##0',
+                        },
+                      },
+                    },
+                  ],
+                })),
+                fields: 'userEnteredValue,userEnteredFormat.numberFormat',
+              },
+            },
+            {
+              updateCells: {
+                range: {
+                  sheetId: 0,
+                  startRowIndex: 2,
+                  endRowIndex: values.length + 1,
+                  startColumnIndex: 4,
+                  endColumnIndex: 5,
+                },
+                rows: values.slice(1).map((row) => ({
+                  values: [
+                    {
+                      userEnteredValue: { numberValue: parseFloat(row[4]) },
+                      userEnteredFormat: {
+                        numberFormat: {
+                          type: 'NUMBER',
+                          pattern: '#,##0.00',
+                        },
+                      },
+                    },
+                  ],
+                })),
+                fields: 'userEnteredValue,userEnteredFormat.numberFormat',
+              },
+            },
             {
               updateDimensionProperties: {
                 range: {
                   sheetId: 0,
                   dimension: 'COLUMNS',
                   startIndex: 0,
-                  endIndex: 7, // Ajustar las primeras 7 columnas
+                  endIndex: 7,
                 },
                 properties: {
-                  pixelSize: 150, // Ancho de 150 píxeles
+                  pixelSize: 150,
                 },
                 fields: 'pixelSize',
               },
             },
-            // 3. Ajustar altura de filas
             {
               updateDimensionProperties: {
                 range: {
                   sheetId: 0,
                   dimension: 'ROWS',
                   startIndex: 0,
-                  endIndex: values.length,
+                  endIndex: values.length + 1,
                 },
                 properties: {
                   pixelSize: 25,
                 },
                 fields: 'pixelSize',
+              },
+            },
+            {
+              updateBorders: {
+                range: {
+                  sheetId: 0,
+                  startRowIndex: 2,
+                  endRowIndex: values.length + 1,
+                  startColumnIndex: 0,
+                  endColumnIndex: 7,
+                },
+                innerHorizontal: {
+                  style: 'DASHED',
+                  width: 2,
+                  color: { red: 0.5, green: 0.5, blue: 0.5 },
+                },
+                innerVertical: {
+                  style: 'DASHED',
+                  width: 2,
+                  color: { red: 0.5, green: 0.5, blue: 0.5 },
+                },
+                bottom: {
+                  style: 'DASHED',
+                  width: 2,
+                  color: { red: 0.5, green: 0.5, blue: 0.5 },
+                },
+                top: {
+                  style: 'DASHED',
+                  width: 2,
+                  color: { red: 0.5, green: 0.5, blue: 0.5 },
+                },
+                left: {
+                  style: 'DASHED',
+                  width: 2,
+                  color: { red: 0.5, green: 0.5, blue: 0.5 },
+                },
+                right: {
+                  style: 'DASHED',
+                  width: 2,
+                  color: { red: 0.5, green: 0.5, blue: 0.5 },
+                },
               },
             },
           ],
