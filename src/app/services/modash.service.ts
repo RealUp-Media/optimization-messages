@@ -18,7 +18,7 @@ export class ModashService {
   // }
 
   getReportInstagram(username: string): Observable<any> {
-    return this.http.get('/assets/data.json');
+    return this.http.get('assets/data.json');
   }
 
   // discoverInfluencers(filterData: any): Observable<any> {
@@ -28,7 +28,7 @@ export class ModashService {
   //   );
   // }
 
-  discoverInfluencers(filterData: string): Observable<any> {
-    return this.http.post('/assets/dataDiscover.json', filterData);
+  discoverInfluencers(): Observable<any> {
+    return this.http.get('assets/dataDiscover.json');
   }
 }

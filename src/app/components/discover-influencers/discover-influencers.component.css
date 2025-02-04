@@ -4,3 +4,66 @@
   gap: 5px;
   padding: 10px;
 }
+
+.tittle {
+  padding: 10px;
+}
+
+.tittle h1 {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+.tittle p {
+  margin-top: 0.5rem;
+}
+
+label {
+  font-size: 12px;
+}
+::placeholder {
+  font-size: 12px;
+}
+::ng-deep .p-dropdown {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+::ng-deep .p-dropdown span {
+  font-size: 12px;
+}
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+::ng-deep .large-input {
+  width: 100%;
+}
+
+::ng-deep .large-element {
+  width: 20%;
+}
+
+::ng-deep .large-element .p-dropdown {
+  height: 39px;
+
+  width: 100%;
+}
+
+::ng-deep .thin-element {
+  width: 10%;
+}
+
+::ng-deep .thin-element .p-dropdown {
+  height: 39px;
+
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+  justify-content: end;
+}

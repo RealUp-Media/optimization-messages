@@ -111,11 +111,20 @@ export class LoginComponent {
         if (response.jwtToken) {
           const jwtToken = response.jwtToken;
           localStorage.setItem('JWT', jwtToken);
-          this.router.navigateByUrl('/campaign');
+
+          // Obtiene la URL almacenada
+          const redirectURL =
+            localStorage.getItem('redirectAfterLogin') || '/campaign';
+
+          // Borra la URL almacenada
+          localStorage.removeItem('redirectAfterLogin');
+
+          // Redirige a la página original
+          this.router.navigateByUrl(redirectURL);
         }
       },
       (error) => {
-        alert('Credenciales invalidas');
+        alert('Credenciales inválidas');
       }
     );
   }

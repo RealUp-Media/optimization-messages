@@ -82,7 +82,7 @@ export class GoogleSheetsService {
         item.name,
         item.network,
         item.username,
-        item.followers,
+        item.followersInstagram,
         item.engagementRate,
         item.country,
         item.city,

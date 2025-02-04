@@ -138,3 +138,23 @@
   object-position: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Toogle Switch */
+
+.toggle-swtich {
+  padding: 0.75rem;
+}
+
+.box-toggle-switch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+::ng-deep p-inputswitch {
+  height: 1.75rem;
+}
+
+.box-toggle-switch p {
+  margin: 0 0.5rem;
+}

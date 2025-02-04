@@ -1,18 +1,107 @@
-<div class="card flex justify-content-center">
-  <p-dropdown
-    [(ngModel)]="locationsSelected"
-    optionLabel="locations.name"
-    placeholder="Select Location"
-  />
+<div class="tittle">
+  <h1>Discovery</h1>
+  <p>Find every creator on Earth with 1k+ followers.</p>
 </div>
 
-<div class="buttons-box">
-  <p-button label="Search" (onClick)="discoverInfluencers()" />
+<div class="card">
+  <div class="filters">
+    <div style class="flex flex-column gap-2 large-element">
+      <label for="username">Search by Username</label>
+      <input
+        class="large-input"
+        pInputText
+        id="username"
+        [(ngModel)]="username"
+        placeholder="@username"
+      />
+    </div>
+
+    <div style class="flex flex-column gap-2 large-element">
+      <label for="countries">Influencer location</label>
+      <p-dropdown
+        id="countries"
+        [options]="locations"
+        [(ngModel)]="selectedCountry"
+        optionLabel="title"
+        [filter]="true"
+        filterBy="name"
+        [showClear]="true"
+        placeholder="Where are your influencers?"
+        [virtualScroll]="true"
+        [virtualScrollItemSize]="38"
+      >
+      </p-dropdown>
+    </div>
+    <div class="flex flex-column gap-2 thin-element">
+      <label for="countries">Followers</label>
+      <p-dropdown
+        [options]="filteredFromOptions"
+        [(ngModel)]="selectedFollowersFrom"
+        optionLabel="title"
+        optionValue="value"
+        [checkmark]="true"
+        [showClear]="true"
+        placeholder="From"
+        (onChange)="onFromChange()"
+      ></p-dropdown>
+    </div>
+    <div class="flex flex-column gap-2 thin-element">
+      <label style="color: #f9fafb" for="countries">.</label>
+      <p-dropdown
+        [options]="filteredToOptions"
+        [(ngModel)]="selectedFollowersTo"
+        optionLabel="title"
+        optionValue="value"
+        [checkmark]="true"
+        [showClear]="true"
+        placeholder="To"
+        (onChange)="onToChange()"
+      ></p-dropdown>
+    </div>
+
+    <div style class="flex flex-column gap-2 large-element">
+      <label for="countries">Gender</label>
+      <p-dropdown
+        [options]="gender"
+        optionLabel="name"
+        [(ngModel)]="selectedGender"
+        placeholder="Any"
+      />
+    </div>
+    <div style class="flex flex-column gap-2 large-element">
+      <label for="countries">Engagement rate</label>
+      <p-dropdown
+        [options]="engagmentRate"
+        [(ngModel)]="selectedEngagmentRate"
+        [checkmark]="true"
+        [showClear]="true"
+        optionLabel="name"
+        placeholder="Any"
+      ></p-dropdown>
+    </div>
+  </div>
+  <div class="buttons">
+    <p-button
+      label="Add Influencers to Google Sheets"
+      (onClick)="saveInfluencers(selectedResults)"
+    />
+
+    <p-button
+      label="Clear all filters"
+      severity="secondary"
+      (onClick)="clearFilters()"
+    />
+    <p-button label="Search" (onClick)="searchInfluencers()" />
+  </div>
 </div>
+
 <p-table
   [value]="searchResults"
   [paginator]="true"
   [rows]="15"
+  [totalRecords]="totalResults"
+  [lazy]="true"
+  (onLazyLoad)="loadData($event)"
   [responsiveLayout]="'scroll'"
   [selection]="selectedResults"
   (selectionChange)="selectedResults = $event"
@@ -57,6 +146,4 @@
   </ng-template>
 </p-table>
 
-<div class="buttons-box">
-  <p-button label="Add" (onClick)="saveInfluencers(selectedResults)" />
-</div>
+<div class="buttons-box"></div>
